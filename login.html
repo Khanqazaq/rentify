@@ -299,7 +299,8 @@
             else alert(_T.login_alert_phone_field_not_found);
         }
 
-                // Registration / SMS code simulation
+        // Registration / SMS code simulation
+        document.addEventListener('DOMContentLoaded', function(){
                 (function(){
                     const overlay = document.getElementById('register-overlay');
                     const showBtn = document.getElementById('show-register');
@@ -312,6 +313,8 @@
                     const verifyBtn = document.getElementById('verify-code-btn');
                     const regPass = document.getElementById('regPassword');
                     const resendTimer = document.getElementById('resend-timer');
+                    
+                    console.log('Registration elements:', {overlay, showBtn, closeBtn}); // Debug
 
                     let currentCode = null;
                     let codeExpires = 0;
@@ -485,6 +488,7 @@
                     // small delay to avoid popping immediately
                     setTimeout(showOverlay, 800);
                 })();
+        }); // End DOMContentLoaded
     </script>
 </body>
 </html>
