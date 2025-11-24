@@ -1,0 +1,1160 @@
+/* ========== RESET & BASE ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-blue: #0ea5e9;
+    --primary-purple: #9333ea;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-600: #4b5563;
+    --gray-900: #111827;
+    --white: #ffffff;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: var(--gray-900);
+    background: var(--white);
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ========== NAVBAR ========== */
+.navbar {
+    background: var(--white);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+    gap: 2rem;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    background: linear-gradient(to right, var(--primary-blue), var(--primary-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-decoration: none;
+}
+
+.nav-search {
+    flex: 1;
+    max-width: 500px;
+    position: relative;
+    display: none;
+}
+
+.nav-search i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gray-600);
+}
+
+.nav-search input {
+    width: 100%;
+    padding: 10px 15px 10px 45px;
+    border: 1px solid var(--gray-200);
+    border-radius: 25px;
+    font-size: 14px;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.nav-menu a {
+    color: var(--gray-900);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-menu a:hover {
+    color: var(--primary-blue);
+}
+
+.btn-login {
+    background: var(--primary-blue);
+    color: var(--white) !important;
+    padding: 8px 20px;
+    border-radius: 25px;
+    transition: background 0.3s;
+}
+
+.btn-login:hover {
+    background: #0284c7;
+}
+
+.language-switcher {
+    display: flex;
+    gap: 5px;
+}
+
+.lang-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.lang-btn:hover {
+    background: var(--gray-100);
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--gray-900);
+}
+
+/* ========== HERO ========== */
+.hero {
+    background: linear-gradient(to bottom right, #eff6ff, var(--white), #faf5ff);
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+}
+
+.gradient-text {
+    display: block;
+    background: linear-gradient(to right, var(--primary-blue), var(--primary-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-description {
+    font-size: 1.25rem;
+    color: var(--gray-600);
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-blue);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: var(--gray-600);
+}
+
+/* ========== BUTTONS ========== */
+.btn {
+    display: inline-block;
+    padding: 12px 32px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: var(--primary-blue);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background: #0284c7;
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    background: var(--white);
+    color: var(--primary-blue);
+    border-color: var(--primary-blue);
+}
+
+.btn-outline:hover {
+    background: #eff6ff;
+}
+
+/* ========== SEARCH SECTION ========== */
+.search-section {
+    padding: 2rem 0;
+    margin-top: -50px;
+    position: relative;
+    z-index: 100;
+}
+
+.search-box {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr;
+    gap: 1rem;
+}
+
+.search-field {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-field i {
+    position: absolute;
+    left: 15px;
+    color: var(--gray-600);
+}
+
+.search-field input {
+    width: 100%;
+    padding: 12px 15px 12px 45px;
+    border: 1px solid var(--gray-200);
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+/* ========== CATEGORIES ========== */
+.categories {
+    padding: 4rem 0;
+    background: var(--gray-50);
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1.5rem;
+}
+
+.category-card {
+    background: var(--white);
+    padding: 2rem 1rem;
+    border-radius: 12px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--gray-900);
+    transition: all 0.3s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.category-icon {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.category-name {
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+/* ========== ITEMS GRID ========== */
+.featured-items {
+    padding: 4rem 0;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.view-all {
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.item-card {
+    background: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s;
+    text-decoration: none;
+    color: var(--gray-900);
+}
+
+.item-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.item-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    background: var(--gray-100);
+}
+
+.item-info {
+    padding: 1.5rem;
+}
+
+.item-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.item-location {
+    font-size: 0.875rem;
+    color: var(--gray-600);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.item-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item-rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.875rem;
+}
+
+.item-price {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--primary-blue);
+}
+
+/* ========== HOW IT WORKS ========== */
+.how-it-works {
+    padding: 4rem 0;
+    background: linear-gradient(to bottom right, #eff6ff, #faf5ff);
+}
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.step {
+    text-align: center;
+    padding: 2rem;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.step-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--primary-blue);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 1.5rem;
+}
+
+.step h3 {
+    margin-bottom: 0.5rem;
+    color: var(--gray-900);
+}
+
+.step p {
+    color: var(--gray-600);
+    font-size: 0.875rem;
+}
+
+/* ========== TESTIMONIALS ========== */
+.testimonials {
+    padding: 4rem 0;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.testimonial {
+    background: var(--gray-50);
+    padding: 2rem;
+    border-radius: 12px;
+}
+
+.testimonial-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.testimonial-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--gray-200);
+    object-fit: cover;
+}
+
+.testimonial-name {
+    font-weight: 600;
+}
+
+.testimonial-role {
+    font-size: 0.875rem;
+    color: var(--gray-600);
+}
+
+.testimonial-rating {
+    color: #fbbf24;
+    margin-bottom: 1rem;
+}
+
+.testimonial-text {
+    color: var(--gray-600);
+    font-size: 0.875rem;
+}
+
+/* ========== FOOTER (Minimal) ========== */
+.footer {
+    background: #234057; /* slightly darker, subdued blue */
+    color: var(--white);
+    padding: 1.25rem 0; /* shorter vertical space */
+    margin-top: 2rem;
+    font-size: 0.95rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+    align-items: start;
+}
+
+.footer-section h3,
+.footer-section h4 {
+    margin-bottom: 0.6rem;
+    font-size: 1rem;
+}
+
+.footer-logo {
+    background: none;
+    color: #43b3ff;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: unset;
+    font-weight: 700;
+}
+
+.footer-section a {
+    display: block;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    margin-bottom: 0.45rem;
+    transition: color 0.18s ease;
+}
+
+.footer-section a:hover {
+    color: #fff;
+}
+
+.footer-section p {
+    color: rgba(255,255,255,0.75);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 0.8rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.65);
+    font-size: 0.82rem;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (min-width: 768px) {
+    .nav-search {
+        display: block;
+    }
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+    
+    .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--white);
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .nav-menu.active {
+        display: flex;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .search-box {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .categories-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .items-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ========== CHAT WIDGET ========== */
+.chat-widget {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 20000;
+    font-family: inherit;
+}
+.chat-toggle {
+    background: linear-gradient(90deg,var(--primary-blue),var(--primary-purple));
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 999px;
+    box-shadow: 0 8px 20px rgba(16,24,40,0.15);
+    cursor: pointer;
+    font-weight: 700;
+}
+.chat-panel {
+    width: 320px;
+    max-height: 420px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(2,6,23,0.2);
+    overflow: hidden;
+    display: none;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+.chat-widget.open .chat-panel { display: flex; }
+.chat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    border-bottom: 1px solid var(--gray-100);
+    background: linear-gradient(90deg,#f8fafc,#ffffff);
+}
+.chat-title { font-weight:700; }
+.chat-close { background:none; border:none; font-size:16px; cursor:pointer; }
+.chat-messages {
+    padding: 12px;
+    overflow-y: auto;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: linear-gradient(180deg,#fff,#fbfbff);
+}
+.chat-msg { max-width: 78%; padding: 10px 12px; border-radius: 12px; font-size: 0.95rem; line-height:1.2; }
+.chat-msg.me { align-self: flex-end; background: var(--primary-blue); color: #fff; border-bottom-right-radius:4px; }
+.chat-msg.other { align-self: flex-start; background: #f3f4f6; color: var(--gray-900); border-bottom-left-radius:4px; }
+.chat-input { padding: 10px; display:flex; gap:8px; border-top:1px solid var(--gray-100); }
+.chat-input input { flex:1; padding:10px; border-radius:8px; border:1px solid var(--gray-200); }
+.chat-input .btn { padding:8px 12px; border-radius:8px; }
+
+@media (max-width: 480px) {
+    .chat-panel { width: 92vw; right: 4vw; bottom: 20px; }
+}
+
+/* ========== HERO GRADIENT ANIMATION (user provided) ========== */
+@keyframes hero-gradient-animation {
+    0% {
+        --y-0: 63%;
+        --x-0: 93%;
+        --c-0: hsla(217, 100%, 30%, 1);
+        --s-start-0: 8.392121895570533%;
+        --s-end-0: 38.584065253664996%;
+        --s-start-1: 8.392121895570533%;
+        --s-end-1: 22.10878124098502%;
+        --x-1: 33%;
+        --c-1: hsla(0, 0%, 0%, 1);
+        --y-1: -7%;
+        --y-2: 7%;
+        --c-2: hsla(0, 0%, 0%, 1);
+        --x-2: 84%;
+        --s-start-2: 8.392121895570533%;
+        --s-end-2: 22.558651527792346%;
+        --c-3: hsla(0, 0%, 0%, 1);
+        --s-start-3: 8.392121895570533%;
+        --s-end-3: 22.558651527792346%;
+        --x-3: 14%;
+        --y-3: 5%;
+        --y-4: 96%;
+        --s-start-4: 8.392121895570533%;
+        --s-end-4: 22.558651527792346%;
+        --c-4: hsla(217, 100%, 30%, 1);
+        --x-4: 7%;
+        --y-5: 90%;
+        --c-5: hsla(0, 0%, 0%, 1);
+        --s-start-5: 8.392121895570533%;
+        --s-end-5: 22.558651527792346%;
+        --x-5: 93%;
+        --x-6: 3%;
+        --s-start-6: 8.392121895570533%;
+        --s-end-6: 39.67138181429644%;
+        --y-6: 61%;
+        --c-6: hsla(279, 67%, 27%, 1);
+        --s-start-7: 8.392121895570533%;
+        --s-end-7: 49.58090142552271%;
+        --x-7: 94%;
+        --c-7: hsla(279, 67%, 27%, 1);
+        --y-7: 59%;
+        --s-start-8: 8.392121895570533%;
+        --s-end-8: 34.815367581495366%;
+        --x-8: 48%;
+        --c-8: hsla(217, 100%, 39%, 1);
+        --y-8: 63%;
+        --x-9: 96%;
+        --y-9: 78%;
+        --s-start-9: 8.392121895570533%;
+        --s-end-9: 31.77166380372925%;
+        --c-9: hsla(217, 100%, 30%, 1);
+    }
+
+    50% {
+        --y-0: 59%;
+        --x-0: 2%;
+        --c-0: hsla(217, 100%, 30%, 1);
+        --s-start-0: 12.892043731642234%;
+        --s-end-0: 42.94837818044209%;
+        --s-start-1: 8.392121895570533%;
+        --s-end-1: 41.69445156991687%;
+        --x-1: 42%;
+        --c-1: hsla(0, 0%, 0%, 1);
+        --y-1: 10%;
+        --y-2: 29%;
+        --c-2: hsla(352.71844660194176, 98%, 41%, 1);
+        --x-2: 75%;
+        --s-start-2: 8.392121895570533%;
+        --s-end-2: 20.488815899465003%;
+        --c-3: hsla(352.71844660194176, 98%, 41%, 1);
+        --s-start-3: 8.392121895570533%;
+        --s-end-3: 30.099844327777923%;
+        --x-3: 5%;
+        --y-3: 16%;
+        --y-4: 91%;
+        --s-start-4: 8.392121895570533%;
+        --s-end-4: 24.59566937006635%;
+        --c-4: hsla(0, 0%, 0%, 1);
+        --x-4: 36%;
+        --y-5: 91%;
+        --c-5: hsla(0, 0%, 0%, 1);
+        --s-start-5: 8.392121895570533%;
+        --s-end-5: 24.59566937006635%;
+        --x-5: 70%;
+        --x-6: 54%;
+        --s-start-6: 9%;
+        --s-end-6: 26.825849058644888%;
+        --y-6: 73%;
+        --c-6: hsla(279, 67%, 27%, 1);
+        --s-start-7: 9%;
+        --s-end-7: 49.05074977970796%;
+        --x-7: 57%;
+        --c-7: hsla(279, 67%, 27%, 1);
+        --y-7: 76%;
+        --s-start-8: 9;
+        --s-end-8: 26.166345747226664%;
+        --x-8: 11%;
+        --c-8: hsla(217, 100%, 39%, 1);
+        --y-8: 53%;
+        --x-9: 70%;
+        --y-9: 70%;
+        --s-start-9: 9;
+        --s-end-9: 22.152460022684956%;
+        --c-9: hsla(217, 100%, 30%, 1);
+    }
+
+    100% {
+        --s-start-1: 8.392121895570533%;
+        --s-end-1: 59.32232816638693%;
+        --x-1: 76%;
+        --c-1: hsla(0, 0%, 0%, 1);
+        --y-1: -3%;
+        --y-2: 18%;
+        --c-2: hsla(0, 0%, 0%, 1);
+        --x-2: 97%;
+        --s-start-2: 8.392121895570533%;
+        --s-end-2: 28.52989037790774%;
+        --c-3: hsla(0, 0%, 0%, 1);
+        --s-start-3: 8.392121895570533%;
+        --s-end-3: 28.52989037790774%;
+        --x-3: 42%;
+        --y-3: 18%;
+        --y-4: 95%;
+        --s-start-4: 8.392121895570533%;
+        --s-end-4: 28.52989037790774%;
+        --c-4: hsla(0, 0%, 0%, 1);
+        --x-4: 66%;
+        --y-5: 92%;
+        --c-5: hsla(0, 0%, 0%, 1);
+        --s-start-5: 8.392121895570533%;
+        --s-end-5: 28.52989037790774%;
+        --x-5: 46%;
+        --x-6: 102%;
+        --s-start-6: 24.72064437400016%;
+        --s-end-6: 47.490620328604024%;
+        --y-6: 16%;
+        --c-6: hsla(279, 67%, 27%, 1);
+        --s-start-7: 10.200720718860145%;
+        --s-end-7: 50.46456494288142%;
+        --x-7: 22%;
+        --c-7: hsla(279, 67%, 27%, 1);
+        --y-7: 52%;
+        --x-9: 97%;
+        --y-9: 51%;
+        --s-start-9: 6.294132688184733%;
+        --s-end-9: 20.79106730744014%;
+        --c-9: hsla(217, 100%, 31%, 1);
+    }
+}
+
+@property --y-0 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 63%
+}
+
+@property --x-0 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 93%
+}
+
+@property --c-0 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(217, 100%, 30%, 1)
+}
+
+@property --s-start-0 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 8.392121895570533%
+}
+
+@property --s-end-0 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 38.584065253664996%
+}
+
+@property --s-start-1 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 8.392121895570533%
+}
+
+@property --s-end-1 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 22.10878124098502%
+}
+
+@property --x-1 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 33%
+}
+
+@property --c-1 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(0, 0%, 0%, 1)
+}
+
+@property --y-1 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: -7%
+}
+
+@property --y-2 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 7%
+}
+
+@property --c-2 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(0, 0%, 0%, 1)
+}
+
+@property --x-2 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 84%
+}
+
+@property --s-start-2 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 8.392121895570533%
+}
+
+@property --s-end-2 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 22.558651527792346%
+}
+
+@property --c-3 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(0, 0%, 0%, 1)
+}
+
+@property --s-start-3 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 8.392121895570533%
+}
+
+@property --s-end-3 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 22.558651527792346%
+}
+
+@property --x-3 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 14%
+}
+
+@property --y-3 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 5%
+}
+
+@property --y-4 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 96%
+}
+
+@property --s-start-4 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 8.392121895570533%
+}
+
+@property --s-end-4 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 22.558651527792346%
+}
+
+@property --c-4 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(217, 100%, 30%, 1)
+}
+
+@property --x-4 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 7%
+}
+
+@property --y-5 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 90%
+}
+
+@property --c-5 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(0, 0%, 0%, 1)
+}
+
+@property --s-start-5 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 8.392121895570533%
+}
+
+@property --s-end-5 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 22.558651527792346%
+}
+
+@property --x-5 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 93%
+}
+
+@property --x-6 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 3%
+}
+
+@property --s-start-6 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 8.392121895570533%
+}
+
+@property --s-end-6 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 39.67138181429644%
+}
+
+@property --y-6 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 61%
+}
+
+@property --c-6 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(279, 67%, 27%, 1)
+}
+
+@property --s-start-7 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 8.392121895570533%
+}
+
+@property --s-end-7 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 49.58090142552271%
+}
+
+@property --x-7 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 94%
+}
+
+@property --c-7 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(279, 67%, 27%, 1)
+}
+
+@property --y-7 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 59%
+}
+
+@property --s-start-8 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 8.392121895570533%
+}
+
+@property --s-end-8 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 34.815367581495366%
+}
+
+@property --x-8 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 48%
+}
+
+@property --c-8 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(217, 100%, 39%, 1)
+}
+
+@property --y-8 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 63%
+}
+
+@property --x-9 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 96%
+}
+
+@property --y-9 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 78%
+}
+
+@property --s-start-9 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 8.392121895570533%
+}
+
+@property --s-end-9 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 31.77166380372925%
+}
+
+@property --c-9 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(217, 100%, 30%, 1)
+}
+
+.hero {
+    --y-0: 63%;
+    --x-0: 93%;
+    --c-0: hsla(217, 100%, 30%, 1);
+    --x-1: 33%;
+    --c-1: hsla(0, 0%, 0%, 1);
+    --y-1: -7%;
+    --y-2: 7%;
+    --c-2: hsla(0, 0%, 0%, 1);
+    --x-2: 84%;
+    --c-3: hsla(0, 0%, 0%, 1);
+    --x-3: 14%;
+    --y-3: 5%;
+    --y-4: 96%;
+    --c-4: hsla(217, 100%, 30%, 1);
+    --x-4: 7%;
+    --y-5: 90%;
+    --c-5: hsla(0, 0%, 0%, 1);
+    --x-5: 93%;
+    --x-6: 3%;
+    --y-6: 61%;
+    --c-6: hsla(279, 67%, 27%, 1);
+    --x-7: 94%;
+    --c-7: hsla(279, 67%, 27%, 1);
+    --y-7: 59%;
+    --x-8: 48%;
+    --c-8: hsla(217, 100%, 39%, 1);
+    --y-8: 63%;
+    --x-9: 96%;
+    --y-9: 78%;
+    --c-9: hsla(217, 100%, 30%, 1);
+    background-color: hsla(262, 82%, 3%, 1);
+    background-image: radial-gradient(circle at var(--x-0) var(--y-0), var(--c-0) var(--s-start-0), transparent var(--s-end-0)), radial-gradient(circle at var(--x-1) var(--y-1), var(--c-1) var(--s-start-1), transparent var(--s-end-1)), radial-gradient(circle at var(--x-2) var(--y-2), var(--c-2) var(--s-start-2), transparent var(--s-end-2)), radial-gradient(circle at var(--x-3) var(--y-3), var(--c-3) var(--s-start-3), transparent var(--s-end-3)), radial-gradient(circle at var(--x-4) var(--y-4), var(--c-4) var(--s-start-4), transparent var(--s-end-4)), radial-gradient(circle at var(--x-5) var(--y-5), var(--c-5) var(--s-start-5), transparent var(--s-end-5)), radial-gradient(circle at var(--x-6) var(--y-6), var(--c-6) var(--s-start-6), transparent var(--s-end-6)), radial-gradient(circle at var(--x-7) var(--y-7), var(--c-7) var(--s-start-7), transparent var(--s-end-7)), radial-gradient(circle at var(--x-8) var(--y-8), var(--c-8) var(--s-start-8), transparent var(--s-end-8)), radial-gradient(circle at var(--x-9) var(--y-9), var(--c-9) var(--s-start-9), transparent var(--s-end-9));
+    animation: hero-gradient-animation 10s linear infinite alternate;
+    background-blend-mode: normal, normal, normal, normal, normal, normal, normal, normal, normal, normal;
+}
+

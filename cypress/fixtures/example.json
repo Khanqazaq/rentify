@@ -1,0 +1,14 @@
+{
+  "sampleData": {
+    "user": {
+      "id": 1,
+      "name": "John Doe",
+      "email": "john.doe@example.com"
+    },
+    "post": {
+      "id": 101,
+      "title": "Sample Post",
+      "content": "This is a sample post for testing."
+    }
+  }
+}

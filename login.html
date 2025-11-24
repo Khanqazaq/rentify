@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход - Rentify</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .login-container {
+            min-height: calc(100vh - 200px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .login-box {
+            max-width: 400px;
+            width: 100%;
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .login-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            font-size: 0.875rem;
+        }
+        .divider {
+            text-align: center;
+            margin: 1.5rem 0;
+            color: #6b7280;
+        }
+        .google-btn {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .google-btn:hover {
+            background: #f9fafb;
+        }
+        /* Location modal / small UI */
+        .nav-location {
+            margin-left: 16px;
+            color: #374151;
+            font-weight: 600;
+        }
+        #location-overlay {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); align-items: center; justify-content: center; z-index: 10000;
+        }
+        #location-box { background:#fff; width:420px; border-radius:12px; padding:18px; box-shadow:0 20px 60px rgba(0,0,0,0.25); }
+        #location-box input { width:100%; padding:10px; border-radius:8px; border:1px solid #e5e7eb; }
+        #location-actions { display:flex; gap:8px; margin-top:12px; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">Rentify</a>
+                <div class="nav-menu">
+                    <a href="index.html">Главная</a>
+                </div>
+                <div id="nav-location" class="nav-location" title="Ваш город"></div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="login-container">
+        <div class="login-box">
+            <h2 class="login-title">Вход</h2>
+
+            
+
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Номер телефона (Казахстан)</label>
+                    <div style="display:flex; gap:8px; align-items:center;">
+                        <select id="countryCode" style="padding:10px;border-radius:8px;border:1px solid #e5e7eb;background:#fff; min-width:80px;">
+                            <option value="+7">+7 (KZ)</option>
+                        </select>
+                        <input id="phoneNumber" type="tel" placeholder="7011234567" maxlength="10" style="flex:1;" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" required placeholder="••••••••">
+                </div>
+                
+                <div class="divider">Или</div>
+                <div style="text-align:center; margin-bottom:12px; display:flex; flex-direction:column; gap:8px;">
+                    <button type="button" class="google-btn" onclick="handleGoogleLogin()" style="display:block;">
+                        <i class="fab fa-google"></i>
+                        Продолжить с Google
+                    </button>
+                    <button type="button" class="google-btn" id="phone-continue-btn" onclick="handlePhoneContinue()" style="display:block;">
+                        <i class="fa fa-phone"></i>
+                        Продолжить с номером
+                    </button>
+                </div>
+                <p style="text-align: center; margin-top: 0.5rem; color: #6b7280;">
+                    Нет аккаунта? <a href="#" id="show-register" style="color: var(--primary-blue); cursor:pointer;">Зарегистрироваться</a>
+                </p>
+                <div class="form-options">
+                    <label>
+                        <input type="checkbox"> Запомнить меня
+                    </label>
+                    <a href="#" style="color: var(--primary-blue);">Забыли пароль?</a>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Войти</button>
+                
+                
+            </form>
+        </div>
+    </div>
+
+    <!-- Location modal (ask for permission or manual entry) -->
+    <div id="location-overlay">
+        <div id="location-box">
+            <h3 style="margin-top:0; text-align:center;">Поделиться местоположением</h3>
+            <p id="loc-desc" style="color:#374151;">Сайт может определить ваш город по разрешению доступа к местоположению. Это поможет показать ближайшие предложения. Разрешите определение или введите город вручную.</p>
+            <div style="margin-top:8px; display:flex; gap:8px;">
+                <button id="loc-allow" style="flex:1; padding:10px; border-radius:8px; background:#10b981; color:#fff; border:none; cursor:pointer;">Разрешить</button>
+                <button id="loc-manual" style="flex:1; padding:10px; border-radius:8px; background:#f3f4f6; border:none; cursor:pointer;">Ввести вручную</button>
+            </div>
+
+            <div id="loc-manual-section" style="display:none; margin-top:12px;">
+                <label style="display:block; font-weight:600; margin-bottom:6px;">Город или адрес</label>
+                <input id="loc-input" placeholder="Введите город или адрес">
+                <div id="location-actions">
+                    <button id="loc-save" style="flex:1; padding:10px; border-radius:8px; background:#4f46e5; color:#fff; border:none; cursor:pointer;">Сохранить</button>
+                    <button id="loc-cancel" style="padding:10px; border-radius:8px; background:#f3f4f6; border:none; cursor:pointer;">Отмена</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Registration modal / section (hidden by default) -->
+        <div id="register-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.45); align-items:center; justify-content:center; z-index:9999;">
+            <div style="background:#fff; width:420px; border-radius:12px; padding:20px; box-shadow:0 20px 60px rgba(0,0,0,0.25);">
+                <h2 style="margin-top:0; text-align:center;">Регистрация</h2>
+                <div style="margin-bottom:10px;">
+                    <label style="display:block; font-weight:600; margin-bottom:6px;">Номер телефона (Казахстан)</label>
+                    <div style="display:flex; gap:8px; align-items:center;">
+                        <select id="regCountryCode" style="padding:10px;border-radius:8px;border:1px solid #e5e7eb;background:#fff; min-width:80px;">
+                            <option value="+7">+7 (KZ)</option>
+                        </select>
+                        <input id="regPhone" type="tel" placeholder="7011234567" maxlength="10" style="flex:1;padding:10px;border-radius:8px;border:1px solid #e5e7eb;" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+                    </div>
+                </div>
+
+                <div id="reg-actions" style="display:flex; gap:8px; align-items:center; margin-bottom:8px;">
+                    <button id="send-code-btn" style="flex:1; padding:10px; border-radius:8px; background:#4f46e5; color:#fff; border:none; cursor:pointer;">Отправить код</button>
+                    <button id="close-register" style="padding:10px; border-radius:8px; background:#f3f4f6; border:none; cursor:pointer;">Отмена</button>
+                </div>
+
+                <div id="code-section" style="display:none; margin-bottom:8px;">
+                    <label style="display:block; font-weight:600; margin-bottom:6px;">Код подтверждения</label>
+                    <input id="regCode" type="text" placeholder="Введите код" maxlength="6" style="width:100%; padding:10px; border-radius:8px; border:1px solid #e5e7eb;">
+                    <small id="code-info" style="display:block; color:#6b7280; margin-top:6px;">Код отправлен. Действителен 5 минут.</small>
+                    <div style="display:flex; gap:8px; margin-top:8px;">
+                        <input id="regPassword" type="password" placeholder="Придумайте пароль" style="flex:1; padding:10px; border-radius:8px; border:1px solid #e5e7eb;">
+                        <button id="verify-code-btn" style="padding:10px; border-radius:8px; background:#06b6d4; color:#fff; border:none; cursor:pointer;">Подтвердить</button>
+                    </div>
+                    <div style="margin-top:8px; color:#6b7280;"><span id="resend-timer"></span></div>
+                </div>
+            </div>
+        </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 Rentify. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/language.js"></script>
+    <script>
+        const _T = (window.translations && window.translations[localStorage.getItem('language') || 'ru']) || window.translations['ru'];
+        // No email option — phone input shown by default
+        document.addEventListener('DOMContentLoaded', function(){
+            // show saved location if present (handled by location module)
+            // focus phone input for convenience
+            const phone = document.getElementById('phoneNumber');
+            if(phone) phone.value = phone.value; // noop placeholder
+        });
+
+        function handleLogin(e) {
+            e.preventDefault();
+
+            // phone-only login
+            const phoneLocal = (document.getElementById('phoneNumber')||{}).value || '';
+            const digits = phoneLocal.replace(/\D/g,'');
+            if (!/^\d{10}$/.test(digits)) {
+                alert(_T.login_alert_invalid_phone_example);
+                return;
+            }
+            const identifier = '+7' + digits;
+
+            const passwordField = e.target.querySelector('input[type="password"]');
+            const password = passwordField ? passwordField.value : '';
+            if (!password) { alert(_T.login_alert_enter_password); return; }
+
+            // Mock authentication: accept defined demo phone numbers with password '1234'
+            const success = (identifier === '+77001234567' || identifier === '+77001234568') && password === '1234';
+
+            if (success) {
+                alert(_T.login_alert_login_success);
+                window.location.href = 'index.html';
+            } else {
+                alert(_T.login_alert_invalid_credentials + ' (Демо)');
+            }
+        }
+
+        function handleGoogleLogin() {
+            alert(_T.login_alert_google_demo);
+            window.location.href = 'index.html';
+        }
+
+        function handlePhoneContinue(){
+            // Focus phone input to encourage entering number, or open registration modal
+            const phone = document.getElementById('phoneNumber');
+            if(phone){ phone.focus(); phone.scrollIntoView({behavior:'smooth', block:'center'}); }
+            else alert(_T.login_alert_phone_field_not_found);
+        }
+
+                // Registration / SMS code simulation
+                (function(){
+                    const overlay = document.getElementById('register-overlay');
+                    const showBtn = document.getElementById('show-register');
+                    const closeBtn = document.getElementById('close-register');
+                    const sendBtn = document.getElementById('send-code-btn');
+                    const codeSection = document.getElementById('code-section');
+                    const regPhone = document.getElementById('regPhone');
+                    const regCountry = document.getElementById('regCountryCode');
+                    const regCodeInput = document.getElementById('regCode');
+                    const verifyBtn = document.getElementById('verify-code-btn');
+                    const regPass = document.getElementById('regPassword');
+                    const resendTimer = document.getElementById('resend-timer');
+
+                    let currentCode = null;
+                    let codeExpires = 0;
+                    let resendTimeout = null;
+                    let resendRemaining = 0;
+
+                    function openOverlay(){ overlay.style.display='flex'; regPhone.focus(); }
+                    function closeOverlay(){ overlay.style.display='none'; resetRegState(); }
+
+                    function resetRegState(){
+                        currentCode = null; codeExpires = 0; codeSection.style.display='none'; regCodeInput.value=''; regPass.value=''; clearInterval(resendTimeout); resendTimer.textContent=''; sendBtn.disabled=false; sendBtn.textContent='Отправить код';
+                    }
+
+                    function startResendCountdown(seconds){
+                        resendRemaining = seconds;
+                        sendBtn.disabled = true;
+                        resendTimer.textContent = `Повторная отправка через ${resendRemaining}s`;
+                        resendTimeout = setInterval(()=>{
+                            resendRemaining -= 1;
+                            if(resendRemaining <= 0){ clearInterval(resendTimeout); resendTimer.textContent = ''; sendBtn.disabled=false; sendBtn.textContent='Отправить код'; }
+                            else resendTimer.textContent = `Повторная отправка через ${resendRemaining}s`;
+                        },1000);
+                    }
+
+                    function generateCode(){ return String(Math.floor(100000 + Math.random()*900000)); }
+
+                    showBtn && showBtn.addEventListener('click', (e)=>{ e.preventDefault(); openOverlay(); });
+                    closeBtn && closeBtn.addEventListener('click', (e)=>{ e.preventDefault(); closeOverlay(); });
+
+                    sendBtn && sendBtn.addEventListener('click', (e)=>{
+                        const phone = (regPhone.value||'').replace(/\D/g,'');
+                        if(!/^\d{10}$/.test(phone)){ alert(_T.reg_alert_invalid_phone_example); regPhone.focus(); return; }
+                        currentCode = generateCode();
+                        codeExpires = Date.now() + 5*60*1000; // 5 minutes
+                        codeSection.style.display='block';
+                        // For demo we show the code via alert (simulate SMS)
+                        alert(_T.reg_demo_code_msg + currentCode);
+                        // Save pending registration in sessionStorage so it survives reload (optional)
+                        sessionStorage.setItem('pending_reg', JSON.stringify({ phone: '+7'+phone, code: currentCode, expires: codeExpires }));
+                        startResendCountdown(30);
+                    });
+
+                    verifyBtn && verifyBtn.addEventListener('click', (e)=>{
+                        const entered = (regCodeInput.value||'').trim();
+                        const pass = (regPass.value||'').trim();
+                        if(!entered){ alert(_T.reg_alert_enter_code); regCodeInput.focus(); return; }
+                        if(!pass || pass.length < 4){ alert(_T.reg_alert_password_min); regPass.focus(); return; }
+                        // check sessionStorage or local variable
+                        const pendingRaw = sessionStorage.getItem('pending_reg');
+                        let pending = pendingRaw ? JSON.parse(pendingRaw) : null;
+                        if(!pending){ alert(_T.reg_alert_send_code_first); return; }
+                        if(Date.now() > pending.expires){ alert(_T.reg_alert_code_expired); return; }
+                        if(entered !== pending.code){ alert(_T.reg_alert_invalid_code); return; }
+
+                        // Create user in localStorage
+                        const usersRaw = localStorage.getItem('users');
+                        const users = usersRaw ? JSON.parse(usersRaw) : [];
+                        // Prevent duplicate
+                        const exists = users.find(u => u.id === pending.phone);
+                        if(exists){ alert(_T.reg_alert_user_exists); }
+                        else {
+                            users.push({ id: pending.phone, password: pass, created: Date.now(), type: 'phone' });
+                            localStorage.setItem('users', JSON.stringify(users));
+                            alert(_T.reg_alert_success);
+                        }
+                        sessionStorage.removeItem('pending_reg');
+                        closeOverlay();
+                    });
+
+                    // Optional: if session has pending_reg, restore state
+                    const pendingRaw = sessionStorage.getItem('pending_reg');
+                    if(pendingRaw){ const p = JSON.parse(pendingRaw); if(p && p.expires > Date.now()){ currentCode = p.code; codeExpires = p.expires; /* you can auto-open overlay or show hint */ } else sessionStorage.removeItem('pending_reg'); }
+                })();
+
+                // Location prompt: ask permission or manual input, reverse-geocode via Nominatim
+                (function(){
+                    const overlay = document.getElementById('location-overlay');
+                    const btnAllow = document.getElementById('loc-allow');
+                    const btnManual = document.getElementById('loc-manual');
+                    const manualSection = document.getElementById('loc-manual-section');
+                    const locInput = document.getElementById('loc-input');
+                    const locSave = document.getElementById('loc-save');
+                    const locCancel = document.getElementById('loc-cancel');
+                    const navLocation = document.getElementById('nav-location');
+
+                    function showOverlay(){
+                        // If we already have saved location, don't show by default
+                        try{
+                            const saved = localStorage.getItem('user_location');
+                            if(saved){ const s = JSON.parse(saved); if(s && s.city) { navLocation.textContent = s.city; return; } }
+                        }catch(e){}
+                        overlay.style.display = 'flex';
+                    }
+
+                    function hideOverlay(){ overlay.style.display = 'none'; manualSection.style.display = 'none'; }
+
+                    function saveLocation(obj){
+                        localStorage.setItem('user_location', JSON.stringify(obj));
+                        if(obj.city) navLocation.textContent = obj.city;
+                        else if(obj.address) navLocation.textContent = obj.address;
+                    }
+
+                    async function reverseGeocode(lat, lon){
+                        try{
+                            const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lon)}&accept-language=ru`;
+                            const res = await fetch(url);
+                            if(!res.ok) throw new Error('Reverse geocode failed');
+                            const data = await res.json();
+                            // Try to extract city / town / village / county
+                            const addr = data.address || {};
+                            const city = addr.city || addr.town || addr.village || addr.county || addr.state || null;
+                            const display = data.display_name || '';
+                            return { city, address: display, lat, lon };
+                        }catch(err){ return null; }
+                    }
+
+                    btnAllow && btnAllow.addEventListener('click', ()=>{
+                        if(!navigator.geolocation){ alert(_T.geo_not_supported); return; }
+                        btnAllow.disabled = true; btnAllow.textContent = 'Определяем...';
+                        navigator.geolocation.getCurrentPosition(async (pos)=>{
+                            const lat = pos.coords.latitude; const lon = pos.coords.longitude;
+                            const info = await reverseGeocode(lat, lon);
+                            if(info){ saveLocation(info); alert(_T.geo_determined_prefix + (info.city || info.address)); }
+                            else { alert(_T.geo_failed); }
+                            hideOverlay();
+                        }, (err)=>{
+                            btnAllow.disabled = false; btnAllow.textContent = 'Разрешить';
+                            if(err.code === 1) { /* permission denied */ alert(_T.geo_permission_denied); manualSection.style.display='block'; }
+                            else alert(_T.geo_failed_message_prefix + (err.message||err.code));
+                        }, { enableHighAccuracy: false, timeout: 10000 });
+                    });
+
+                    btnManual && btnManual.addEventListener('click', ()=>{ manualSection.style.display = 'block'; });
+                    locCancel && locCancel.addEventListener('click', ()=>{ manualSection.style.display='none'; overlay.style.display='none'; });
+                    locSave && locSave.addEventListener('click', ()=>{
+                        const v = (locInput.value||'').trim();
+                        if(!v){ alert(_T.loc_input_required); locInput.focus(); return; }
+                        saveLocation({ city: v, address: v });
+                        hideOverlay();
+                    });
+
+                    // Show overlay on first visit (or when no saved location)
+                    try{
+                        const saved = localStorage.getItem('user_location');
+                        if(saved){ const s = JSON.parse(saved); if(s && (s.city||s.address)) { if(navLocation) navLocation.textContent = s.city||s.address; return; } }
+                    }catch(e){}
+                    // small delay to avoid popping immediately
+                    setTimeout(showOverlay, 800);
+                })();
+    </script>
+</body>
+</html>
+

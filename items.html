@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Все вещи - Rentify</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar (тот же что на главной) -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">Rentify</a>
+                <div class="nav-menu">
+                    <a href="items.html">Все вещи</a>
+                    <a href="add-item.html">Добавить вещь</a>
+                    <a href="login.html" class="btn-login">Войти</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container" style="padding: 2rem 0;">
+        <h1 style="margin-bottom: 2rem;">Все вещи</h1>
+        
+        <!-- Filters -->
+        <div style="background: white; padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <h3 style="margin-bottom: 1rem;">Фильтры</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                <select style="padding: 10px; border: 1px solid #e5e7eb; border-radius: 8px;">
+                    <option>Все категории</option>
+                    <option>Электроника</option>
+                    <option>Одежда</option>
+                    <option>Спорт</option>
+                </select>
+                <input type="number" placeholder="Цена от" style="padding: 10px; border: 1px solid #e5e7eb; border-radius: 8px;">
+                <input type="number" placeholder="Цена до" style="padding: 10px; border: 1px solid #e5e7eb; border-radius: 8px;">
+            </div>
+        </div>
+
+        <!-- Items Grid -->
+        <div class="items-grid" id="allItems">
+            <!-- Items will be loaded by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-logo">Rentify</h3>
+                    <p>Современная платформа для аренды вещей между людьми.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Быстрые ссылки</h4>
+                    <a href="items.html">Все вещи</a>
+                    <a href="add-item.html">Добавить вещь</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Rentify. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Загрузить все вещи
+        document.addEventListener('DOMContentLoaded', function() {
+            const items = JSON.parse(localStorage.getItem('mockItems')) || [];
+            displayItems(items, 'allItems');
+        });
+    </script>
+</body>
+</html>
+
