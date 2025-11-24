@@ -300,73 +300,70 @@
         }
 
         // Registration / SMS code simulation
-        document.addEventListener('DOMContentLoaded', function(){
-                (function(){
-                    const overlay = document.getElementById('register-overlay');
-                    const showBtn = document.getElementById('show-register');
-                    const closeBtn = document.getElementById('close-register');
-                    const sendBtn = document.getElementById('send-code-btn');
-                    const codeSection = document.getElementById('code-section');
-                    const regPhone = document.getElementById('regPhone');
-                    const regCountry = document.getElementById('regCountryCode');
-                    const regCodeInput = document.getElementById('regCode');
-                    const verifyBtn = document.getElementById('verify-code-btn');
-                    const regPass = document.getElementById('regPassword');
-                    const resendTimer = document.getElementById('resend-timer');
-                    
-                    console.log('Registration elements:', {overlay, showBtn, closeBtn}); // Debug
+        (function(){
+            const overlay = document.getElementById('register-overlay');
+            const showBtn = document.getElementById('show-register');
+            const closeBtn = document.getElementById('close-register');
+            const sendBtn = document.getElementById('send-code-btn');
+            const codeSection = document.getElementById('code-section');
+            const regPhone = document.getElementById('regPhone');
+            const regCountry = document.getElementById('regCountryCode');
+            const regCodeInput = document.getElementById('regCode');
+            const verifyBtn = document.getElementById('verify-code-btn');
+            const regPass = document.getElementById('regPassword');
+            const resendTimer = document.getElementById('resend-timer');
 
-                    let currentCode = null;
-                    let codeExpires = 0;
-                    let resendTimeout = null;
-                    let resendRemaining = 0;
+            let currentCode = null;
+            let codeExpires = 0;
+            let resendTimeout = null;
+            let resendRemaining = 0;
 
-                    function openOverlay(){ 
-                        overlay.style.display='block'; 
-                        document.body.style.overflow = 'hidden';
-                        setTimeout(() => regPhone.focus(), 100);
-                    }
-                    function closeOverlay(){ 
-                        overlay.style.display='none'; 
-                        document.body.style.overflow = '';
-                        resetRegState(); 
-                    }
+            function openOverlay(){ 
+                overlay.style.display='block'; 
+                document.body.style.overflow = 'hidden';
+                setTimeout(() => regPhone.focus(), 100);
+            }
+            function closeOverlay(){ 
+                overlay.style.display='none'; 
+                document.body.style.overflow = '';
+                resetRegState(); 
+            }
 
-                    function resetRegState(){
-                        currentCode = null; codeExpires = 0; codeSection.style.display='none'; regCodeInput.value=''; regPass.value=''; clearInterval(resendTimeout); resendTimer.textContent=''; sendBtn.disabled=false; sendBtn.textContent='Отправить код';
-                    }
+            function resetRegState(){
+                currentCode = null; codeExpires = 0; codeSection.style.display='none'; regCodeInput.value=''; regPass.value=''; clearInterval(resendTimeout); resendTimer.textContent=''; sendBtn.disabled=false; sendBtn.textContent='Отправить код';
+            }
 
-                    function startResendCountdown(seconds){
-                        resendRemaining = seconds;
-                        sendBtn.disabled = true;
-                        resendTimer.textContent = `Повторная отправка через ${resendRemaining}s`;
-                        resendTimeout = setInterval(()=>{
-                            resendRemaining -= 1;
-                            if(resendRemaining <= 0){ clearInterval(resendTimeout); resendTimer.textContent = ''; sendBtn.disabled=false; sendBtn.textContent='Отправить код'; }
-                            else resendTimer.textContent = `Повторная отправка через ${resendRemaining}s`;
-                        },1000);
-                    }
+            function startResendCountdown(seconds){
+                resendRemaining = seconds;
+                sendBtn.disabled = true;
+                resendTimer.textContent = `Повторная отправка через ${resendRemaining}s`;
+                resendTimeout = setInterval(()=>{
+                    resendRemaining -= 1;
+                    if(resendRemaining <= 0){ clearInterval(resendTimeout); resendTimer.textContent = ''; sendBtn.disabled=false; sendBtn.textContent='Отправить код'; }
+                    else resendTimer.textContent = `Повторная отправка через ${resendRemaining}s`;
+                },1000);
+            }
 
-                    function generateCode(){ return String(Math.floor(100000 + Math.random()*900000)); }
+            function generateCode(){ return String(Math.floor(100000 + Math.random()*900000)); }
 
-                    // Mobile-friendly event handlers
-                    if (showBtn) {
-                        showBtn.addEventListener('click', (e)=> { e.preventDefault(); e.stopPropagation(); openOverlay(); });
-                        showBtn.addEventListener('touchstart', (e)=> { e.preventDefault(); openOverlay(); }, {passive: false});
+            // Mobile-friendly event handlers
+            if (showBtn) {
+                showBtn.addEventListener('click', (e)=> { e.preventDefault(); e.stopPropagation(); openOverlay(); });
+                showBtn.addEventListener('touchstart', (e)=> { e.preventDefault(); openOverlay(); }, {passive: false});
+            }
+            
+            if (closeBtn) {
+                closeBtn.addEventListener('click', (e)=>{ e.preventDefault(); closeOverlay(); });
+            }
+            
+            // Close on background click
+            if (overlay) {
+                overlay.addEventListener('click', (e) => {
+                    if (e.target === overlay) {
+                        closeOverlay();
                     }
-                    
-                    if (closeBtn) {
-                        closeBtn.addEventListener('click', (e)=>{ e.preventDefault(); closeOverlay(); });
-                    }
-                    
-                    // Close on background click
-                    if (overlay) {
-                        overlay.addEventListener('click', (e) => {
-                            if (e.target === overlay) {
-                                closeOverlay();
-                            }
-                        });
-                    }
+                });
+            }
 
                     sendBtn && sendBtn.addEventListener('click', (e)=>{
                         const phone = (regPhone.value||'').replace(/\D/g,'');
@@ -488,7 +485,6 @@
                     // small delay to avoid popping immediately
                     setTimeout(showOverlay, 800);
                 })();
-        }); // End DOMContentLoaded
     </script>
 </body>
 </html>
