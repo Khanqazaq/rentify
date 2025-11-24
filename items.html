@@ -24,21 +24,36 @@
 
     <!-- Page Content -->
     <div class="container" style="padding: 2rem 0;">
-        <h1 style="margin-bottom: 2rem;">Все вещи</h1>
+        <!-- Breadcrumbs -->
+        <div id="breadcrumbs" style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 8px; color: #6b7280; font-size: 0.9rem;">
+            <a href="index.html" style="color: #4f46e5; text-decoration: none;">Главная</a>
+            <span>/</span>
+            <span id="breadcrumbCategory">Все категории</span>
+        </div>
+
+        <h1 id="pageTitle" style="margin-bottom: 2rem;">Все категории</h1>
         
-        <!-- Filters -->
-        <div style="background: white; padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-            <h3 style="margin-bottom: 1rem;">Фильтры</h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-                <select style="padding: 10px; border: 1px solid #e5e7eb; border-radius: 8px;">
-                    <option>Все категории</option>
-                    <option>Электроника</option>
-                    <option>Одежда</option>
-                    <option>Спорт</option>
-                </select>
-                <input type="number" placeholder="Цена от" style="padding: 10px; border: 1px solid #e5e7eb; border-radius: 8px;">
-                <input type="number" placeholder="Цена до" style="padding: 10px; border: 1px solid #e5e7eb; border-radius: 8px;">
+        <!-- Category View (показывается когда нет выбранной категории) -->
+        <div id="categoryView" style="display: none;">
+            <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <h2 style="margin-bottom: 1.5rem; font-size: 1.5rem;">Подкатегории</h2>
+                <div id="subcategoryList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;">
+                    <!-- Подкатегории будут добавлены через JS -->
+                </div>
             </div>
+        </div>
+
+        <!-- Filters (показывается при просмотре товаров) -->
+        <div id="filtersSection" style="background: white; padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: none;">
+            <h3 style="margin-bottom: 1rem;">Фильтры</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+                <select id="subcategoryFilter" style="padding: 10px; border: 1px solid #e5e7eb; border-radius: 8px;">
+                    <option value="">Все подкатегории</option>
+                </select>
+                <input type="number" id="priceFrom" placeholder="Цена от" style="padding: 10px; border: 1px solid #e5e7eb; border-radius: 8px;">
+                <input type="number" id="priceTo" placeholder="Цена до" style="padding: 10px; border: 1px solid #e5e7eb; border-radius: 8px;">
+            </div>
+            <button id="applyFilters" class="btn btn-primary" style="width: 100%;">Применить фильтры</button>
         </div>
 
         <!-- Items Grid -->
@@ -69,10 +84,179 @@
 
     <script src="js/main.js"></script>
     <script>
-        // Загрузить все вещи
-        document.addEventListener('DOMContentLoaded', function() {
-            const items = JSON.parse(localStorage.getItem('mockItems')) || [];
+        // Структура категорий и подкатегорий
+        const categories = {
+            electronics: { label: 'Электроника', icon: '💻' },
+            clothing: { label: 'Одежда', icon: '👕' },
+            sports: { label: 'Спорт', icon: '⚽' },
+            auto: { label: 'Авто', icon: '🚗' },
+            tools: { label: 'Инструменты', icon: '🔧' },
+            furniture: { label: 'Мебель', icon: '🛋️' }
+        };
+
+        const subcategories = {
+            electronics: [
+                { value: 'phones', label: 'Телефоны' },
+                { value: 'computers', label: 'Компьютеры' },
+                { value: 'cameras', label: 'Камеры' },
+                { value: 'audio', label: 'Аудио' },
+                { value: 'tv', label: 'ТВ и видео' }
+            ],
+            clothing: [
+                { value: 'men', label: 'Мужская' },
+                { value: 'women', label: 'Женская' },
+                { value: 'kids', label: 'Детская' },
+                { value: 'accessories', label: 'Аксессуары' }
+            ],
+            sports: [
+                { value: 'fitness', label: 'Фитнес' },
+                { value: 'bicycles', label: 'Велосипеды' },
+                { value: 'winter', label: 'Зимний спорт' },
+                { value: 'water', label: 'Водный спорт' },
+                { value: 'camping', label: 'Туризм' }
+            ],
+            auto: [
+                { value: 'cars', label: 'Автомобили' },
+                { value: 'motorcycles', label: 'Мотоциклы' },
+                { value: 'scooters', label: 'Скутеры' },
+                { value: 'accessories', label: 'Автоаксессуары' }
+            ],
+            tools: [
+                { value: 'power', label: 'Электроинструмент' },
+                { value: 'hand', label: 'Ручной инструмент' },
+                { value: 'garden', label: 'Садовая техника' },
+                { value: 'construction', label: 'Строительное оборудование' }
+            ],
+            furniture: [
+                { value: 'living', label: 'Гостиная' },
+                { value: 'bedroom', label: 'Спальня' },
+                { value: 'office', label: 'Офисная' },
+                { value: 'outdoor', label: 'Уличная' }
+            ]
+        };
+
+        let currentCategory = null;
+        let currentSubcategory = null;
+
+        // Показать подкатегории для выбранной категории
+        function showCategoryView(category) {
+            currentCategory = category;
+            const categoryData = categories[category];
+            
+            document.getElementById('pageTitle').textContent = categoryData.label;
+            document.getElementById('breadcrumbCategory').textContent = categoryData.label;
+            document.getElementById('categoryView').style.display = 'block';
+            document.getElementById('filtersSection').style.display = 'none';
+            document.getElementById('allItems').innerHTML = '';
+
+            const subcategoryList = document.getElementById('subcategoryList');
+            subcategoryList.innerHTML = '';
+
+            subcategories[category].forEach(sub => {
+                const card = document.createElement('a');
+                card.href = `?category=${category}&subcategory=${sub.value}`;
+                card.style.cssText = 'display: block; padding: 1.5rem; background: #f9fafb; border-radius: 8px; text-decoration: none; color: #111; transition: all 0.2s; border: 2px solid transparent;';
+                card.innerHTML = `
+                    <div style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">${sub.label}</div>
+                    <div style="color: #6b7280; font-size: 0.9rem;">Посмотреть все →</div>
+                `;
+                card.addEventListener('mouseenter', () => {
+                    card.style.background = '#fff';
+                    card.style.borderColor = '#4f46e5';
+                    card.style.transform = 'translateY(-2px)';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.background = '#f9fafb';
+                    card.style.borderColor = 'transparent';
+                    card.style.transform = 'translateY(0)';
+                });
+                subcategoryList.appendChild(card);
+            });
+        }
+
+        // Показать товары
+        function showItemsView(category, subcategory) {
+            currentCategory = category;
+            currentSubcategory = subcategory;
+            
+            const categoryData = categories[category];
+            const subcategoryData = subcategories[category].find(s => s.value === subcategory);
+            
+            document.getElementById('pageTitle').textContent = subcategoryData.label;
+            document.getElementById('breadcrumbCategory').innerHTML = `
+                <a href="?category=${category}" style="color: #4f46e5; text-decoration: none;">${categoryData.label}</a>
+                <span style="margin: 0 8px;">/</span>
+                <span>${subcategoryData.label}</span>
+            `;
+            
+            document.getElementById('categoryView').style.display = 'none';
+            document.getElementById('filtersSection').style.display = 'block';
+
+            // Заполнить фильтр подкатегорий
+            const subcategoryFilter = document.getElementById('subcategoryFilter');
+            subcategoryFilter.innerHTML = '<option value="">Все подкатегории</option>';
+            subcategories[category].forEach(sub => {
+                const option = document.createElement('option');
+                option.value = sub.value;
+                option.textContent = sub.label;
+                if (sub.value === subcategory) option.selected = true;
+                subcategoryFilter.appendChild(option);
+            });
+
+            // Загрузить и отфильтровать товары
+            filterAndDisplayItems();
+        }
+
+        // Фильтровать и показать товары
+        function filterAndDisplayItems() {
+            let items = JSON.parse(localStorage.getItem('mockItems')) || [];
+
+            if (currentCategory) {
+                items = items.filter(item => item.category === currentCategory);
+            }
+            if (currentSubcategory) {
+                items = items.filter(item => item.subcategory === currentSubcategory);
+            }
+
+            const priceFrom = document.getElementById('priceFrom').value;
+            const priceTo = document.getElementById('priceTo').value;
+
+            if (priceFrom) {
+                items = items.filter(item => item.price >= Number(priceFrom));
+            }
+            if (priceTo) {
+                items = items.filter(item => item.price <= Number(priceTo));
+            }
+
             displayItems(items, 'allItems');
+        }
+
+        // Применить фильтры
+        document.getElementById('applyFilters').addEventListener('click', function() {
+            const subcategorySelect = document.getElementById('subcategoryFilter');
+            currentSubcategory = subcategorySelect.value || currentSubcategory;
+            filterAndDisplayItems();
+        });
+
+        // Инициализация страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const category = urlParams.get('category');
+            const subcategory = urlParams.get('subcategory');
+
+            if (category && subcategory) {
+                // Показать товары конкретной подкатегории
+                showItemsView(category, subcategory);
+            } else if (category) {
+                // Показать подкатегории категории
+                showCategoryView(category);
+            } else {
+                // Показать все товары
+                document.getElementById('pageTitle').textContent = 'Все вещи';
+                document.getElementById('filtersSection').style.display = 'none';
+                const items = JSON.parse(localStorage.getItem('mockItems')) || [];
+                displayItems(items, 'allItems');
+            }
         });
     </script>
 </body>

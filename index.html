@@ -104,35 +104,39 @@
             <h2 class="section-title">Популярные категории</h2>
             <div class="categories-grid">
                 <a href="items.html?category=electronics" class="category-card">
-                    <div class="category-icon">💻</div>
+                    <div class="category-icon category-image">
+                        <img src="https://i.ibb.co/MkF42qPF/Computer.png" alt="Электроника" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">
+                    </div>
                     <div class="category-name">Электроника</div>
                 </a>
                 <a href="items.html?category=clothing" class="category-card">
-                    <div class="category-icon">👕</div>
+                    <div class="category-icon category-image">
+                        <img src="https://i.ibb.co/239XyZL1/Clothes1.png" alt="Одежда" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">
+                    </div>
                     <div class="category-name">Одежда</div>
                 </a>
                 <a href="items.html?category=sports" class="category-card">
-                    <div class="category-icon">⚽</div>
+                    <div class="category-icon category-image">
+                        <img src="https://i.ibb.co/9HdqF5SM/sekcii-2.jpg" alt="Спорт" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">
+                    </div>
                     <div class="category-name">Спорт</div>
                 </a>
                 <a href="items.html?category=auto" class="category-card">
-                    <div class="category-icon">🚗</div>
-                    <div class="category-name">Авто</div>
+                    <div class="category-icon category-image">
+                        <img src="https://i.ibb.co/4g7XQ3YH/transport-1532-1x.png" alt="Авто" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">
+                    </div>
+                    <div class="category-name">Авто</div>   
                 </a>
                 <a href="items.html?category=tools" class="category-card">
-                    <div class="category-icon">🔧</div>
+                    <div class="category-icon category-image">
+                        <img src="https://i.ibb.co/39VWBPV7/tekhnika-i-instrument-worx-dlya-doma-i-sada.png" alt="Инструменты" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">
+                    </div>
                     <div class="category-name">Инструменты</div>
                 </a>
-                <a href="items.html?category=cameras" class="category-card">
-                    <div class="category-icon">📷</div>
-                    <div class="category-name">Камеры</div>
-                </a>
-                <a href="items.html?category=bicycles" class="category-card">
-                    <div class="category-icon">🚴</div>
-                    <div class="category-name">Велосипеды</div>
-                </a>
                 <a href="items.html?category=furniture" class="category-card">
-                    <div class="category-icon">🪑</div>
+                    <div class="category-icon category-image">
+                        <img src="https://i.ibb.co/PdyDYzS/12cee4dc-f345-48f3-900d-14eca95ff694.jpg" alt="Мебель" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">
+                    </div>
                     <div class="category-name">Мебель</div>
                 </a>
             </div>
@@ -229,12 +233,6 @@
                     <p>Современная платформа для аренды вещей между людьми. Безопасно, удобно и выгодно.</p>
                 </div>
                 <div class="footer-section">
-                    <h4>Быстрые ссылки</h4>
-                    <a href="items.html">Все вещи</a>
-                    <a href="add-item.html">Добавить вещь</a>
-                    <a href="become-pro.html">Стать PRO</a>
-                </div>
-                <div class="footer-section">
                     <h4>Поддержка</h4>
                     <a href="#">Помощь</a>
                     <a href="#">Контакты</a>
@@ -266,6 +264,26 @@
             </div>
             <div style="display:flex; gap:8px; margin-bottom:8px;">
                 <div style="flex:1;">
+                    <label style="display:block; font-weight:600; margin-bottom:6px;">Категория</label>
+                    <select id="item-category" style="width:100%; padding:10px; border-radius:8px; border:1px solid #e5e7eb;">
+                        <option value="">Выберите категорию</option>
+                        <option value="electronics">Электроника</option>
+                        <option value="clothing">Одежда</option>
+                        <option value="sports">Спорт</option>
+                        <option value="auto">Авто</option>
+                        <option value="tools">Инструменты</option>
+                        <option value="furniture">Мебель</option>
+                    </select>
+                </div>
+                <div style="flex:1;">
+                    <label style="display:block; font-weight:600; margin-bottom:6px;">Подкатегория</label>
+                    <select id="item-subcategory" style="width:100%; padding:10px; border-radius:8px; border:1px solid #e5e7eb;" disabled>
+                        <option value="">Сначала выберите категорию</option>
+                    </select>
+                </div>
+            </div>
+            <div style="display:flex; gap:8px; margin-bottom:8px;">
+                <div style="flex:1;">
                     <label style="display:block; font-weight:600; margin-bottom:6px;">Цена (в тенге / сутки)</label>
                     <input id="item-price" type="number" min="0" placeholder="1000" style="width:100%; padding:10px; border-radius:8px; border:1px solid #e5e7eb;">
                 </div>
@@ -279,9 +297,13 @@
                 <input id="item-address" type="text" placeholder="Город, улица, район" style="width:100%; padding:10px; border-radius:8px; border:1px solid #e5e7eb;">
             </div>
             <div style="margin-bottom:8px;">
-                <label style="display:block; font-weight:600; margin-bottom:6px;">Галерея фотографий (выберите до 5)</label>
-                <div id="gallery-thumbs" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap;"></div>
-                <small style="color:#6b7280; display:block; margin-top:6px;">Выберите изображения из галереи — они будут прикреплены к объявлению.</small>
+                <label style="display:block; font-weight:600; margin-bottom:6px;">Фотографии (до 5 штук)</label>
+                <input id="item-images" type="file" accept="image/*" multiple style="display:none;">
+                <button type="button" onclick="document.getElementById('item-images').click()" style="width:100%; padding:12px; border-radius:8px; background:#f3f4f6; border:2px dashed #d1d5db; cursor:pointer; color:#6b7280; font-weight:600; transition: all 0.2s;">
+                    📷 Выбрать фото с устройства
+                </button>
+                <div id="preview-container" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap;"></div>
+                <small style="color:#6b7280; display:block; margin-top:6px;">Выберите до 5 изображений с вашего телефона или компьютера</small>
             </div>
             <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:12px;">
                 <button id="add-cancel" style="padding:10px 14px; border-radius:8px; background:#f3f4f6; border:none; cursor:pointer;">Отмена</button>
@@ -323,7 +345,121 @@
     <script>
         // Add listing modal logic with image upload (up to 5 images)
         (function(){
+            // Структура подкатегорий (та же что в items.html)
+            const subcategories = {
+                electronics: [
+                    { value: 'phones', label: 'Телефоны' },
+                    { value: 'computers', label: 'Компьютеры' },
+                    { value: 'cameras', label: 'Камеры' },
+                    { value: 'audio', label: 'Аудио' },
+                    { value: 'tv', label: 'ТВ и видео' }
+                ],
+                clothing: [
+                    { value: 'men', label: 'Мужская' },
+                    { value: 'women', label: 'Женская' },
+                    { value: 'kids', label: 'Детская' },
+                    { value: 'accessories', label: 'Аксессуары' }
+                ],
+                sports: [
+                    { value: 'fitness', label: 'Фитнес' },
+                    { value: 'bicycles', label: 'Велосипеды' },
+                    { value: 'winter', label: 'Зимний спорт' },
+                    { value: 'water', label: 'Водный спорт' },
+                    { value: 'camping', label: 'Туризм' }
+                ],
+                auto: [
+                    { value: 'cars', label: 'Автомобили' },
+                    { value: 'motorcycles', label: 'Мотоциклы' },
+                    { value: 'scooters', label: 'Скутеры' },
+                    { value: 'accessories', label: 'Автоаксессуары' }
+                ],
+                tools: [
+                    { value: 'power', label: 'Электроинструмент' },
+                    { value: 'hand', label: 'Ручной инструмент' },
+                    { value: 'garden', label: 'Садовая техника' },
+                    { value: 'construction', label: 'Строительное оборудование' }
+                ],
+                furniture: [
+                    { value: 'living', label: 'Гостиная' },
+                    { value: 'bedroom', label: 'Спальня' },
+                    { value: 'office', label: 'Офисная' },
+                    { value: 'outdoor', label: 'Уличная' }
+                ]
+            };
+
             const overlay = document.getElementById('add-overlay');
+            const categorySelect = document.getElementById('item-category');
+            const subcategorySelect = document.getElementById('item-subcategory');
+            const imageInput = document.getElementById('item-images');
+            const previewContainer = document.getElementById('preview-container');
+            let selectedImages = [];
+
+            // Обработка выбора файлов
+            imageInput.addEventListener('change', function(e) {
+                const files = Array.from(e.target.files);
+                
+                if (files.length + selectedImages.length > 5) {
+                    alert('Максимум 5 изображений');
+                    return;
+                }
+
+                files.forEach(file => {
+                    if (file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            selectedImages.push(event.target.result);
+                            renderPreviews();
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            });
+
+            // Отображение превью
+            function renderPreviews() {
+                previewContainer.innerHTML = '';
+                selectedImages.forEach((src, index) => {
+                    const box = document.createElement('div');
+                    box.style.cssText = 'position:relative; width:80px; height:80px; border-radius:8px; overflow:hidden; border:2px solid #e5e7eb;';
+                    
+                    const img = document.createElement('img');
+                    img.src = src;
+                    img.style.cssText = 'width:100%; height:100%; object-fit:cover;';
+                    
+                    const removeBtn = document.createElement('button');
+                    removeBtn.innerHTML = '✕';
+                    removeBtn.style.cssText = 'position:absolute; top:4px; right:4px; width:20px; height:20px; border-radius:50%; background:#ef4444; color:#fff; border:none; cursor:pointer; font-size:12px; line-height:1;';
+                    removeBtn.onclick = function() {
+                        selectedImages.splice(index, 1);
+                        renderPreviews();
+                    };
+                    
+                    box.appendChild(img);
+                    box.appendChild(removeBtn);
+                    previewContainer.appendChild(box);
+                });
+            }
+
+            // Обработчик выбора категории
+            categorySelect.addEventListener('change', function() {
+                const selectedCategory = this.value;
+                
+                if (selectedCategory && subcategories[selectedCategory]) {
+                    subcategorySelect.disabled = false;
+                    subcategorySelect.innerHTML = '<option value="">Выберите подкатегорию</option>';
+                    
+                    subcategories[selectedCategory].forEach(sub => {
+                        const option = document.createElement('option');
+                        option.value = sub.value;
+                        option.textContent = sub.label;
+                        subcategorySelect.appendChild(option);
+                    });
+                } else {
+                    subcategorySelect.disabled = true;
+                    subcategorySelect.innerHTML = '<option value="">Сначала выберите категорию</option>';
+                }
+            });
+
             window.openAddModal = function(e){ if(e) e.preventDefault(); overlay.style.display='flex';
                 // prefill address from saved location if available
                 try{ const s = localStorage.getItem('user_location'); if(s){ const obj = JSON.parse(s); const addr = obj.city || obj.address || ''; if(addr) document.getElementById('item-address').value = addr; } }catch(e){}
@@ -331,60 +467,37 @@
 
             const cancel = document.getElementById('add-cancel');
             const save = document.getElementById('add-save');
-            const gallery = document.getElementById('gallery-thumbs');
 
-            // Create a small built-in gallery of placeholder thumbnails (data-URL SVGs)
-            const colors = ['#fde68a','#fbcfe8','#c7f9cc','#bbf7d0','#bae6fd','#ffd7d7','#e9d5ff','#fef3c7'];
-            function makeSVGDataURL(text, bg){
-                const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='320' height='240'><rect width='100%' height='100%' fill='${bg}'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Arial,sans-serif' font-size='28' fill='#111'>${text}</text></svg>`;
-                return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
-            }
-
-            const galleryImages = [];
-            for(let i=1;i<=8;i++){ galleryImages.push(makeSVGDataURL('Фото '+i, colors[(i-1)%colors.length])); }
-
-            let selectedImages = [];
-
-            function renderGallery(){
-                gallery.innerHTML = '';
-                galleryImages.forEach((src, idx)=>{
-                    const box = document.createElement('div');
-                    box.style.width='80px'; box.style.height='80px'; box.style.borderRadius='8px'; box.style.overflow='hidden'; box.style.border='2px solid transparent'; box.style.display='flex'; box.style.alignItems='center'; box.style.justifyContent='center'; box.style.cursor='pointer';
-                    const img = document.createElement('img'); img.src = src; img.style.width='100%'; img.style.height='100%'; img.style.objectFit='cover';
-                    box.appendChild(img);
-                    box.addEventListener('click', ()=>{
-                        const pos = selectedImages.indexOf(src);
-                        if(pos === -1){
-                            if(selectedImages.length >= 5){ alert('Максимум 5 изображений'); return; }
-                            selectedImages.push(src); box.style.border = '2px solid #4f46e5';
-                        } else { selectedImages.splice(pos,1); box.style.border = '2px solid transparent'; }
-                    });
-                    gallery.appendChild(box);
-                });
-            }
-
-            renderGallery();
-
-            cancel && cancel.addEventListener('click', ()=>{ overlay.style.display='none'; selectedImages = []; renderGallery(); });
+            cancel && cancel.addEventListener('click', ()=>{ 
+                overlay.style.display='none'; 
+                selectedImages = []; 
+                previewContainer.innerHTML = '';
+                imageInput.value = '';
+            });
 
             save && save.addEventListener('click', ()=>{
                 const title = (document.getElementById('item-title')||{}).value.trim();
                 const desc = (document.getElementById('item-desc')||{}).value.trim();
+                const category = (document.getElementById('item-category')||{}).value.trim();
+                const subcategory = (document.getElementById('item-subcategory')||{}).value.trim();
                 const price = (document.getElementById('item-price')||{}).value.trim();
                 const phone = (document.getElementById('item-phone')||{}).value.trim();
                 const address = (document.getElementById('item-address')||{}).value.trim();
 
                 if(!title){ alert('Введите название вещи'); document.getElementById('item-title').focus(); return; }
                 if(!desc){ alert('Введите описание'); document.getElementById('item-desc').focus(); return; }
+                if(!category){ alert('Выберите категорию'); document.getElementById('item-category').focus(); return; }
+                if(!subcategory){ alert('Выберите подкатегорию'); document.getElementById('item-subcategory').focus(); return; }
                 if(!price || isNaN(price) || Number(price) <= 0){ alert('Введите корректную цену'); document.getElementById('item-price').focus(); return; }
                 if(!/^\d{10}$/.test(phone)){ alert('Введите корректный 10-значный номер телефона'); document.getElementById('item-phone').focus(); return; }
                 if(!address){ alert('Введите адрес или город'); document.getElementById('item-address').focus(); return; }
+                if(selectedImages.length === 0){ alert('Добавьте хотя бы одно фото'); return; }
 
                 const images = selectedImages.slice(0,5);
 
                 const listing = {
                     id: 'l_' + Date.now(),
-                    title, desc, price: Number(price), phone: '+7' + phone.replace(/\D/g,''), address,
+                    title, desc, category, subcategory, price: Number(price), phone: '+7' + phone.replace(/\D/g,''), address,
                     images, created: Date.now()
                 };
 
@@ -397,7 +510,15 @@
 
                 alert('Ваша вещь опубликована!');
                 overlay.style.display='none';
-                selectedImages = []; renderGallery();
+                selectedImages = []; 
+                previewContainer.innerHTML = '';
+                imageInput.value = '';
+                document.getElementById('item-title').value = '';
+                document.getElementById('item-desc').value = '';
+                document.getElementById('item-category').value = '';
+                document.getElementById('item-subcategory').value = '';
+                document.getElementById('item-price').value = '';
+                document.getElementById('item-phone').value = '';
                 window.location.href = 'items.html';
             });
         })();
