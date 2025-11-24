@@ -7,9 +7,9 @@ const translations = {
         allItems: 'Все вещи',
         addItem: 'Добавить вещь',
         login: 'Войти',
-        title: 'Арендуй вещи, которые нужны',
-        titleHighlight: 'когда они нужны',
-        description: 'От камер и ноутбуков до инструментов и велосипедов. Арендуй у проверенных пользователей безопасно и выгодно.',
+        title: 'Арендуй нужные вещи',
+        titleHighlight: 'быстро и удобно',
+        description: 'Когда вещи нужны на день, неделю или месяц — бери в аренду у людей рядом. Камеры, ноутбуки, инструменты, транспорт и многое другое. Проверенные пользователи. Безопасно. Выгодно.',
         startSearch: 'Начать поиск',
         rentOut: 'Сдать вещь в аренду'
     },
@@ -20,9 +20,9 @@ const translations = {
         allItems: 'Барлық заттар',
         addItem: 'Зат қосу',
         login: 'Кіру',
-        title: 'Қажет заттарды жалға алыңыз',
-        titleHighlight: 'қажет болғанда',
-        description: 'Камералардан ноутбуктерге дейін, құрал-жабдықтан велосипедтерге дейін. Сенімді пайдаланушылардан қауіпсіз және тиімді түрде жалға алыңыз.',
+        title: 'Қажетті заттарды жалға алыңыз',
+        titleHighlight: 'жылдам және ыңғайлы',
+        description: 'Заттар бір күнге, аптаға немесе айға керек болса — жақын маңдағы адамдардан жалға алыңыз. Камералар, ноутбуктер, құралдар, көлік және басқа да көп нәрсе. Тексерілген пайдаланушылар. Қауіпсіз. Тиімді.',
         startSearch: 'Іздеуді бастау',
         rentOut: 'Затты жалға беру'
     }
@@ -129,6 +129,67 @@ translations.kk.remember_me = 'Мені есте сақтау';
 translations.ru.forgot_password = 'Забыли пароль?';
 translations.kk.forgot_password = 'Құпия сөзді ұмыттыңыз ба?';
 
+// Page sections
+translations.ru.popular_categories = 'Популярные категории';
+translations.kk.popular_categories = 'Танымал санаттар';
+translations.ru.featured_items = 'Рекомендуемые вещи';
+translations.kk.featured_items = 'Ұсынылатын заттар';
+translations.ru.view_all = 'Смотреть все →';
+translations.kk.view_all = 'Барлығын көру →';
+translations.ru.how_it_works = 'Как это работает';
+translations.kk.how_it_works = 'Бұл қалай жұмыс істейді';
+translations.ru.testimonials = 'Отзывы наших клиентов';
+translations.kk.testimonials = 'Клиенттерімізден пікірлер';
+
+// How it works steps
+translations.ru.step1_title = 'Найдите нужную вещь';
+translations.kk.step1_title = 'Қажетті затты табыңыз';
+translations.ru.step1_desc = 'Ищите по категориям, фильтруйте по цене и местоположению';
+translations.kk.step1_desc = 'Санаттар бойынша іздеңіз, баға және орналасу бойынша сүзіңіз';
+
+translations.ru.step2_title = 'Забронируйте и оплатите';
+translations.kk.step2_title = 'Броньдаңыз және төлеңіз';
+translations.ru.step2_desc = 'Выберите даты аренды и безопасно оплатите через платформу';
+translations.kk.step2_desc = 'Жалға алу күндерін таңдап, платформа арқылы қауіпсіз төлеңіз';
+
+translations.ru.step3_title = 'Получите вещь';
+translations.kk.step3_title = 'Затты алыңыз';
+translations.ru.step3_desc = 'Встретьтесь с владельцем и заберите вещь в назначенное время';
+translations.kk.step3_desc = 'Иемен кездесіп, белгіленген уақытта затты алыңыз';
+
+translations.ru.step4_title = 'Оставьте отзыв';
+translations.kk.step4_title = 'Пікір қалдырыңыз';
+translations.ru.step4_desc = 'Поделитесь своим опытом и помогите другим пользователям';
+translations.kk.step4_desc = 'Өз тәжірибеңізбен бөлісіп, басқа пайдаланушыларға көмектесіңіз';
+
+// Categories
+translations.ru.cat_electronics = 'Электроника';
+translations.kk.cat_electronics = 'Электроника';
+translations.ru.cat_clothing = 'Одежда';
+translations.kk.cat_clothing = 'Киім';
+translations.ru.cat_sports = 'Спорт';
+translations.kk.cat_sports = 'Спорт';
+translations.ru.cat_auto = 'Авто';
+translations.kk.cat_auto = 'Көлік';
+translations.ru.cat_tools = 'Инструменты';
+translations.kk.cat_tools = 'Құралдар';
+translations.ru.cat_cameras = 'Камеры';
+translations.kk.cat_cameras = 'Камералар';
+translations.ru.cat_bicycles = 'Велосипеды';
+translations.kk.cat_bicycles = 'Велосипедтер';
+translations.ru.cat_furniture = 'Мебель';
+translations.kk.cat_furniture = 'Жиһаз';
+
+// Stats
+translations.ru.stat_items = 'Активных вещей';
+translations.kk.stat_items = 'Белсенді заттар';
+translations.ru.stat_users = 'Довольных пользователей';
+translations.kk.stat_users = 'Қанағат пайдаланушылар';
+translations.ru.stat_categories = 'Категорий';
+translations.kk.stat_categories = 'Санаттар';
+translations.ru.stat_rating = 'Средний рейтинг';
+translations.kk.stat_rating = 'Орташа рейтинг';
+
 
 
 // ========== СМЕНА ЯЗЫКА ==========
@@ -155,8 +216,10 @@ function changeLanguage(lang) {
     
     const heroTitle = document.querySelector('.hero-title');
     if (heroTitle) {
-        const parts = heroTitle.innerHTML.split('<span');
-        heroTitle.innerHTML = `${t.title}<span class="gradient-text">${t.titleHighlight}</span>`;
+        const mainTitle = heroTitle.querySelector('.hero-title-main');
+        const gradientText = heroTitle.querySelector('.gradient-text');
+        if (mainTitle) mainTitle.textContent = t.title;
+        if (gradientText) gradientText.textContent = t.titleHighlight;
     }
     
     const heroDesc = document.querySelector('.hero-description');
@@ -223,6 +286,75 @@ function changeLanguage(lang) {
     }
     const chatOpenBtn = document.getElementById('chatOpenConv');
     if (chatOpenBtn && t.chat_open) chatOpenBtn.textContent = t.chat_open;
+    
+    // Page sections
+    const sectionTitles = document.querySelectorAll('.section-title');
+    sectionTitles.forEach((title, idx) => {
+        const text = title.textContent.trim();
+        if (text.includes('Популярные категории') || text.includes('Танымал санаттар')) {
+            title.textContent = t.popular_categories;
+        } else if (text.includes('Рекомендуемые вещи') || text.includes('Ұсынылатын заттар')) {
+            title.textContent = t.featured_items;
+        } else if (text.includes('Как это работает') || text.includes('қалай жұмыс істейді')) {
+            title.textContent = t.how_it_works;
+        } else if (text.includes('Отзывы') || text.includes('пікірлер')) {
+            title.textContent = t.testimonials;
+        }
+    });
+    
+    // View all link
+    const viewAllLink = document.querySelector('.view-all');
+    if (viewAllLink) viewAllLink.textContent = t.view_all;
+    
+    // Categories
+    const categoryNames = document.querySelectorAll('.category-name');
+    categoryNames.forEach(cat => {
+        const text = cat.textContent.trim();
+        if (text === 'Электроника') cat.textContent = t.cat_electronics;
+        else if (text === 'Одежда' || text === 'Киім') cat.textContent = t.cat_clothing;
+        else if (text === 'Спорт') cat.textContent = t.cat_sports;
+        else if (text === 'Авто' || text === 'Көлік') cat.textContent = t.cat_auto;
+        else if (text === 'Инструменты' || text === 'Құралдар') cat.textContent = t.cat_tools;
+        else if (text === 'Камеры' || text === 'Камералар') cat.textContent = t.cat_cameras;
+        else if (text === 'Велосипеды' || text === 'Велосипедтер') cat.textContent = t.cat_bicycles;
+        else if (text === 'Мебель' || text === 'Жиһаз') cat.textContent = t.cat_furniture;
+    });
+    
+    // Stats
+    const statLabels = document.querySelectorAll('.stat-label');
+    statLabels.forEach((label, idx) => {
+        if (idx === 0) label.textContent = t.stat_items;
+        else if (idx === 1) label.textContent = t.stat_users;
+        else if (idx === 2) label.textContent = t.stat_categories;
+        else if (idx === 3) label.textContent = t.stat_rating;
+    });
+    
+    // How it works steps
+    const steps = document.querySelectorAll('.step');
+    if (steps[0]) {
+        const h3 = steps[0].querySelector('h3');
+        const p = steps[0].querySelector('p');
+        if (h3) h3.textContent = t.step1_title;
+        if (p) p.textContent = t.step1_desc;
+    }
+    if (steps[1]) {
+        const h3 = steps[1].querySelector('h3');
+        const p = steps[1].querySelector('p');
+        if (h3) h3.textContent = t.step2_title;
+        if (p) p.textContent = t.step2_desc;
+    }
+    if (steps[2]) {
+        const h3 = steps[2].querySelector('h3');
+        const p = steps[2].querySelector('p');
+        if (h3) h3.textContent = t.step3_title;
+        if (p) p.textContent = t.step3_desc;
+    }
+    if (steps[3]) {
+        const h3 = steps[3].querySelector('h3');
+        const p = steps[3].querySelector('p');
+        if (h3) h3.textContent = t.step4_title;
+        if (p) p.textContent = t.step4_desc;
+    }
 }
 
 // ========== ЗАГРУЗИТЬ СОХРАНЕННЫЙ ЯЗЫК ==========
