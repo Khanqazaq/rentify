@@ -173,7 +173,7 @@
                     </button>
                 </div>
                 <p style="text-align: center; margin-top: 0.5rem; color: #6b7280;">
-                    Нет аккаунта? <a href="#" id="show-register" style="color: var(--primary-blue); cursor:pointer;">Зарегистрироваться</a>
+                    Нет аккаунта? <a href="#" id="show-register" style="color: var(--primary-blue); text-decoration: underline; cursor:pointer; -webkit-tap-highlight-color: transparent;">Зарегистрироваться</a>
                 </p>
                 <div class="form-options">
                     <label>
@@ -338,7 +338,11 @@
 
                     function generateCode(){ return String(Math.floor(100000 + Math.random()*900000)); }
 
-                    showBtn && showBtn.addEventListener('click', (e)=>{ e.preventDefault(); openOverlay(); });
+                    // Mobile-friendly event handlers
+                    if (showBtn) {
+                        showBtn.addEventListener('click', (e)=> { e.preventDefault(); e.stopPropagation(); openOverlay(); });
+                        showBtn.addEventListener('touchstart', (e)=> { e.preventDefault(); openOverlay(); }, {passive: false});
+                    }
                     closeBtn && closeBtn.addEventListener('click', (e)=>{ e.preventDefault(); closeOverlay(); });
 
                     sendBtn && sendBtn.addEventListener('click', (e)=>{
