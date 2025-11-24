@@ -146,7 +146,7 @@
 
             
 
-            <form onsubmit="handleLogin(event)">
+            <form id="loginForm">
                 <div class="form-group">
                     <label>Номер телефона (Казахстан)</label>
                     <div style="display:flex; gap:8px; align-items:center;">
@@ -158,32 +158,28 @@
                 </div>
                 <div class="form-group">
                     <label>Пароль</label>
-                    <input type="password" required placeholder="••••••••">
+                    <input id="password" type="password" required placeholder="••••••••">
                 </div>
                 
-                <div class="divider">Или</div>
-                <div style="text-align:center; margin-bottom:12px; display:flex; flex-direction:column; gap:8px;">
-                    <button type="button" class="google-btn" onclick="handleGoogleLogin()" style="display:block;">
-                        <i class="fab fa-google"></i>
-                        Продолжить с Google
-                    </button>
-                    <button type="button" class="google-btn" id="phone-continue-btn" onclick="handlePhoneContinue()" style="display:block;">
-                        <i class="fa fa-phone"></i>
-                        Продолжить с номером
-                    </button>
-                </div>
-                <p style="text-align: center; margin-top: 0.5rem; color: #6b7280;">
-                    Нет аккаунта? <a href="#" id="show-register" style="color: var(--primary-blue); text-decoration: underline; cursor:pointer; -webkit-tap-highlight-color: transparent;">Зарегистрироваться</a>
-                </p>
-                <div class="form-options">
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">Войти</button>
+                
+                <div class="form-options" style="margin-bottom: 1rem;">
                     <label>
                         <input type="checkbox"> Запомнить меня
                     </label>
                     <a href="#" style="color: var(--primary-blue);">Забыли пароль?</a>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Войти</button>
                 
-                
+                <div class="divider">Или</div>
+                <div style="text-align:center; margin-bottom:12px; display:flex; flex-direction:column; gap:8px;">
+                    <button type="button" class="google-btn" id="googleLoginBtn">
+                        <i class="fab fa-google"></i>
+                        Продолжить с Google
+                    </button>
+                </div>
+                <p style="text-align: center; margin-top: 1rem; color: #6b7280;">
+                    Нет аккаунта? <a href="#" id="show-register" style="color: var(--primary-blue); text-decoration: underline; cursor:pointer;">Зарегистрироваться</a>
+                </p>
             </form>
         </div>
     </div>
@@ -251,167 +247,176 @@
 
     <script src="js/language.js"></script>
     <script>
-        const _T = (window.translations && window.translations[localStorage.getItem('language') || 'ru']) || window.translations['ru'];
-        // No email option — phone input shown by default
+        // Простая и рабочая логика входа и регистрации
         document.addEventListener('DOMContentLoaded', function(){
-            // show saved location if present (handled by location module)
-            // focus phone input for convenience
-            const phone = document.getElementById('phoneNumber');
-            if(phone) phone.value = phone.value; // noop placeholder
-        });
+            console.log('✅ Страница загружена');
 
-        function handleLogin(e) {
-            e.preventDefault();
+            // === ВХОД ===
+            const loginForm = document.getElementById('loginForm');
+            const googleBtn = document.getElementById('googleLoginBtn');
 
-            // phone-only login
-            const phoneLocal = (document.getElementById('phoneNumber')||{}).value || '';
-            const digits = phoneLocal.replace(/\D/g,'');
-            if (!/^\d{10}$/.test(digits)) {
-                alert(_T.login_alert_invalid_phone_example);
-                return;
-            }
-            const identifier = '+7' + digits;
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    console.log('Попытка входа...');
 
-            const passwordField = e.target.querySelector('input[type="password"]');
-            const password = passwordField ? passwordField.value : '';
-            if (!password) { alert(_T.login_alert_enter_password); return; }
+                    const phoneInput = document.getElementById('phoneNumber').value.replace(/\D/g,'');
+                    const password = document.getElementById('password').value;
 
-            // Mock authentication: accept defined demo phone numbers with password '1234'
-            const success = (identifier === '+77001234567' || identifier === '+77001234568') && password === '1234';
+                    if (!/^\d{10}$/.test(phoneInput)) {
+                        alert('Введите корректный 10-значный номер телефона');
+                        return;
+                    }
 
-            if (success) {
-                alert(_T.login_alert_login_success);
-                window.location.href = 'index.html';
-            } else {
-                alert(_T.login_alert_invalid_credentials + ' (Демо)');
-            }
-        }
+                    if (!password) {
+                        alert('Введите пароль');
+                        return;
+                    }
 
-        function handleGoogleLogin() {
-            alert(_T.login_alert_google_demo);
-            window.location.href = 'index.html';
-        }
+                    const fullPhone = '+7' + phoneInput;
+                    console.log('Проверяем:', fullPhone);
 
-        function handlePhoneContinue(){
-            // Focus phone input to encourage entering number, or open registration modal
-            const phone = document.getElementById('phoneNumber');
-            if(phone){ phone.focus(); phone.scrollIntoView({behavior:'smooth', block:'center'}); }
-            else alert(_T.login_alert_phone_field_not_found);
-        }
+                    // Проверяем в localStorage
+                    const usersRaw = localStorage.getItem('users');
+                    const users = usersRaw ? JSON.parse(usersRaw) : [];
+                    const user = users.find(u => u.id === fullPhone && u.password === password);
 
-        // Registration / SMS code simulation
-        (function(){
-            const overlay = document.getElementById('register-overlay');
-            const showBtn = document.getElementById('show-register');
-            const closeBtn = document.getElementById('close-register');
-            const sendBtn = document.getElementById('send-code-btn');
-            const codeSection = document.getElementById('code-section');
-            const regPhone = document.getElementById('regPhone');
-            const regCountry = document.getElementById('regCountryCode');
-            const regCodeInput = document.getElementById('regCode');
-            const verifyBtn = document.getElementById('verify-code-btn');
-            const regPass = document.getElementById('regPassword');
-            const resendTimer = document.getElementById('resend-timer');
+                    // Демо аккаунты
+                    const isDemo = (fullPhone === '+77001234567' || fullPhone === '+77001234568') && password === '1234';
 
-            let currentCode = null;
-            let codeExpires = 0;
-            let resendTimeout = null;
-            let resendRemaining = 0;
-
-            function openOverlay(){ 
-                overlay.style.display='block'; 
-                document.body.style.overflow = 'hidden';
-                setTimeout(() => regPhone.focus(), 100);
-            }
-            function closeOverlay(){ 
-                overlay.style.display='none'; 
-                document.body.style.overflow = '';
-                resetRegState(); 
-            }
-
-            function resetRegState(){
-                currentCode = null; codeExpires = 0; codeSection.style.display='none'; regCodeInput.value=''; regPass.value=''; clearInterval(resendTimeout); resendTimer.textContent=''; sendBtn.disabled=false; sendBtn.textContent='Отправить код';
-            }
-
-            function startResendCountdown(seconds){
-                resendRemaining = seconds;
-                sendBtn.disabled = true;
-                resendTimer.textContent = `Повторная отправка через ${resendRemaining}s`;
-                resendTimeout = setInterval(()=>{
-                    resendRemaining -= 1;
-                    if(resendRemaining <= 0){ clearInterval(resendTimeout); resendTimer.textContent = ''; sendBtn.disabled=false; sendBtn.textContent='Отправить код'; }
-                    else resendTimer.textContent = `Повторная отправка через ${resendRemaining}s`;
-                },1000);
-            }
-
-            function generateCode(){ return String(Math.floor(100000 + Math.random()*900000)); }
-
-            // Mobile-friendly event handlers
-            if (showBtn) {
-                showBtn.addEventListener('click', (e)=> { e.preventDefault(); e.stopPropagation(); openOverlay(); });
-                showBtn.addEventListener('touchstart', (e)=> { e.preventDefault(); openOverlay(); }, {passive: false});
-            }
-            
-            if (closeBtn) {
-                closeBtn.addEventListener('click', (e)=>{ e.preventDefault(); closeOverlay(); });
-            }
-            
-            // Close on background click
-            if (overlay) {
-                overlay.addEventListener('click', (e) => {
-                    if (e.target === overlay) {
-                        closeOverlay();
+                    if (user || isDemo) {
+                        alert('✅ Вход выполнен успешно!');
+                        localStorage.setItem('currentUser', fullPhone);
+                        window.location.href = 'index.html';
+                    } else {
+                        alert('❌ Неверный номер или пароль');
                     }
                 });
             }
 
-                    sendBtn && sendBtn.addEventListener('click', (e)=>{
-                        const phone = (regPhone.value||'').replace(/\D/g,'');
-                        if(!/^\d{10}$/.test(phone)){ alert(_T.reg_alert_invalid_phone_example); regPhone.focus(); return; }
-                        currentCode = generateCode();
-                        codeExpires = Date.now() + 5*60*1000; // 5 minutes
-                        codeSection.style.display='block';
-                        // For demo we show the code via alert (simulate SMS)
-                        alert(_T.reg_demo_code_msg + currentCode);
-                        // Save pending registration in sessionStorage so it survives reload (optional)
-                        sessionStorage.setItem('pending_reg', JSON.stringify({ phone: '+7'+phone, code: currentCode, expires: codeExpires }));
-                        startResendCountdown(30);
+            if (googleBtn) {
+                googleBtn.addEventListener('click', function() {
+                    alert('Google вход (ДЕМО)');
+                    window.location.href = 'index.html';
+                });
+            }
+
+            // === РЕГИСТРАЦИЯ ===
+            const showRegisterBtn = document.getElementById('show-register');
+            const registerOverlay = document.getElementById('register-overlay');
+            const closeRegisterBtn = document.getElementById('close-register');
+            const sendCodeBtn = document.getElementById('send-code-btn');
+            const verifyCodeBtn = document.getElementById('verify-code-btn');
+            const codeSection = document.getElementById('code-section');
+
+            console.log('Кнопки регистрации:', {
+                showRegisterBtn: !!showRegisterBtn,
+                registerOverlay: !!registerOverlay,
+                sendCodeBtn: !!sendCodeBtn
+            });
+
+            let currentCode = null;
+            let currentPhone = null;
+
+            // Открыть окно регистрации
+            if (showRegisterBtn && registerOverlay) {
+                showRegisterBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Открываем регистрацию');
+                    registerOverlay.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+
+            // Закрыть окно
+            if (closeRegisterBtn && registerOverlay) {
+                closeRegisterBtn.addEventListener('click', function() {
+                    registerOverlay.style.display = 'none';
+                    document.body.style.overflow = '';
+                });
+
+                registerOverlay.addEventListener('click', function(e) {
+                    if (e.target === registerOverlay) {
+                        registerOverlay.style.display = 'none';
+                        document.body.style.overflow = '';
+                    }
+                });
+            }
+
+            // Отправить код
+            if (sendCodeBtn) {
+                sendCodeBtn.addEventListener('click', function() {
+                    const phoneInput = document.getElementById('regPhone').value.replace(/\D/g,'');
+
+                    if (!/^\d{10}$/.test(phoneInput)) {
+                        alert('Введите корректный 10-значный номер');
+                        return;
+                    }
+
+                    currentPhone = '+7' + phoneInput;
+                    currentCode = String(Math.floor(100000 + Math.random() * 900000));
+
+                    alert('📱 Ваш код: ' + currentCode);
+                    console.log('Код отправлен:', currentCode);
+
+                    codeSection.style.display = 'block';
+                });
+            }
+
+            // Подтвердить код и зарегистрировать
+            if (verifyCodeBtn) {
+                verifyCodeBtn.addEventListener('click', function() {
+                    const enteredCode = document.getElementById('regCode').value.trim();
+                    const password = document.getElementById('regPassword').value.trim();
+
+                    if (!enteredCode) {
+                        alert('Введите код');
+                        return;
+                    }
+
+                    if (!password || password.length < 4) {
+                        alert('Пароль должен быть минимум 4 символа');
+                        return;
+                    }
+
+                    if (enteredCode !== currentCode) {
+                        alert('Неверный код');
+                        return;
+                    }
+
+                    // Сохраняем пользователя
+                    const usersRaw = localStorage.getItem('users');
+                    const users = usersRaw ? JSON.parse(usersRaw) : [];
+
+                    const exists = users.find(u => u.id === currentPhone);
+                    if (exists) {
+                        alert('Этот номер уже зарегистрирован');
+                        return;
+                    }
+
+                    users.push({
+                        id: currentPhone,
+                        password: password,
+                        created: Date.now()
                     });
 
-                    verifyBtn && verifyBtn.addEventListener('click', (e)=>{
-                        const entered = (regCodeInput.value||'').trim();
-                        const pass = (regPass.value||'').trim();
-                        if(!entered){ alert(_T.reg_alert_enter_code); regCodeInput.focus(); return; }
-                        if(!pass || pass.length < 4){ alert(_T.reg_alert_password_min); regPass.focus(); return; }
-                        // check sessionStorage or local variable
-                        const pendingRaw = sessionStorage.getItem('pending_reg');
-                        let pending = pendingRaw ? JSON.parse(pendingRaw) : null;
-                        if(!pending){ alert(_T.reg_alert_send_code_first); return; }
-                        if(Date.now() > pending.expires){ alert(_T.reg_alert_code_expired); return; }
-                        if(entered !== pending.code){ alert(_T.reg_alert_invalid_code); return; }
+                    localStorage.setItem('users', JSON.stringify(users));
+                    alert('✅ Регистрация успешна! Войдите с вашим номером.');
 
-                        // Create user in localStorage
-                        const usersRaw = localStorage.getItem('users');
-                        const users = usersRaw ? JSON.parse(usersRaw) : [];
-                        // Prevent duplicate
-                        const exists = users.find(u => u.id === pending.phone);
-                        if(exists){ alert(_T.reg_alert_user_exists); }
-                        else {
-                            users.push({ id: pending.phone, password: pass, created: Date.now(), type: 'phone' });
-                            localStorage.setItem('users', JSON.stringify(users));
-                            alert(_T.reg_alert_success);
-                        }
-                        sessionStorage.removeItem('pending_reg');
-                        closeOverlay();
-                    });
+                    registerOverlay.style.display = 'none';
+                    document.body.style.overflow = '';
+                    codeSection.style.display = 'none';
+                    document.getElementById('regCode').value = '';
+                    document.getElementById('regPassword').value = '';
+                    document.getElementById('regPhone').value = '';
+                });
+            }
 
-                    // Optional: if session has pending_reg, restore state
-                    const pendingRaw = sessionStorage.getItem('pending_reg');
-                    if(pendingRaw){ const p = JSON.parse(pendingRaw); if(p && p.expires > Date.now()){ currentCode = p.code; codeExpires = p.expires; /* you can auto-open overlay or show hint */ } else sessionStorage.removeItem('pending_reg'); }
-                })();
+            console.log('✅ Все обработчики установлены');
+        });
 
-                // Location prompt: ask permission or manual input, reverse-geocode via Nominatim
-                (function(){
+        // Location prompt
+        (function(){
                     const overlay = document.getElementById('location-overlay');
                     const btnAllow = document.getElementById('loc-allow');
                     const btnManual = document.getElementById('loc-manual');
@@ -453,18 +458,18 @@
                     }
 
                     btnAllow && btnAllow.addEventListener('click', ()=>{
-                        if(!navigator.geolocation){ alert(_T.geo_not_supported); return; }
+                        if(!navigator.geolocation){ alert('Геолокация не поддерживается'); return; }
                         btnAllow.disabled = true; btnAllow.textContent = 'Определяем...';
                         navigator.geolocation.getCurrentPosition(async (pos)=>{
                             const lat = pos.coords.latitude; const lon = pos.coords.longitude;
                             const info = await reverseGeocode(lat, lon);
-                            if(info){ saveLocation(info); alert(_T.geo_determined_prefix + (info.city || info.address)); }
-                            else { alert(_T.geo_failed); }
+                            if(info){ saveLocation(info); alert('Определен город: ' + (info.city || info.address)); }
+                            else { alert('Не удалось определить местоположение'); }
                             hideOverlay();
                         }, (err)=>{
                             btnAllow.disabled = false; btnAllow.textContent = 'Разрешить';
-                            if(err.code === 1) { /* permission denied */ alert(_T.geo_permission_denied); manualSection.style.display='block'; }
-                            else alert(_T.geo_failed_message_prefix + (err.message||err.code));
+                            if(err.code === 1) { /* permission denied */ alert('Доступ запрещен. Введите город вручную.'); manualSection.style.display='block'; }
+                            else alert('Ошибка: ' + (err.message||err.code));
                         }, { enableHighAccuracy: false, timeout: 10000 });
                     });
 
@@ -472,7 +477,7 @@
                     locCancel && locCancel.addEventListener('click', ()=>{ manualSection.style.display='none'; overlay.style.display='none'; });
                     locSave && locSave.addEventListener('click', ()=>{
                         const v = (locInput.value||'').trim();
-                        if(!v){ alert(_T.loc_input_required); locInput.focus(); return; }
+                        if(!v){ alert('Введите город'); locInput.focus(); return; }
                         saveLocation({ city: v, address: v });
                         hideOverlay();
                     });
