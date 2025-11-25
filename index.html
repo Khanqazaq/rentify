@@ -28,10 +28,6 @@
                 <div class="nav-menu">
                     <a href="items.html">Все вещи</a>
                     <a href="#" onclick="openAddModal(event)">Добавить вещь</a>
-                    <a href="#" onclick="openMessagesModal(event)" style="position:relative;">
-                        Сообщения
-                        <span id="message-badge" style="display:none; position:absolute; top:-8px; right:-8px; background:#ef4444; color:white; font-size:11px; font-weight:bold; padding:2px 6px; border-radius:10px; min-width:18px; height:18px; align-items:center; justify-content:center;"></span>
-                    </a>
                     <a href="login.html" class="btn-login" id="loginBtn">Войти</a>
                     <a href="profile.html" class="btn-login" id="profileBtn" style="display:none;">Профиль</a>
                     <div class="language-switcher">
@@ -66,7 +62,6 @@
                 </p>
                 <div class="hero-buttons">
                     <a href="items.html" class="btn btn-primary">Начать поиск</a>
-                    <a href="#" class="btn btn-outline" onclick="openAddModal(event)">Сдать вещь в аренду</a>
                 </div>
             </div>
             
@@ -211,7 +206,7 @@
             <div class="testimonials-grid">
                 <div class="testimonial">
                     <div class="testimonial-header">
-                        <img src="assets/images/user1.jpg" alt="User" class="testimonial-avatar">
+                        <div class="testimonial-avatar" style="background: linear-gradient(135deg, #0ea5e9, #9333ea); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">А</div>
                         <div>
                             <div class="testimonial-name">Алексей Иванов</div>
                             <div class="testimonial-role">Арендодатель</div>
@@ -222,7 +217,7 @@
                 </div>
                 <div class="testimonial">
                     <div class="testimonial-header">
-                        <img src="assets/images/user2.jpg" alt="User" class="testimonial-avatar">
+                        <div class="testimonial-avatar" style="background: linear-gradient(135deg, #ec4899, #f59e0b); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">М</div>
                         <div>
                             <div class="testimonial-name">Мария Петрова</div>
                             <div class="testimonial-role">Арендатор</div>
@@ -241,22 +236,44 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h3 class="footer-logo">Rentify.kz</h3>
-                    <p>Платформа аренды вещей. Безопасно, удобно, выгодно.</p>
                 </div>
                 <div class="footer-section">
-                    <h4>Поддержка</h4>
-                    <a href="#">Помощь</a>
+                    <h4>Продукты Rentify.kz</h4>
+                    <a href="#">Аренда техники</a>
+                    <a href="#">Аренда транспорта</a>
+                    <a href="#">Аренда инструментов</a>
+                    <a href="#">Спортивное снаряжение</a>
+                    <a href="#">Товары для дома</a>
+                    <a href="#">Одежда и аксессуары</a>
+                    <a href="#">Детские товары</a>
+                    <a href="#">Товары для праздников</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Сервисы Rentify.kz</h4>
+                    <a href="items.html">Каталог</a>
+                    <a href="#">Доставка</a>
+                    <a href="#">Страхование</a>
+                    <a href="#">Гарантия</a>
+                    <a href="#">Помощь и поддержка</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Компания</h4>
+                    <a href="#">О нас</a>
+                    <a href="#">Правила аренды</a>
                     <a href="#">Контакты</a>
-                    <a href="#">FAQ</a>
-                </div>
-                <div class="footer-section">
-                    <h4>Правовая информация</h4>
-                    <a href="privacy.html">Политика конфиденциальности</a>
-                    <a href="terms.html">Условия использования</a>
+                    <a href="#">Блог / FAQ</a>
+                    <a href="#">Партнёрство</a>
                 </div>
             </div>
+            
+            <div class="footer-social">
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            
             <div class="footer-bottom">
-                <p>&copy; 2025 Rentify. Все права защищены.</p>
+                <p>© 2025 Rentify.kz &bull; Все права защищены &bull; support@rentify.kz &bull; +7 (777) 123-45-67</p>
             </div>
         </div>
     </footer>
