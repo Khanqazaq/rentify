@@ -615,6 +615,109 @@
                 })();
     </script>
     
+    <script>
+        // Forgot Password functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const forgotLink = document.getElementById('forgot-password-link');
+            const forgotOverlay = document.getElementById('forgot-password-overlay');
+            const closeForgot = document.getElementById('close-forgot');
+            const sendResetCodeBtn = document.getElementById('send-reset-code-btn');
+            const resetCodeSection = document.getElementById('reset-code-section');
+            const resetPasswordBtn = document.getElementById('reset-password-btn');
+            
+            let resetCode = null;
+            let resetPhone = null;
+
+            // Open forgot password modal
+            forgotLink?.addEventListener('click', function(e) {
+                e.preventDefault();
+                forgotOverlay.style.display = 'block';
+            });
+
+            // Close modal
+            closeForgot?.addEventListener('click', function() {
+                forgotOverlay.style.display = 'none';
+                resetCodeSection.style.display = 'none';
+            });
+
+            forgotOverlay?.addEventListener('click', function(e) {
+                if (e.target === forgotOverlay) {
+                    forgotOverlay.style.display = 'none';
+                    resetCodeSection.style.display = 'none';
+                }
+            });
+
+            // Send reset code
+            sendResetCodeBtn?.addEventListener('click', function() {
+                const phone = document.getElementById('forgotPhone').value.trim();
+                
+                if (!phone || phone.length !== 10) {
+                    alert('Введите корректный номер телефона (10 цифр)');
+                    return;
+                }
+
+                // Check if user exists
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                const user = users.find(u => u.id === phone);
+                
+                if (!user) {
+                    alert('Пользователь с таким номером не найден');
+                    return;
+                }
+
+                // Generate code
+                resetCode = Math.floor(100000 + Math.random() * 900000).toString();
+                resetPhone = phone;
+                
+                console.log('🔑 Код сброса пароля:', resetCode);
+                alert(`Код отправлен на номер +7${phone}: ${resetCode}`);
+                
+                resetCodeSection.style.display = 'block';
+            });
+
+            // Reset password
+            resetPasswordBtn?.addEventListener('click', function() {
+                const code = document.getElementById('resetCode').value.trim();
+                const newPass = document.getElementById('newPassword').value.trim();
+
+                if (!code || code !== resetCode) {
+                    alert('Неверный код подтверждения');
+                    return;
+                }
+
+                if (!newPass || newPass.length < 6) {
+                    alert('Пароль должен быть не менее 6 символов');
+                    return;
+                }
+
+                // Update password
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                const userIndex = users.findIndex(u => u.id === resetPhone);
+                
+                if (userIndex !== -1) {
+                    users[userIndex].password = newPass;
+                    localStorage.setItem('users', JSON.stringify(users));
+                    
+                    // Show success animation
+                    const successAnimation = document.getElementById('success-animation');
+                    const successText = successAnimation.querySelector('.text');
+                    successText.textContent = 'Пароль изменён! ✅';
+                    successAnimation.style.display = 'flex';
+                    
+                    setTimeout(() => {
+                        successAnimation.style.display = 'none';
+                        successText.textContent = 'Успешно! ✅';
+                        forgotOverlay.style.display = 'none';
+                        resetCodeSection.style.display = 'none';
+                        document.getElementById('forgotPhone').value = '';
+                        document.getElementById('resetCode').value = '';
+                        document.getElementById('newPassword').value = '';
+                    }, 3000);
+                }
+            });
+        });
+    </script>
+    
     <script src="js/firebase-config.js"></script>
     <script src="js/firebase-db.js"></script>
     <script src="js/notifications.js"></script>
