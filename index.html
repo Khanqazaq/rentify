@@ -312,6 +312,48 @@
         </div>
     </div>
 
+    <!-- Item Detail Modal -->
+    <div id="itemDetailModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; overflow-y:auto;">
+        <div style="max-width:800px; margin:2rem auto; background:white; border-radius:12px; position:relative; padding:2rem;">
+            <button id="closeDetailModal" style="position:absolute; top:1rem; right:1rem; background:none; border:none; font-size:2rem; cursor:pointer; color:#999;">&times;</button>
+            <div id="itemDetailContent">
+                <!-- Content will be loaded by JS -->
+            </div>
+            <button id="contactOwnerBtn" class="btn btn-primary" style="width:100%; margin-top:1.5rem; padding:1rem; font-size:1.1rem;">
+                <i class="fas fa-comment-dots"></i> Написать владельцу
+            </button>
+        </div>
+    </div>
+
+    <!-- Chat Modal -->
+    <div id="chatModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1001;">
+        <div style="max-width:500px; margin:2rem auto; background:white; border-radius:12px; position:relative; height:600px; display:flex; flex-direction:column;">
+            <!-- Chat Header -->
+            <div style="padding:1rem; border-bottom:1px solid #e5e7eb; display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                    <h3 id="chatOwnerName" style="margin:0; font-size:1.1rem;">Чат с владельцем</h3>
+                    <p id="chatItemName" style="margin:0.25rem 0 0 0; font-size:0.85rem; color:#6b7280;"></p>
+                </div>
+                <button id="closeChatModal" style="background:none; border:none; font-size:2rem; cursor:pointer; color:#999;">&times;</button>
+            </div>
+
+            <!-- Chat Messages -->
+            <div id="chatMessages" style="flex:1; padding:1rem; overflow-y:auto; background:#f9fafb;">
+                <!-- Messages will be loaded here -->
+            </div>
+
+            <!-- Chat Input -->
+            <div style="padding:1rem; border-top:1px solid #e5e7eb; background:white;">
+                <div style="display:flex; gap:0.5rem;">
+                    <input type="text" id="chatInput" placeholder="Введите сообщение..." style="flex:1; padding:0.75rem; border:1px solid #e5e7eb; border-radius:8px;">
+                    <button id="sendMessageBtn" class="btn btn-primary" style="padding:0.75rem 1.5rem;">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="./js/main.js"></script>
     <script src="js/language.js"></script>
     <script>
@@ -467,13 +509,36 @@
 
                 const images = selectedImages.slice(0,5);
 
+                // Get current user info
+                const currentUser = JSON.parse(sessionStorage.getItem('currentUser') || '{}');
+
                 const listing = {
                     id: 'l_' + Date.now(),
-                    title, desc, category, subcategory, price: Number(price), phone: '+7' + phone.replace(/\D/g,''), address,
-                    images, created: Date.now()
+                    name: title,
+                    title, 
+                    description: desc,
+                    desc, 
+                    category, 
+                    subcategory, 
+                    price: Number(price), 
+                    ownerPhone: '+7' + phone.replace(/\D/g,''), 
+                    phone: '+7' + phone.replace(/\D/g,''),
+                    ownerName: currentUser.name || 'Аноним',
+                    city: address,
+                    address,
+                    images, 
+                    created: Date.now(),
+                    rating: 5.0,
+                    reviews: 0
                 };
 
                 try{
+                    // Save to mockItems for compatibility
+                    const mockItems = JSON.parse(localStorage.getItem('mockItems')) || [];
+                    mockItems.unshift(listing);
+                    localStorage.setItem('mockItems', JSON.stringify(mockItems));
+                    
+                    // Also save to listings
                     const raw = localStorage.getItem('listings');
                     const arr = raw ? JSON.parse(raw) : [];
                     arr.unshift(listing);
@@ -493,6 +558,208 @@
                 document.getElementById('item-phone').value = '';
                 window.location.href = 'items.html';
             });
+        })();
+
+        // === CHAT FUNCTIONALITY FOR INDEX.HTML ===
+        (function(){
+            let currentChatItem = null;
+
+            // Open item detail modal
+            window.openItemDetail = function(itemId) {
+                const items = JSON.parse(localStorage.getItem('mockItems')) || [];
+                const item = items.find(i => i.id === itemId);
+                if (!item) return;
+
+                currentChatItem = item;
+                
+                const modal = document.getElementById('itemDetailModal');
+                const content = document.getElementById('itemDetailContent');
+                
+                let imagesHtml = '';
+                if (item.images && item.images.length > 0) {
+                    imagesHtml = `
+                        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:0.5rem; margin-bottom:1.5rem;">
+                            ${item.images.map(img => `<img src="${img}" style="width:100%; height:150px; object-fit:cover; border-radius:8px;">`).join('')}
+                        </div>
+                    `;
+                } else if (item.image) {
+                    imagesHtml = `<img src="${item.image}" style="width:100%; height:300px; object-fit:cover; border-radius:8px; margin-bottom:1.5rem;">`;
+                }
+                
+                content.innerHTML = `
+                    ${imagesHtml}
+                    <h2 style="margin-bottom:1rem;">${item.name || item.title}</h2>
+                    <p style="color:#6b7280; margin-bottom:1rem;">${item.description || item.desc || 'Описание отсутствует'}</p>
+                    <div style="display:flex; gap:1rem; margin-bottom:1rem; flex-wrap:wrap;">
+                        <div style="background:#f9fafb; padding:1rem; border-radius:8px; flex:1; min-width:150px;">
+                            <div style="color:#6b7280; font-size:0.85rem;">Цена</div>
+                            <div style="font-size:1.5rem; font-weight:bold; color:#4f46e5;">${item.price}₸/день</div>
+                        </div>
+                        <div style="background:#f9fafb; padding:1rem; border-radius:8px; flex:1; min-width:150px;">
+                            <div style="color:#6b7280; font-size:0.85rem;">Владелец</div>
+                            <div style="font-size:1.1rem; font-weight:600;">${item.ownerName || 'Аноним'}</div>
+                        </div>
+                    </div>
+                `;
+                
+                modal.style.display = 'block';
+            };
+
+            // Close item detail modal
+            const closeBtn = document.getElementById('closeDetailModal');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function() {
+                    document.getElementById('itemDetailModal').style.display = 'none';
+                });
+            }
+
+            // Open chat modal
+            const contactBtn = document.getElementById('contactOwnerBtn');
+            if (contactBtn) {
+                contactBtn.addEventListener('click', function() {
+                    if (!currentChatItem) return;
+
+                    const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+                    if (!currentUser) {
+                        alert('Пожалуйста, войдите в систему чтобы написать владельцу');
+                        window.location.href = 'login.html';
+                        return;
+                    }
+
+                    // Initialize chat
+                    document.getElementById('chatOwnerName').textContent = `Чат с ${currentChatItem.ownerName || 'владельцем'}`;
+                    document.getElementById('chatItemName').textContent = currentChatItem.name || currentChatItem.title;
+                    
+                    // Load messages
+                    loadChatMessages(currentChatItem.id);
+                    
+                    // Open chat modal
+                    document.getElementById('chatModal').style.display = 'block';
+                    document.getElementById('itemDetailModal').style.display = 'none';
+                });
+            }
+
+            // Close chat modal
+            const closeChatBtn = document.getElementById('closeChatModal');
+            if (closeChatBtn) {
+                closeChatBtn.addEventListener('click', function() {
+                    document.getElementById('chatModal').style.display = 'none';
+                });
+            }
+
+            // Send message
+            function sendMessage() {
+                const input = document.getElementById('chatInput');
+                const message = input.value.trim();
+                if (!message || !currentChatItem) return;
+
+                const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+                if (!currentUser) return;
+
+                // Get all chats from localStorage
+                let chats = JSON.parse(localStorage.getItem('chats')) || {};
+                const chatKey = `${currentChatItem.id}_${currentUser.phone}`;
+                
+                if (!chats[chatKey]) {
+                    chats[chatKey] = {
+                        itemId: currentChatItem.id,
+                        itemName: currentChatItem.name || currentChatItem.title,
+                        ownerPhone: currentChatItem.ownerPhone || currentChatItem.phone,
+                        renterPhone: currentUser.phone,
+                        messages: []
+                    };
+                }
+
+                // Add message
+                chats[chatKey].messages.push({
+                    sender: currentUser.phone,
+                    senderName: currentUser.name,
+                    message: message,
+                    timestamp: new Date().toISOString()
+                });
+
+                // Save to localStorage
+                localStorage.setItem('chats', JSON.stringify(chats));
+
+                // Clear input
+                input.value = '';
+
+                // Reload messages
+                loadChatMessages(currentChatItem.id);
+            }
+
+            // Load chat messages
+            function loadChatMessages(itemId) {
+                const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+                if (!currentUser) return;
+
+                const chats = JSON.parse(localStorage.getItem('chats')) || {};
+                const chatKey = `${itemId}_${currentUser.phone}`;
+                const chat = chats[chatKey];
+
+                const messagesContainer = document.getElementById('chatMessages');
+                
+                if (!chat || !chat.messages || chat.messages.length === 0) {
+                    messagesContainer.innerHTML = `
+                        <div style="text-align:center; color:#6b7280; padding:2rem;">
+                            <i class="fas fa-comment-slash" style="font-size:3rem; margin-bottom:1rem; opacity:0.3;"></i>
+                            <p>Начните общение с владельцем</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                messagesContainer.innerHTML = chat.messages.map(msg => {
+                    const isMyMessage = msg.sender === currentUser.phone;
+                    return `
+                        <div style="margin-bottom:1rem; display:flex; justify-content:${isMyMessage ? 'flex-end' : 'flex-start'};">
+                            <div style="max-width:70%; background:${isMyMessage ? '#4f46e5' : '#fff'}; color:${isMyMessage ? '#fff' : '#111'}; padding:0.75rem 1rem; border-radius:12px; ${isMyMessage ? '' : 'border:1px solid #e5e7eb;'}">
+                                <div style="font-weight:600; font-size:0.85rem; margin-bottom:0.25rem; opacity:0.8;">${msg.senderName}</div>
+                                <div>${msg.message}</div>
+                                <div style="font-size:0.75rem; margin-top:0.25rem; opacity:0.6;">${new Date(msg.timestamp).toLocaleTimeString('ru-RU', {hour: '2-digit', minute: '2-digit'})}</div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                // Scroll to bottom
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+
+            // Send message on button click
+            const sendBtn = document.getElementById('sendMessageBtn');
+            if (sendBtn) {
+                sendBtn.addEventListener('click', sendMessage);
+            }
+
+            // Send message on Enter key
+            const chatInput = document.getElementById('chatInput');
+            if (chatInput) {
+                chatInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        sendMessage();
+                    }
+                });
+            }
+
+            // Close modals on background click
+            const itemModal = document.getElementById('itemDetailModal');
+            if (itemModal) {
+                itemModal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.style.display = 'none';
+                    }
+                });
+            }
+
+            const chatModal = document.getElementById('chatModal');
+            if (chatModal) {
+                chatModal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.style.display = 'none';
+                    }
+                });
+            }
         })();
     </script>
 </body>

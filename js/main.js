@@ -2,39 +2,67 @@
 const mockItems = [
     {
         id: 1,
+        name: 'Canon EOS R6 - Профессиональная камера',
         title: 'Canon EOS R6 - Профессиональная камера',
+        description: 'Профессиональная беззеркальная камера в отличном состоянии. Идеально подходит для фото и видеосъёмки.',
         image: 'https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=400',
+        images: ['https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=400'],
         city: 'Алматы',
         price: 15000,
         rating: 4.8,
-        reviews: 12
+        reviews: 12,
+        category: 'electronics',
+        subcategory: 'cameras',
+        ownerName: 'Айдар',
+        ownerPhone: '+77011234567'
     },
     {
         id: 2,
+        name: 'MacBook Pro 14" M2',
         title: 'MacBook Pro 14" M2',
+        description: 'Мощный ноутбук для работы и творчества. 16GB RAM, 512GB SSD. Состояние как новое.',
         image: 'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=400',
+        images: ['https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=400'],
         city: 'Алматы',
         price: 12000,
         rating: 4.9,
-        reviews: 8
+        reviews: 8,
+        category: 'electronics',
+        subcategory: 'computers',
+        ownerName: 'Анара',
+        ownerPhone: '+77027654321'
     },
     {
         id: 3,
+        name: 'Горный велосипед GT Avalanche',
         title: 'Горный велосипед GT Avalanche',
+        description: 'Отличный горный велосипед для катания по городу и трейлам. Размер рамы M.',
         image: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=400',
+        images: ['https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=400'],
         city: 'Астана',
         price: 5000,
         rating: 4.7,
-        reviews: 15
+        reviews: 15,
+        category: 'sports',
+        subcategory: 'bicycles',
+        ownerName: 'Ерлан',
+        ownerPhone: '+77051112233'
     },
     {
         id: 4,
+        name: 'Набор профессиональных инструментов',
         title: 'Набор профессиональных инструментов',
+        description: 'Полный набор электро и ручных инструментов. Дрель, шуруповерт, болгарка и многое другое.',
         image: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400',
+        images: ['https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400'],
         city: 'Алматы',
         price: 8000,
         rating: 4.6,
-        reviews: 20
+        reviews: 20,
+        category: 'tools',
+        subcategory: 'power',
+        ownerName: 'Марат',
+        ownerPhone: '+77013334455'
     }
 ];
 
@@ -44,26 +72,26 @@ function displayItems(items, containerId) {
     if (!container) return;
     
     container.innerHTML = items.map(item => `
-        <a href="item-detail.html?id=${item.id}" class="item-card">
-            <img src="${item.image}" alt="${item.title}" class="item-image" onerror="this.src='https://via.placeholder.com/400x200?text=No+Image'">
+        <div class="item-card" onclick="typeof openItemDetail === 'function' && openItemDetail(${item.id})" style="cursor:pointer;">
+            <img src="${item.images && item.images[0] ? item.images[0] : item.image || 'https://via.placeholder.com/400x200?text=No+Image'}" alt="${item.name || item.title}" class="item-image" onerror="this.src='https://via.placeholder.com/400x200?text=No+Image'">
             <div class="item-info">
-                <h3 class="item-title">${item.title}</h3>
+                <h3 class="item-title">${item.name || item.title}</h3>
                 <div class="item-location">
                     <i class="fas fa-map-marker-alt"></i>
-                    ${item.city}
+                    ${item.city || 'Не указан'}
                 </div>
                 <div class="item-footer">
                     <div class="item-rating">
                         <i class="fas fa-star" style="color: #fbbf24;"></i>
-                        <span>${item.rating}</span>
-                        <span style="color: var(--gray-600);">(${item.reviews})</span>
+                        <span>${item.rating || 4.5}</span>
+                        <span style="color: var(--gray-600);">(${item.reviews || 0})</span>
                     </div>
                     <div class="item-price">
-                        ${item.price.toLocaleString()} ₸<span style="font-size: 0.875rem; font-weight: normal; color: var(--gray-600);">/день</span>
+                        ${(item.price || 0).toLocaleString()} ₸<span style="font-size: 0.875rem; font-weight: normal; color: var(--gray-600);">/день</span>
                     </div>
                 </div>
             </div>
-        </a>
+        </div>
     `).join('');
 }
 
