@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой профиль - Rentify.kz</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .profile-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .profile-info {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: white;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .profile-details h1 {
+            margin: 0 0 0.5rem 0;
+            font-size: 2rem;
+        }
+
+        .profile-details p {
+            margin: 0.25rem 0;
+            opacity: 0.9;
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-blue);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--gray-900);
+            margin: 0.5rem 0;
+        }
+
+        .stat-label {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+        }
+
+        .section-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--gray-200);
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--gray-600);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            color: var(--primary-blue);
+            border-bottom-color: var(--primary-blue);
+        }
+
+        .tab:hover {
+            color: var(--primary-blue);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--gray-600);
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: var(--gray-300);
+            margin-bottom: 1rem;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .btn-icon {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-edit {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background: #0284c7;
+        }
+
+        .btn-delete {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #dc2626;
+        }
+
+        .btn-view {
+            background: var(--gray-200);
+            color: var(--gray-900);
+        }
+
+        .btn-view:hover {
+            background: var(--gray-300);
+        }
+
+        .logout-btn {
+            margin-top: 2rem;
+            padding: 12px 24px;
+            background: white;
+            color: var(--primary-blue);
+            border: 2px solid white;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: transparent;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .profile-info {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-details h1 {
+                font-size: 1.5rem;
+            }
+
+            .profile-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .section-tabs {
+                overflow-x: auto;
+            }
+
+            .tab {
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">Rentify.kz</a>
+            
+            <div class="nav-search">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Найти вещь...">
+            </div>
+
+            <div class="mobile-lang-switcher">
+                <button class="lang-btn" onclick="changeLanguage('kz')">🇰🇿</button>
+                <button class="lang-btn" onclick="changeLanguage('ru')">🇷🇺</button>
+            </div>
+
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="nav-menu">
+                <a href="index.html">Главная</a>
+                <a href="items.html">Объявления</a>
+                <a href="profile.html" style="color: var(--primary-blue);">Профиль</a>
+                <a href="#" class="messages-link" onclick="openMessagesModal(); return false;">
+                    Сообщения
+                    <span class="message-badge" id="messageBadge" style="display:none;">0</span>
+                </a>
+                <div class="language-switcher">
+                    <button class="lang-btn" onclick="changeLanguage('kz')">🇰🇿</button>
+                    <button class="lang-btn" onclick="changeLanguage('ru')">🇷🇺</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PROFILE CONTAINER -->
+    <div class="profile-container">
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <div class="profile-info">
+                <div class="profile-avatar" id="profileAvatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="profile-details">
+                    <h1 id="userName">Загрузка...</h1>
+                    <p><i class="fas fa-phone"></i> <span id="userPhone"></span></p>
+                    <p><i class="fas fa-calendar"></i> Зарегистрирован: <span id="userJoined"></span></p>
+                    <button class="logout-btn" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Выйти
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="profile-stats">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-box"></i></div>
+                <div class="stat-number" id="totalItems">0</div>
+                <div class="stat-label">Всего объявлений</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-heart"></i></div>
+                <div class="stat-number" id="totalFavorites">0</div>
+                <div class="stat-label">В избранном</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-comments"></i></div>
+                <div class="stat-number" id="totalChats">0</div>
+                <div class="stat-label">Активных чатов</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-star"></i></div>
+                <div class="stat-number" id="userRating">5.0</div>
+                <div class="stat-label">Рейтинг</div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="section-tabs">
+            <button class="tab active" data-tab="my-items">Мои объявления</button>
+            <button class="tab" data-tab="favorites">Избранное</button>
+            <button class="tab" data-tab="settings">Настройки</button>
+        </div>
+
+        <!-- Tab Content: My Items -->
+        <div class="tab-content active" id="my-items">
+            <div class="items-grid" id="myItemsGrid">
+                <!-- Loaded dynamically -->
+            </div>
+        </div>
+
+        <!-- Tab Content: Favorites -->
+        <div class="tab-content" id="favorites">
+            <div class="items-grid" id="favoritesGrid">
+                <!-- Loaded dynamically -->
+            </div>
+        </div>
+
+        <!-- Tab Content: Settings -->
+        <div class="tab-content" id="settings">
+            <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                <h2 style="margin-bottom: 1.5rem;">Настройки профиля</h2>
+                <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 500px;">
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Имя</label>
+                        <input type="text" id="settingsName" placeholder="Ваше имя" style="width: 100%; padding: 10px; border: 1px solid var(--gray-200); border-radius: 8px;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Email</label>
+                        <input type="email" id="settingsEmail" placeholder="email@example.com" style="width: 100%; padding: 10px; border: 1px solid var(--gray-200); border-radius: 8px;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Город</label>
+                        <input type="text" id="settingsCity" placeholder="Алматы" style="width: 100%; padding: 10px; border: 1px solid var(--gray-200); border-radius: 8px;">
+                    </div>
+                    <button class="btn btn-primary" onclick="saveSettings()" style="margin-top: 1rem;">
+                        <i class="fas fa-save"></i> Сохранить изменения
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h3 class="footer-logo">Rentify.kz</h3>
+                <p>Цифровая экосистема краткосрочной аренды — удобная платформа для безопасного обмена вещами между людьми.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Компания</h4>
+                <a href="#">О нас</a>
+                <a href="#">Блог</a>
+                <a href="#">Карьера</a>
+            </div>
+            <div class="footer-section">
+                <h4>Поддержка</h4>
+                <a href="#">Помощь</a>
+                <a href="#">Безопасность</a>
+                <a href="#">Условия</a>
+            </div>
+            <div class="footer-section">
+                <h4>Связь</h4>
+                <a href="#">Контакты</a>
+                <a href="#">Партнерам</a>
+                <a href="#">Реклама</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Rentify.kz — Все права защищены</p>
+        </div>
+    </footer>
+
+    <script src="js/language.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Profile Page Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = JSON.parse(localStorage.getItem('currentUser') || 'null');
+            
+            // Redirect if not logged in
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Load user info
+            document.getElementById('userName').textContent = user.name || 'Пользователь';
+            document.getElementById('userPhone').textContent = user.phone || '';
+            document.getElementById('userJoined').textContent = new Date().toLocaleDateString('ru-RU');
+            
+            // Set avatar
+            const avatar = document.getElementById('profileAvatar');
+            if (user.name) {
+                avatar.textContent = user.name.charAt(0).toUpperCase();
+            }
+
+            // Load stats
+            loadStats();
+
+            // Load my items
+            loadMyItems();
+
+            // Load favorites
+            loadFavorites();
+
+            // Tab switching
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active from all
+                    tabs.forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    // Add active to clicked
+                    this.classList.add('active');
+                    const tabId = this.dataset.tab;
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+
+            // Load settings
+            loadSettings();
+        });
+
+        function loadStats() {
+            const myItems = getUserItems();
+            const favorites = getFavoriteItems();
+            
+            document.getElementById('totalItems').textContent = myItems.length;
+            document.getElementById('totalFavorites').textContent = favorites.length;
+            
+            // Count active chats
+            let chatCount = 0;
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('chat_')) {
+                    const messages = JSON.parse(localStorage.getItem(key) || '[]');
+                    if (messages.length > 0) chatCount++;
+                }
+            }
+            document.getElementById('totalChats').textContent = chatCount;
+        }
+
+        function loadMyItems() {
+            const items = getUserItems();
+            const container = document.getElementById('myItemsGrid');
+            
+            if (items.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-box-open"></i>
+                        <h3>У вас пока нет объявлений</h3>
+                        <p>Создайте своё первое объявление и начните зарабатывать!</p>
+                        <button class="btn btn-primary" onclick="window.location.href='index.html'" style="margin-top: 1rem;">
+                            <i class="fas fa-plus"></i> Добавить объявление
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = items.map(item => `
+                <div class="item-card">
+                    <img src="${item.images && item.images[0] ? item.images[0] : item.image || 'https://via.placeholder.com/400x200?text=No+Image'}" 
+                         alt="${item.name || item.title}" class="item-image">
+                    <div class="item-info">
+                        <h3 class="item-title">${item.name || item.title}</h3>
+                        <div class="item-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            ${item.city || 'Не указан'}
+                        </div>
+                        <div class="item-footer">
+                            <div class="item-price">
+                                ${(item.price || 0).toLocaleString()} ₸<span style="font-size: 0.75rem;">/день</span>
+                            </div>
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn-icon btn-edit" onclick="editItem(${item.id})">
+                                <i class="fas fa-edit"></i> Изменить
+                            </button>
+                            <button class="btn-icon btn-delete" onclick="deleteItem(${item.id})">
+                                <i class="fas fa-trash"></i> Удалить
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadFavorites() {
+            const items = getFavoriteItems();
+            const container = document.getElementById('favoritesGrid');
+            
+            if (items.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-heart"></i>
+                        <h3>У вас нет избранных объявлений</h3>
+                        <p>Добавляйте понравившиеся вещи в избранное</p>
+                        <button class="btn btn-primary" onclick="window.location.href='items.html'" style="margin-top: 1rem;">
+                            Смотреть объявления
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = items.map(item => `
+                <div class="item-card" onclick="window.location.href='items.html#item-${item.id}'" style="cursor: pointer;">
+                    <img src="${item.images && item.images[0] ? item.images[0] : item.image || 'https://via.placeholder.com/400x200?text=No+Image'}" 
+                         alt="${item.name || item.title}" class="item-image">
+                    <div class="item-info">
+                        <h3 class="item-title">${item.name || item.title}</h3>
+                        <div class="item-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            ${item.city || 'Не указан'}
+                        </div>
+                        <div class="item-footer">
+                            <div class="item-rating">
+                                <i class="fas fa-star" style="color: #fbbf24;"></i>
+                                <span>${item.rating || 4.5}</span>
+                            </div>
+                            <div class="item-price">
+                                ${(item.price || 0).toLocaleString()} ₸/день
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadSettings() {
+            const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            document.getElementById('settingsName').value = user.name || '';
+            document.getElementById('settingsEmail').value = user.email || '';
+            document.getElementById('settingsCity').value = user.city || '';
+        }
+
+        function saveSettings() {
+            const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            user.name = document.getElementById('settingsName').value;
+            user.email = document.getElementById('settingsEmail').value;
+            user.city = document.getElementById('settingsCity').value;
+            
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            
+            if (typeof showNotification === 'function') {
+                showNotification('Настройки сохранены успешно', 'success');
+            }
+            
+            // Update profile header
+            document.getElementById('userName').textContent = user.name || 'Пользователь';
+            const avatar = document.getElementById('profileAvatar');
+            if (user.name) {
+                avatar.textContent = user.name.charAt(0).toUpperCase();
+            }
+        }
+
+        function logout() {
+            if (confirm('Вы уверены, что хотите выйти?')) {
+                localStorage.removeItem('currentUser');
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+</body>
+</html>

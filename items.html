@@ -260,26 +260,59 @@
 
         // Фильтровать и показать товары
         function filterAndDisplayItems() {
-            let items = JSON.parse(localStorage.getItem('mockItems')) || [];
+            // Получаем все вещи (mock + userItems)
+            let items = getAllItems();
 
+            // Фильтр по категории
             if (currentCategory) {
                 items = items.filter(item => item.category === currentCategory);
             }
+            
+            // Фильтр по подкатегории
             if (currentSubcategory) {
-                items = items.filter(item => item.subcategory === currentSubcategory);
+                const selectedSubcat = document.getElementById('subcategoryFilter')?.value;
+                if (selectedSubcat) {
+                    items = items.filter(item => item.subcategory === selectedSubcat);
+                } else {
+                    items = items.filter(item => item.subcategory === currentSubcategory);
+                }
             }
 
-            const priceFrom = document.getElementById('priceFrom').value;
-            const priceTo = document.getElementById('priceTo').value;
+            // Фильтр по цене
+            const priceFrom = document.getElementById('priceFrom')?.value;
+            const priceTo = document.getElementById('priceTo')?.value;
 
             if (priceFrom) {
-                items = items.filter(item => item.price >= Number(priceFrom));
+                items = items.filter(item => (item.price || 0) >= Number(priceFrom));
             }
             if (priceTo) {
-                items = items.filter(item => item.price <= Number(priceTo));
+                items = items.filter(item => (item.price || 0) <= Number(priceTo));
+            }
+
+            // Поиск по тексту из URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchQuery = urlParams.get('q');
+            if (searchQuery) {
+                const q = searchQuery.toLowerCase();
+                items = items.filter(item => 
+                    (item.title || item.name || '').toLowerCase().includes(q) ||
+                    (item.description || '').toLowerCase().includes(q) ||
+                    (item.city || '').toLowerCase().includes(q)
+                );
             }
 
             displayItems(items, 'allItems');
+            
+            // Показываем количество найденных
+            if (items.length === 0) {
+                document.getElementById('allItems').innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--gray-600);">
+                        <i class="fas fa-search" style="font-size: 4rem; opacity: 0.3; margin-bottom: 1rem;"></i>
+                        <h3>Ничего не найдено</h3>
+                        <p>Попробуйте изменить параметры поиска</p>
+                    </div>
+                `;
+            }
         }
 
         // Применить фильтры
@@ -294,6 +327,7 @@
             const urlParams = new URLSearchParams(window.location.search);
             const category = urlParams.get('category');
             const subcategory = urlParams.get('subcategory');
+            const searchQuery = urlParams.get('q');
 
             if (category && subcategory) {
                 // Показать товары конкретной подкатегории
@@ -301,12 +335,17 @@
             } else if (category) {
                 // Показать подкатегории категории
                 showCategoryView(category);
+            } else if (searchQuery) {
+                // Показать результаты поиска
+                document.getElementById('pageTitle').textContent = `Результаты поиска: "${searchQuery}"`;
+                document.getElementById('breadcrumbCategory').textContent = 'Поиск';
+                document.getElementById('filtersSection').style.display = 'block';
+                filterAndDisplayItems();
             } else {
                 // Показать все товары
                 document.getElementById('pageTitle').textContent = 'Все вещи';
-                document.getElementById('filtersSection').style.display = 'none';
-                const items = JSON.parse(localStorage.getItem('mockItems')) || [];
-                displayItems(items, 'allItems');
+                document.getElementById('filtersSection').style.display = 'block';
+                filterAndDisplayItems();
             }
 
             // === CHAT FUNCTIONALITY ===

@@ -72,22 +72,31 @@ function displayItems(items, containerId) {
     if (!container) return;
     
     container.innerHTML = items.map(item => `
-        <div class="item-card" onclick="typeof openItemDetail === 'function' && openItemDetail(${item.id})" style="cursor:pointer;">
-            <img src="${item.images && item.images[0] ? item.images[0] : item.image || 'https://via.placeholder.com/400x200?text=No+Image'}" alt="${item.name || item.title}" class="item-image" onerror="this.src='https://via.placeholder.com/400x200?text=No+Image'">
-            <div class="item-info">
-                <h3 class="item-title">${item.name || item.title}</h3>
-                <div class="item-location">
-                    <i class="fas fa-map-marker-alt"></i>
-                    ${item.city || 'Не указан'}
-                </div>
-                <div class="item-footer">
-                    <div class="item-rating">
-                        <i class="fas fa-star" style="color: #fbbf24;"></i>
-                        <span>${item.rating || 4.5}</span>
-                        <span style="color: var(--gray-600);">(${item.reviews || 0})</span>
+        <div class="item-card" style="position: relative;">
+            <button class="favorite-btn" data-item-id="${item.id}" onclick="event.stopPropagation(); toggleFavorite(${item.id})" 
+                    style="position: absolute; top: 10px; right: 10px; background: white; border: none; border-radius: 50%; 
+                           width: 36px; height: 36px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.15); 
+                           display: flex; align-items: center; justify-content: center; z-index: 10; transition: transform 0.2s;">
+                <i class="${isFavorite(item.id) ? 'fas' : 'far'} fa-heart" style="color: ${isFavorite(item.id) ? '#ef4444' : '#6b7280'}; font-size: 1.1rem;"></i>
+            </button>
+            <div onclick="typeof openItemDetail === 'function' && openItemDetail(${item.id})" style="cursor:pointer;">
+                <img src="${item.images && item.images[0] ? item.images[0] : item.image || 'https://via.placeholder.com/400x200?text=No+Image'}" 
+                     alt="${item.name || item.title}" class="item-image" onerror="this.src='https://via.placeholder.com/400x200?text=No+Image'">
+                <div class="item-info">
+                    <h3 class="item-title">${item.name || item.title}</h3>
+                    <div class="item-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        ${item.city || 'Не указан'}
                     </div>
-                    <div class="item-price">
-                        ${(item.price || 0).toLocaleString()} ₸<span style="font-size: 0.875rem; font-weight: normal; color: var(--gray-600);">/день</span>
+                    <div class="item-footer">
+                        <div class="item-rating">
+                            <i class="fas fa-star" style="color: #fbbf24;"></i>
+                            <span>${item.rating || 4.5}</span>
+                            <span style="color: var(--gray-600);">(${item.reviews || 0})</span>
+                        </div>
+                        <div class="item-price">
+                            ${(item.price || 0).toLocaleString()} ₸<span style="font-size: 0.875rem; font-weight: normal; color: var(--gray-600);">/день</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -95,26 +104,79 @@ function displayItems(items, containerId) {
     `).join('');
 }
 
-// ========== ПОИСК ==========
+// ========== ПОИСК И ФИЛЬТРАЦИЯ ==========
 function searchItems() {
     const searchQuery = document.getElementById('searchBox')?.value.toLowerCase() || '';
     const city = document.getElementById('cityBox')?.value.toLowerCase() || '';
     
-    let filtered = mockItems;
+    let filtered = getAllItems();
     
     if (searchQuery) {
         filtered = filtered.filter(item => 
-            item.title.toLowerCase().includes(searchQuery)
+            (item.title || item.name || '').toLowerCase().includes(searchQuery) ||
+            (item.description || '').toLowerCase().includes(searchQuery)
         );
     }
     
     if (city) {
         filtered = filtered.filter(item => 
-            item.city.toLowerCase().includes(city)
+            (item.city || '').toLowerCase().includes(city)
         );
     }
     
     window.location.href = `items.html?q=${encodeURIComponent(searchQuery)}&city=${encodeURIComponent(city)}`;
+}
+
+// Получить все вещи (mock + localStorage)
+function getAllItems() {
+    try {
+        const stored = JSON.parse(localStorage.getItem('userItems') || '[]');
+        return [...mockItems, ...stored];
+    } catch (e) {
+        return mockItems;
+    }
+}
+
+// Фильтровать по категории
+function filterByCategory(category) {
+    const items = getAllItems();
+    return category ? items.filter(item => item.category === category) : items;
+}
+
+// Фильтровать по цене
+function filterByPrice(items, minPrice, maxPrice) {
+    if (!minPrice && !maxPrice) return items;
+    return items.filter(item => {
+        const price = item.price || 0;
+        if (minPrice && price < minPrice) return false;
+        if (maxPrice && price > maxPrice) return false;
+        return true;
+    });
+}
+
+// Полнотекстовый поиск
+function searchItemsFull(query, category = '', minPrice = null, maxPrice = null) {
+    let items = getAllItems();
+    
+    // Фильтр по категории
+    if (category) {
+        items = items.filter(item => item.category === category);
+    }
+    
+    // Фильтр по цене
+    items = filterByPrice(items, minPrice, maxPrice);
+    
+    // Текстовый поиск
+    if (query) {
+        const q = query.toLowerCase();
+        items = items.filter(item => 
+            (item.title || item.name || '').toLowerCase().includes(q) ||
+            (item.description || '').toLowerCase().includes(q) ||
+            (item.city || '').toLowerCase().includes(q)
+        );
+    }
+    
+    return items;
 }
 
 // ========== МОБИЛЬНОЕ МЕНЮ ==========
@@ -127,7 +189,7 @@ function toggleMenu() {
 document.addEventListener('DOMContentLoaded', function() {
     // Показать рекомендуемые вещи на главной
     if (document.getElementById('featuredItems')) {
-        displayItems(mockItems.slice(0, 4), 'featuredItems');
+        displayItems(getAllItems().slice(0, 8), 'featuredItems');
     }
     
     // Обработка Enter в поиске
@@ -149,6 +211,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Обновить navbar для залогиненных пользователей
+    updateNavbar();
+    
     // Закрыть меню при клике вне его
     document.addEventListener('click', function(e) {
         const menu = document.querySelector('.nav-menu');
@@ -162,6 +227,202 @@ document.addEventListener('DOMContentLoaded', function() {
 // Сохранить элементы в localStorage для использования на других страницах
 if (typeof Storage !== 'undefined') {
     localStorage.setItem('mockItems', JSON.stringify(mockItems));
+}
+
+// ========== УПРАВЛЕНИЕ ПРОФИЛЕМ И ОБЪЯВЛЕНИЯМИ ==========
+
+// Обновить navbar для залогиненного пользователя
+function updateNavbar() {
+    const user = JSON.parse(localStorage.getItem('currentUser') || 'null');
+    const loginBtn = document.getElementById('loginBtn');
+    const profileBtn = document.getElementById('profileBtn');
+    
+    if (user && loginBtn && profileBtn) {
+        loginBtn.style.display = 'none';
+        profileBtn.style.display = 'inline-block';
+        profileBtn.textContent = user.name || user.phone || 'Профиль';
+    } else if (!user && loginBtn && profileBtn) {
+        loginBtn.style.display = 'inline-block';
+        profileBtn.style.display = 'none';
+    }
+}
+
+// Получить объявления текущего пользователя
+function getUserItems() {
+    const user = JSON.parse(localStorage.getItem('currentUser') || 'null');
+    if (!user) return [];
+    
+    try {
+        const allItems = JSON.parse(localStorage.getItem('userItems') || '[]');
+        return allItems.filter(item => item.ownerPhone === user.phone);
+    } catch (e) {
+        return [];
+    }
+}
+
+// Удалить объявление
+function deleteItem(itemId) {
+    if (!confirm('Вы уверены, что хотите удалить это объявление?')) return;
+    
+    try {
+        const allItems = JSON.parse(localStorage.getItem('userItems') || '[]');
+        const filtered = allItems.filter(item => item.id !== itemId);
+        localStorage.setItem('userItems', JSON.stringify(filtered));
+        
+        if (typeof showNotification === 'function') {
+            showNotification('Объявление успешно удалено', 'success');
+        }
+        
+        // Перезагрузить страницу профиля
+        if (window.location.pathname.includes('profile.html')) {
+            setTimeout(() => window.location.reload(), 500);
+        }
+    } catch (e) {
+        if (typeof showNotification === 'function') {
+            showNotification('Ошибка при удалении', 'error');
+        }
+    }
+}
+
+// Редактировать объявление
+function editItem(itemId) {
+    try {
+        const allItems = JSON.parse(localStorage.getItem('userItems') || '[]');
+        const item = allItems.find(i => i.id === itemId);
+        
+        if (!item) {
+            alert('Объявление не найдено');
+            return;
+        }
+        
+        // Открываем модальное окно добавления в режиме редактирования
+        const overlay = document.getElementById('add-overlay');
+        if (!overlay) return;
+        
+        overlay.style.display = 'flex';
+        
+        // Заполняем форму данными объявления
+        document.getElementById('add-title').value = item.title || item.name || '';
+        document.getElementById('add-description').value = item.description || '';
+        document.getElementById('add-price').value = item.price || '';
+        document.getElementById('add-city').value = item.city || '';
+        document.getElementById('add-category').value = item.category || '';
+        
+        // Меняем заголовок и кнопку
+        const modalTitle = overlay.querySelector('h2');
+        const submitBtn = overlay.querySelector('button[type="button"]');
+        
+        if (modalTitle) modalTitle.textContent = 'Редактировать объявление';
+        if (submitBtn) {
+            submitBtn.textContent = 'Сохранить изменения';
+            submitBtn.onclick = function() {
+                updateItem(itemId);
+            };
+        }
+    } catch (e) {
+        alert('Ошибка при загрузке объявления');
+    }
+}
+
+// Обновить объявление
+function updateItem(itemId) {
+    try {
+        const allItems = JSON.parse(localStorage.getItem('userItems') || '[]');
+        const itemIndex = allItems.findIndex(i => i.id === itemId);
+        
+        if (itemIndex === -1) {
+            alert('Объявление не найдено');
+            return;
+        }
+        
+        // Собираем обновленные данные
+        allItems[itemIndex] = {
+            ...allItems[itemIndex],
+            title: document.getElementById('add-title').value,
+            name: document.getElementById('add-title').value,
+            description: document.getElementById('add-description').value,
+            price: parseInt(document.getElementById('add-price').value) || 0,
+            city: document.getElementById('add-city').value,
+            category: document.getElementById('add-category').value
+        };
+        
+        localStorage.setItem('userItems', JSON.stringify(allItems));
+        
+        if (typeof showNotification === 'function') {
+            showNotification('Объявление успешно обновлено', 'success');
+        }
+        
+        // Закрываем модалку и перезагружаем
+        document.getElementById('add-overlay').style.display = 'none';
+        setTimeout(() => window.location.reload(), 500);
+        
+    } catch (e) {
+        if (typeof showNotification === 'function') {
+            showNotification('Ошибка при обновлении', 'error');
+        }
+    }
+}
+
+// Добавить в избранное
+function toggleFavorite(itemId) {
+    try {
+        const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+        const index = favorites.indexOf(itemId);
+        
+        if (index > -1) {
+            favorites.splice(index, 1);
+            if (typeof showNotification === 'function') {
+                showNotification('Удалено из избранного', 'info');
+            }
+        } else {
+            favorites.push(itemId);
+            if (typeof showNotification === 'function') {
+                showNotification('Добавлено в избранное', 'success');
+            }
+        }
+        
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+        
+        // Обновляем иконку
+        const btn = document.querySelector(`[data-item-id="${itemId}"]`);
+        if (btn) {
+            const icon = btn.querySelector('i');
+            if (icon) {
+                icon.className = (index > -1) ? 'far fa-heart' : 'fas fa-heart';
+                icon.style.color = (index > -1) ? '#6b7280' : '#ef4444';
+            }
+        }
+        
+        // Если мы на странице избранного, перезагружаем
+        if (window.location.pathname.includes('profile.html')) {
+            setTimeout(() => {
+                if (typeof loadFavorites === 'function') loadFavorites();
+            }, 300);
+        }
+    } catch (e) {
+        console.error('Favorite toggle error:', e);
+    }
+}
+
+// Получить избранное
+function getFavoriteItems() {
+    try {
+        const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+        const allItems = getAllItems();
+        return allItems.filter(item => favorites.includes(item.id));
+    } catch (e) {
+        return [];
+    }
+}
+
+// Проверить, в избранном ли
+function isFavorite(itemId) {
+    try {
+        const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+        return favorites.includes(itemId);
+    } catch (e) {
+        return false;
+    }
 }
 
 // ========== CHAT WIDGET (ROLE + ITEM BOUND, LOCAL SIMULATION) ==========
