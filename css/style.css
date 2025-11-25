@@ -292,61 +292,50 @@ body {
     font-size: 16px;
 }
 
-/* ========== CATEGORIES (Kaspi Style) ========== */
+/* ========== CATEGORIES ========== */
 .categories {
     padding: 1.5rem 0;
-    background: var(--white);
+    background: var(--gray-50);
 }
 
 .section-title {
     font-size: 1.25rem;
     font-weight: 700;
+    text-align: center;
     margin-bottom: 1rem;
-    padding: 0 20px;
 }
 
 .categories-grid {
-    display: flex;
-    overflow-x: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
     gap: 0.75rem;
-    padding: 0 20px;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-.categories-grid::-webkit-scrollbar {
-    display: none;
 }
 
 .category-card {
-    background: var(--gray-50);
-    padding: 1rem 1.25rem;
+    background: var(--white);
+    padding: 0.85rem 0.5rem;
     border-radius: 8px;
     text-align: center;
     text-decoration: none;
     color: var(--gray-900);
     transition: all 0.2s;
-    border: 1px solid var(--gray-200);
-    min-width: 110px;
-    flex-shrink: 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .category-card:hover {
-    background: #eff6ff;
-    border-color: var(--primary-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .category-icon {
-    font-size: 2rem;
-    margin-bottom: 0.4rem;
-    display: block;
+    font-size: 1.75rem;
+    margin-bottom: 0.25rem;
 }
 
 .category-name {
     font-weight: 500;
-    font-size: 0.75rem;
-    line-height: 1.2;
-    white-space: nowrap;
+    font-size: 0.7rem;
+    line-height: 1.1;
 }
 
 /* ========== ITEMS GRID ========== */
@@ -658,23 +647,21 @@ body {
         grid-template-columns: repeat(2, 1fr);
     }
     
-    /* Categories horizontal scroll works on all devices */
     .categories-grid {
-        gap: 0.6rem;
-        padding: 0 15px;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.5rem;
     }
     
     .category-card {
-        min-width: 100px;
-        padding: 0.85rem 1rem;
+        padding: 0.75rem 0.4rem;
     }
     
     .category-icon {
-        font-size: 1.75rem;
+        font-size: 1.5rem;
     }
     
     .category-name {
-        font-size: 0.7rem;
+        font-size: 0.65rem;
     }
     
     /* Compact item cards for mobile */
@@ -824,27 +811,25 @@ body {
     }
     
     .section-title {
-        font-size: 1.1rem;
-        padding: 0 15px;
+        font-size: 1rem;
     }
     
     .categories-grid {
-        gap: 0.5rem;
-        padding: 0 10px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.4rem;
     }
     
     .category-card {
-        min-width: 90px;
-        padding: 0.75rem 0.85rem;
+        padding: 0.6rem 0.3rem;
     }
     
     .category-icon {
-        font-size: 1.5rem;
-        margin-bottom: 0.3rem;
+        font-size: 1.3rem;
+        margin-bottom: 0.2rem;
     }
     
     .category-name {
-        font-size: 0.68rem;
+        font-size: 0.6rem;
     }
     
     .featured-items {
