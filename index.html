@@ -312,34 +312,6 @@
         </div>
     </div>
 
-    <!-- Chat widget (Renter <> Owner) -->
-    <div id="chatWidget" class="chat-widget" aria-hidden="false">
-        <div class="chat-toggle" id="chatToggle" title="Чат с пользователем">Чат</div>
-        <div class="chat-panel" id="chatPanel" role="dialog" aria-label="Чат аренда">
-            <div class="chat-header">
-                <div style="display:flex; flex-direction:column; gap:6px; width:100%;">
-                    <div style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
-                        <div class="chat-title">Сообщения</div>
-                        <button class="chat-close" id="chatClose" aria-label="Закрыть">✕</button>
-                    </div>
-                    <div style="display:flex; gap:8px; align-items:center;">
-                        <select id="chatRole" style="padding:6px;border-radius:6px;border:1px solid var(--gray-200);font-size:0.9rem;">
-                            <option value="renter">Я — арендатор</option>
-                            <option value="owner">Я — арендодатель</option>
-                        </select>
-                        <input id="chatItemId" placeholder="ID вещи (например 1)" style="flex:1;padding:6px;border-radius:6px;border:1px solid var(--gray-200);font-size:0.9rem;" />
-                        <button id="chatOpenConv" class="btn" style="padding:6px 8px;">Открыть</button>
-                    </div>
-                </div>
-            </div>
-            <div class="chat-messages" id="chatMessages" aria-live="polite"></div>
-            <div class="chat-input">
-                <input id="chatInput" type="text" placeholder="Напишите сообщение..." aria-label="Введите сообщение">
-                <button id="chatSend" class="btn btn-primary">Отправить</button>
-            </div>
-        </div>
-    </div>
-
     <script src="./js/main.js"></script>
     <script src="js/language.js"></script>
     <script>
