@@ -62,6 +62,10 @@
                 </p>
                 <div class="hero-buttons">
                     <a href="items.html" class="btn btn-primary">Начать поиск</a>
+                    <button class="btn btn-earn" onclick="openAddModalOrLogin(event)">
+                        <i class="fas fa-wallet"></i>
+                        Заработать на своей вещи
+                    </button>
                 </div>
             </div>
             
@@ -83,23 +87,6 @@
                     <div class="stat-number">4.8★</div>
                     <div class="stat-label">Средний рейтинг</div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Search Section -->
-    <section class="search-section">
-        <div class="container">
-            <div class="search-box">
-                <div class="search-field">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Что вы ищете?" id="searchBox">
-                </div>
-                <div class="search-field">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <input type="text" placeholder="Город" id="cityBox">
-                </div>
-                <button class="btn btn-primary" onclick="searchItems()">Найти</button>
             </div>
         </div>
     </section>
@@ -167,33 +154,65 @@
         <div class="container">
             <h2 class="section-title">Как это работает</h2>
             <div class="steps">
-                <div class="step">
-                    <div class="step-icon">
-                        <i class="fas fa-search"></i>
+                <div class="step" data-step="1">
+                    <div class="step-header">
+                        <div class="step-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="step-title-wrapper">
+                            <h3>Найдите нужную вещь</h3>
+                            <i class="fas fa-chevron-down step-arrow"></i>
+                        </div>
                     </div>
-                    <h3>Найдите нужную вещь</h3>
-                    <p>Ищите по категориям, фильтруйте по цене и местоположению</p>
+                    <p class="step-description">Ищите по категориям, фильтруйте по цене и местоположению</p>
+                    <div class="step-details">
+                        <p>Ищите по району, цене и рейтингу. Более 5000 вещей в Алматы, Астане и ещё 10+ городах.</p>
+                    </div>
                 </div>
-                <div class="step">
-                    <div class="step-icon">
-                        <i class="fas fa-credit-card"></i>
+                <div class="step" data-step="2">
+                    <div class="step-header">
+                        <div class="step-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <div class="step-title-wrapper">
+                            <h3>Забронируйте и оплатите</h3>
+                            <i class="fas fa-chevron-down step-arrow"></i>
+                        </div>
                     </div>
-                    <h3>Забронируйте и оплатите</h3>
-                    <p>Выберите даты аренды и безопасно оплатите через платформу</p>
+                    <p class="step-description">Выберите даты аренды и безопасно оплатите через платформу</p>
+                    <div class="step-details">
+                        <p>Выбирайте даты → оплачивайте картой или через Kaspi → деньги замораживаются до получения вещи.</p>
+                    </div>
                 </div>
-                <div class="step">
-                    <div class="step-icon">
-                        <i class="fas fa-shield-alt"></i>
+                <div class="step" data-step="3">
+                    <div class="step-header">
+                        <div class="step-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="step-title-wrapper">
+                            <h3>Получите вещь</h3>
+                            <i class="fas fa-chevron-down step-arrow"></i>
+                        </div>
                     </div>
-                    <h3>Получите вещь</h3>
-                    <p>Встретьтесь с владельцем и заберите вещь в назначенное время</p>
+                    <p class="step-description">Встретьтесь с владельцем и заберите вещь в назначенное время</p>
+                    <div class="step-details">
+                        <p>Встречайтесь с владельцем в удобном месте и времени. Без залога в 90% случаев.</p>
+                    </div>
                 </div>
-                <div class="step">
-                    <div class="step-icon">
-                        <i class="fas fa-star"></i>
+                <div class="step" data-step="4">
+                    <div class="step-header">
+                        <div class="step-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="step-title-wrapper">
+                            <h3>Оставьте отзыв</h3>
+                            <i class="fas fa-chevron-down step-arrow"></i>
+                        </div>
                     </div>
-                    <h3>Оставьте отзыв</h3>
-                    <p>Поделитесь своим опытом и помогите другим пользователям</p>
+                    <p class="step-description">Поделитесь своим опытом и помогите другим пользователям</p>
+                    <div class="step-details">
+                        <p>Поделитесь опытом за 10 секунд — помогите другим выбрать лучшие вещи и хозяев.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -537,6 +556,16 @@
             window.openAddModal = function(e){ if(e) e.preventDefault(); overlay.style.display='flex';
                 // prefill address from saved location if available
                 try{ const s = localStorage.getItem('user_location'); if(s){ const obj = JSON.parse(s); const addr = obj.city || obj.address || ''; if(addr) document.getElementById('item-address').value = addr; } }catch(e){}
+            };
+
+            window.openAddModalOrLogin = function(e) {
+                e.preventDefault();
+                const currentUser = sessionStorage.getItem('currentUser');
+                if (!currentUser) {
+                    window.location.href = 'login.html';
+                } else {
+                    openAddModal(e);
+                }
             };
 
             const cancel = document.getElementById('add-cancel');
@@ -997,35 +1026,36 @@
             }
         });
 
-        // Interactive Steps Animation
+        // Interactive Steps Accordion Animation
         document.addEventListener('DOMContentLoaded', function() {
             const steps = document.querySelectorAll('.step');
             
-            steps.forEach((step, index) => {
+            steps.forEach((step) => {
                 step.addEventListener('click', function() {
-                    // Remove active class from all steps
+                    const isActive = this.classList.contains('active');
+                    
+                    // Close all steps
                     steps.forEach(s => {
-                        s.classList.remove('active');
-                        s.classList.add('inactive');
+                        s.classList.remove('active', 'inactive');
                     });
                     
-                    // Add active class to clicked step
-                    this.classList.remove('inactive');
-                    this.classList.add('active');
-                    
-                    // Auto remove active state after 3 seconds
-                    setTimeout(() => {
+                    // If clicked step wasn't active, open it
+                    if (!isActive) {
+                        this.classList.add('active');
+                        
+                        // Make other steps inactive
                         steps.forEach(s => {
-                            s.classList.remove('active', 'inactive');
+                            if (s !== this) {
+                                s.classList.add('inactive');
+                            }
                         });
-                    }, 3000);
+                    }
                 });
                 
                 // Touch support for mobile
                 step.addEventListener('touchstart', function(e) {
-                    e.preventDefault();
-                    this.click();
-                }, { passive: false });
+                    // Don't prevent default to allow normal scrolling
+                }, { passive: true });
             });
         });
     </script>
