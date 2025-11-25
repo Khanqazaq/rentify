@@ -530,70 +530,107 @@ body {
 /* ========== FOOTER ========== */
 .footer {
     background: #1a1a1a;
-    color: #e5e5e5;
+    color: var(--white);
     padding: 3rem 0 1.5rem;
     margin-top: 4rem;
 }
 
 .footer-content {
     display: grid;
-    grid-template-columns: 1.2fr 2fr 1.5fr 1fr;
-    gap: 3rem;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
     margin-bottom: 2.5rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
-.footer-section h3,
-.footer-section h4 {
-    color: #ffffff;
-    margin-bottom: 1.25rem;
-    font-size: 1rem;
-    font-weight: 600;
+.footer-logo-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
 }
 
 .footer-logo {
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: 700;
-    color: #ffffff;
+    background: linear-gradient(to right, var(--primary-blue), var(--primary-purple));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
+}
+
+.footer-tagline {
+    color: #999;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.footer-links {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+}
+
+.footer-section h4 {
+    margin-bottom: 1.25rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--white);
 }
 
 .footer-section a {
     display: block;
-    color: #b0b0b0;
+    color: #999;
     text-decoration: none;
-    margin-bottom: 0.7rem;
+    margin-bottom: 0.5rem;
     transition: color 0.2s ease;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    font-weight: 500;
 }
 
 .footer-section a:hover {
-    color: #ffffff;
+    color: var(--primary-blue);
+}
+
+.footer-desc {
+    color: rgba(255,255,255,0.5);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+    margin-top: -0.25rem;
 }
 
 .footer-social {
     display: flex;
     justify-content: center;
-    gap: 2rem;
+    gap: 1.5rem;
     margin-bottom: 2rem;
 }
 
-.footer-social a {
-    color: #b0b0b0;
-    font-size: 1.8rem;
-    transition: all 0.2s ease;
+.social-link {
+    width: 40px;
+    height: 40px;
+    background: #2a2a2a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: 1.25rem;
+    transition: all 0.3s;
+    text-decoration: none;
 }
 
-.footer-social a:hover {
-    color: #ffffff;
-    transform: translateY(-2px);
+.social-link:hover {
+    background: var(--primary-blue);
+    transform: translateY(-3px);
 }
 
 .footer-bottom {
     text-align: center;
-    color: #808080;
+    padding-top: 2rem;
+    border-top: 1px solid #333;
+    color: #666;
     font-size: 0.85rem;
-    line-height: 1.6;
 }
 
 .footer-bottom p {

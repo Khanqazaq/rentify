@@ -234,46 +234,49 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-section">
-                    <h3 class="footer-logo">Rentify.kz</h3>
+                <div class="footer-logo-section">
+                    <h2 class="footer-logo">Rentify.kz</h2>
+                    <p class="footer-tagline">Платформа аренды вещей</p>
                 </div>
-                <div class="footer-section">
-                    <h4>Продукты Rentify.kz</h4>
-                    <a href="#">Аренда техники</a>
-                    <a href="#">Аренда транспорта</a>
-                    <a href="#">Аренда инструментов</a>
-                    <a href="#">Спортивное снаряжение</a>
-                    <a href="#">Товары для дома</a>
-                    <a href="#">Одежда и аксессуары</a>
-                    <a href="#">Детские товары</a>
-                    <a href="#">Товары для праздников</a>
-                </div>
-                <div class="footer-section">
-                    <h4>Сервисы Rentify.kz</h4>
-                    <a href="items.html">Каталог</a>
-                    <a href="#">Доставка</a>
-                    <a href="#">Страхование</a>
-                    <a href="#">Гарантия</a>
-                    <a href="#">Помощь и поддержка</a>
-                </div>
-                <div class="footer-section">
-                    <h4>Компания</h4>
-                    <a href="#">О нас</a>
-                    <a href="#">Правила аренды</a>
-                    <a href="#">Контакты</a>
-                    <a href="#">Блог / FAQ</a>
-                    <a href="#">Партнёрство</a>
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Продукты Rentify.kz</h4>
+                        <a href="items.html?category=electronics">Аренда техники</a>
+                        <a href="items.html?category=transport">Аренда транспорта</a>
+                        <a href="items.html?category=tools">Аренда инструментов</a>
+                        <a href="items.html?category=sport">Спортивное снаряжение</a>
+                        <a href="items.html?category=home">Товары для дома</a>
+                        <a href="items.html?category=clothing">Одежда и аксессуары</a>
+                        <a href="items.html?category=kids">Детские товары</a>
+                        <a href="items.html?category=party">Товары для праздников</a>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Сервисы Rentify.kz</h4>
+                        <a href="items.html">Каталог</a>
+                        <a href="#">Доставка</a>
+                        <a href="#">Страхование</a>
+                        <a href="#">Гарантия</a>
+                        <a href="#">Помощь и поддержка</a>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Компания</h4>
+                        <a href="#" onclick="openInfoModal('about', event)">О нас</a>
+                        <a href="#" onclick="openInfoModal('rules', event)">Правила аренды</a>
+                        <a href="#" onclick="openInfoModal('contacts', event)">Контакты</a>
+                        <a href="#" onclick="openInfoModal('faq', event)">Блог / FAQ</a>
+                        <a href="#" onclick="openInfoModal('partnership', event)">Партнёрство</a>
+                    </div>
                 </div>
             </div>
             
             <div class="footer-social">
-                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
-                <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                <a href="#" class="social-link" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
             </div>
             
             <div class="footer-bottom">
-                <p>© 2025 Rentify.kz &bull; Все права защищены &bull; support@rentify.kz &bull; +7 (777) 123-45-67</p>
+                <p>© 2025 Rentify.kz • Все права защищены • support@rentify.kz • +7 (747) 200-70-77</p>
             </div>
         </div>
     </footer>
@@ -394,6 +397,16 @@
             <!-- Chats List -->
             <div id="chatsList" style="flex:1; overflow-y:auto; padding:1rem;">
                 <!-- Chats will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Info Modal (About, Rules, Contacts, FAQ, Partnership) -->
+    <div id="infoModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:2000; overflow-y:auto;">
+        <div style="max-width:700px; margin:3rem auto; background:white; border-radius:12px; position:relative; padding:2.5rem;">
+            <button id="closeInfoModal" style="position:absolute; top:1rem; right:1rem; background:none; border:none; font-size:2rem; cursor:pointer; color:#999;">&times;</button>
+            <div id="infoModalContent">
+                <!-- Content will be loaded here -->
             </div>
         </div>
     </div>
@@ -917,6 +930,56 @@
                 });
             }
         })();
+
+        // Info Modal functionality
+        const infoContent = {
+            about: {
+                title: 'О нас',
+                text: 'Rentify — это современная экосистема для удобной и безопасной аренды вещей. Мы создаём сервис, который делает обмен ресурсами простым, честным и выгодным для каждого.'
+            },
+            rules: {
+                title: 'Правила аренды',
+                text: 'Подробные условия использования сервиса: права и обязанности сторон, стандарты безопасности и принципы честной аренды. Всё ясно, прозрачно и по делу.'
+            },
+            contacts: {
+                title: 'Контакты',
+                text: 'Наша команда всегда на связи. Если у вас возник вопрос — напишите нам, и мы обязательно поможем.<br><br>📧 Email: support@rentify.kz<br>📱 Телефон: +7 (747) 200-70-77<br>📍 Адрес: г. Алматы, ул. Абая 150'
+            },
+            faq: {
+                title: 'Блог / FAQ',
+                text: 'Полезные статьи, ответы на частые вопросы, советы по аренде и рекомендации для арендодателей и арендаторов.'
+            },
+            partnership: {
+                title: 'Партнёрство',
+                text: 'Станьте частью платформы Rentify. Мы открыты для коммерческих предложений, интеграций и долгосрочных сотрудничеств.<br><br>Напишите нам на: partnership@rentify.kz'
+            }
+        };
+
+        window.openInfoModal = function(type, event) {
+            if (event) event.preventDefault();
+            
+            const modal = document.getElementById('infoModal');
+            const content = document.getElementById('infoModalContent');
+            const info = infoContent[type];
+            
+            if (info) {
+                content.innerHTML = `
+                    <h2 style="margin-top:0; margin-bottom:1.5rem; color:#111; font-size:1.75rem;">${info.title}</h2>
+                    <p style="color:#374151; line-height:1.8; font-size:1.05rem;">${info.text}</p>
+                `;
+                modal.style.display = 'block';
+            }
+        };
+
+        document.getElementById('closeInfoModal').addEventListener('click', function() {
+            document.getElementById('infoModal').style.display = 'none';
+        });
+
+        document.getElementById('infoModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+            }
+        });
     </script>
 </body>
 </html>
