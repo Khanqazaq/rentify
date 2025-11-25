@@ -656,9 +656,10 @@
                     return;
                 }
 
-                // Check if user exists
+                // Check if user exists (номер сохраняется с +7)
                 const users = JSON.parse(localStorage.getItem('users') || '[]');
-                const user = users.find(u => u.id === phone);
+                const fullPhone = '+7' + phone;
+                const user = users.find(u => u.id === fullPhone);
                 
                 if (!user) {
                     alert('Пользователь с таким номером не найден');
@@ -667,7 +668,7 @@
 
                 // Generate code
                 resetCode = Math.floor(100000 + Math.random() * 900000).toString();
-                resetPhone = phone;
+                resetPhone = fullPhone;
                 
                 console.log('🔑 Код сброса пароля:', resetCode);
                 alert(`Код отправлен на номер +7${phone}: ${resetCode}`);
