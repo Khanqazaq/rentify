@@ -243,7 +243,7 @@
                     <label>
                         <input type="checkbox"> Запомнить меня
                     </label>
-                    <a href="#" style="color: var(--primary-blue);">Забыли пароль?</a>
+                    <a href="#" id="forgot-password-link" style="color: var(--primary-blue);">Забыли пароль?</a>
                 </div>
                 
                 <div class="divider">Или</div>
@@ -284,6 +284,39 @@
                     <button id="loc-save" style="flex:1; padding:10px; border-radius:8px; background:#4f46e5; color:#fff; border:none; cursor:pointer;">Сохранить</button>
                     <button id="loc-cancel" style="padding:10px; border-radius:8px; background:#f3f4f6; border:none; cursor:pointer;">Отмена</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div id="forgot-password-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:9999;">
+        <div style="background:#fff; width:90%; max-width:420px; border-radius:12px; padding:20px; box-shadow:0 20px 60px rgba(0,0,0,0.3); position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); max-height:90vh; overflow-y:auto;">
+            <h2 style="margin-top:0; text-align:center;">Восстановление пароля</h2>
+            <p style="text-align:center; color:#6b7280; margin-bottom:1.5rem;">Введите номер телефона для получения кода подтверждения</p>
+            
+            <div style="margin-bottom:10px;">
+                <label style="display:block; font-weight:600; margin-bottom:6px;">Номер телефона</label>
+                <div style="display:flex; gap:8px; align-items:center;">
+                    <select id="forgotCountryCode" style="padding:10px;border-radius:8px;border:1px solid #e5e7eb;background:#fff; min-width:80px;">
+                        <option value="+7">+7 (KZ)</option>
+                    </select>
+                    <input id="forgotPhone" type="tel" placeholder="7011234567" maxlength="10" style="flex:1;padding:10px;border-radius:8px;border:1px solid #e5e7eb;" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+                </div>
+            </div>
+
+            <div id="forgot-actions" style="display:flex; gap:8px; margin-bottom:8px;">
+                <button id="send-reset-code-btn" style="flex:1; padding:10px; border-radius:8px; background:#4f46e5; color:#fff; border:none; cursor:pointer;">Отправить код</button>
+                <button id="close-forgot" style="padding:10px; border-radius:8px; background:#f3f4f6; border:none; cursor:pointer;">Отмена</button>
+            </div>
+
+            <div id="reset-code-section" style="display:none;">
+                <label style="display:block; font-weight:600; margin-bottom:6px;">Код подтверждения</label>
+                <input id="resetCode" type="text" placeholder="Введите код" maxlength="6" style="width:100%; padding:10px; border-radius:8px; border:1px solid #e5e7eb; margin-bottom:8px;">
+                
+                <label style="display:block; font-weight:600; margin-bottom:6px;">Новый пароль</label>
+                <input id="newPassword" type="password" placeholder="Введите новый пароль" style="width:100%; padding:10px; border-radius:8px; border:1px solid #e5e7eb; margin-bottom:8px;">
+                
+                <button id="reset-password-btn" style="width:100%; padding:10px; border-radius:8px; background:#06b6d4; color:#fff; border:none; cursor:pointer;">Сбросить пароль</button>
             </div>
         </div>
     </div>
