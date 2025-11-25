@@ -311,7 +311,7 @@
 
             <div id="reset-code-section" style="display:none;">
                 <label style="display:block; font-weight:600; margin-bottom:6px;">Код подтверждения</label>
-                <input id="resetCode" type="text" placeholder="Введите код" maxlength="5" style="width:100%; padding:10px; border-radius:8px; border:1px solid #e5e7eb; margin-bottom:8px;">
+                <input id="resetCode" type="text" placeholder="Введите код" maxlength="6" style="width:100%; padding:10px; border-radius:8px; border:1px solid #e5e7eb; margin-bottom:8px;">
                 
                 <label style="display:block; font-weight:600; margin-bottom:6px;">Новый пароль</label>
                 <input id="newPassword" type="password" placeholder="Введите новый пароль" style="width:100%; padding:10px; border-radius:8px; border:1px solid #e5e7eb; margin-bottom:8px;">
@@ -342,7 +342,7 @@
 
                 <div id="code-section" style="display:none; margin-bottom:8px;">
                     <label style="display:block; font-weight:600; margin-bottom:6px;">Код подтверждения</label>
-                    <input id="regCode" type="text" placeholder="Введите код" maxlength="5" style="width:100%; padding:10px; border-radius:8px; border:1px solid #e5e7eb;">
+                    <input id="regCode" type="text" placeholder="Введите код" maxlength="6" style="width:100%; padding:10px; border-radius:8px; border:1px solid #e5e7eb;">
                     <small id="code-info" style="display:block; color:#6b7280; margin-top:6px;">Код отправлен. Действителен 5 минут.</small>
                     <div style="display:flex; gap:8px; margin-top:8px;">
                         <input id="regPassword" type="password" placeholder="Придумайте пароль" style="flex:1; padding:10px; border-radius:8px; border:1px solid #e5e7eb;">
@@ -470,7 +470,7 @@
                     }
 
                     currentPhone = '+7' + phoneInput;
-                    currentCode = String(Math.floor(10000 + Math.random() * 90000));
+                    currentCode = String(Math.floor(100000 + Math.random() * 900000));
 
                     alert('📱 Ваш код: ' + currentCode);
                     console.log('Код отправлен:', currentCode);
@@ -667,7 +667,7 @@
                 }
 
                 // Generate code
-                resetCode = Math.floor(10000 + Math.random() * 90000).toString();
+                resetCode = Math.floor(100000 + Math.random() * 900000).toString();
                 resetPhone = fullPhone;
                 
                 console.log('🔑 Код сброса пароля:', resetCode);
