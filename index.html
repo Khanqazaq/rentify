@@ -28,6 +28,10 @@
                 <div class="nav-menu">
                     <a href="items.html">Все вещи</a>
                     <a href="#" onclick="openAddModal(event)">Добавить вещь</a>
+                    <a href="#" onclick="openMessagesModal(event)" style="position:relative;">
+                        Сообщения
+                        <span id="message-badge" style="display:none; position:absolute; top:-8px; right:-8px; background:#ef4444; color:white; font-size:11px; font-weight:bold; padding:2px 6px; border-radius:10px; min-width:18px; height:18px; align-items:center; justify-content:center;"></span>
+                    </a>
                     <a href="login.html" class="btn-login">Войти</a>
                     <div class="language-switcher">
                         <button class="lang-btn" onclick="changeLanguage('kk')">🇰🇿</button>
@@ -236,7 +240,7 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h3 class="footer-logo">Rentify</h3>
-                    <p>Современная платформа для аренды вещей между людьми. Безопасно, удобно и выгодно.</p>
+                    <p>Цифровая экосистема для аренды вещей между пользователями. Наша миссия — сделать использование вещей разумным, а обмен — безопасным и удобным. Прозрачность, доверие и качество обслуживания — наши ключевые принципы.</p>
                 </div>
                 <div class="footer-section">
                     <h4>Поддержка</h4>
@@ -303,13 +307,13 @@
                 <input id="item-address" type="text" placeholder="Город, улица, район" style="width:100%; padding:10px; border-radius:8px; border:1px solid #e5e7eb;">
             </div>
             <div style="margin-bottom:8px;">
-                <label style="display:block; font-weight:600; margin-bottom:6px;">Фотографии (до 5 штук)</label>
+                <label style="display:block; font-weight:600; margin-bottom:6px;">Фотографии (1 до 5 штук)</label>
                 <input id="item-images" type="file" accept="image/*" multiple style="display:none;">
                 <button type="button" onclick="document.getElementById('item-images').click()" style="width:100%; padding:12px; border-radius:8px; background:#f3f4f6; border:2px dashed #d1d5db; cursor:pointer; color:#6b7280; font-weight:600; transition: all 0.2s;">
                     📷 Выбрать фото с устройства
                 </button>
                 <div id="preview-container" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap;"></div>
-                <small style="color:#6b7280; display:block; margin-top:6px;">Выберите до 5 изображений с вашего телефона или компьютера</small>
+                <small style="color:#6b7280; display:block; margin-top:6px;">Загрузите от 1 до 5 качественных фото — они помогут быстрее привлечь внимание арендаторов.</small>
             </div>
             <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:12px;">
                 <button id="add-cancel" style="padding:10px 14px; border-radius:8px; background:#f3f4f6; border:none; cursor:pointer;">Отмена</button>
@@ -360,8 +364,25 @@
         </div>
     </div>
 
+    <!-- All Messages Modal -->
+    <div id="messagesModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1001;">
+        <div style="max-width:700px; margin:2rem auto; background:white; border-radius:12px; position:relative; height:80vh; display:flex; flex-direction:column;">
+            <!-- Header -->
+            <div style="padding:1.5rem; border-bottom:1px solid #e5e7eb; display:flex; justify-content:space-between; align-items:center;">
+                <h3 style="margin:0; font-size:1.3rem;">Все сообщения</h3>
+                <button id="closeMessagesModal" style="background:none; border:none; font-size:2rem; cursor:pointer; color:#999;">&times;</button>
+            </div>
+
+            <!-- Chats List -->
+            <div id="chatsList" style="flex:1; overflow-y:auto; padding:1rem;">
+                <!-- Chats will be loaded here -->
+            </div>
+        </div>
+    </div>
+
     <script src="js/firebase-config.js"></script>
     <script src="js/firebase-db.js"></script>
+    <script src="js/notifications.js"></script>
     <script src="./js/main.js"></script>
     <script src="js/language.js"></script>
     <script>
@@ -553,7 +574,13 @@
                     localStorage.setItem('listings', JSON.stringify(arr));
                 }catch(e){ alert('Ошибка при сохранении.'); console.error(e); return; }
 
-                alert('Ваша вещь опубликована!');
+                // Show success notification
+                if (typeof showNotification === 'function') {
+                    showNotification('Ваша вещь успешно опубликована!', 'success');
+                } else {
+                    alert('Ваша вещь опубликована!');
+                }
+                
                 overlay.style.display='none';
                 selectedImages = []; 
                 previewContainer.innerHTML = '';
@@ -567,6 +594,99 @@
                 window.location.href = 'items.html';
             });
         })();
+
+        // === ALL MESSAGES MODAL ===
+        window.openMessagesModal = function(e) {
+            if (e) e.preventDefault();
+            
+            const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+            if (!currentUser) {
+                if (typeof showNotification === 'function') {
+                    showNotification('Войдите в систему для просмотра сообщений', 'warning');
+                }
+                window.location.href = 'login.html';
+                return;
+            }
+
+            loadAllChats();
+            document.getElementById('messagesModal').style.display = 'block';
+        };
+
+        function loadAllChats() {
+            const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+            const chats = JSON.parse(localStorage.getItem('chats') || '{}');
+            const readMessages = JSON.parse(localStorage.getItem('readMessages') || '{}');
+            const chatsList = document.getElementById('chatsList');
+
+            const userChats = Object.keys(chats).filter(key => {
+                const chat = chats[key];
+                return chat.renterPhone === currentUser.phone || chat.ownerPhone === currentUser.phone;
+            });
+
+            if (userChats.length === 0) {
+                chatsList.innerHTML = `
+                    <div style="text-align:center; padding:3rem; color:#6b7280;">
+                        <i class="fas fa-inbox" style="font-size:4rem; margin-bottom:1rem; opacity:0.3;"></i>
+                        <p style="font-size:1.1rem;">У вас пока нет сообщений</p>
+                    </div>
+                `;
+                return;
+            }
+
+            chatsList.innerHTML = userChats.map(chatKey => {
+                const chat = chats[chatKey];
+                const lastMessage = chat.messages && chat.messages.length > 0 
+                    ? chat.messages[chat.messages.length - 1] 
+                    : null;
+                
+                const lastReadIndex = readMessages[chatKey] || -1;
+                const unreadCount = chat.messages 
+                    ? chat.messages.filter((msg, index) => 
+                        index > lastReadIndex && msg.sender !== currentUser.phone
+                      ).length 
+                    : 0;
+
+                return `
+                    <div onclick="openChatFromList('${chatKey}')" style="padding:1rem; border-bottom:1px solid #e5e7eb; cursor:pointer; transition:background 0.2s; display:flex; justify-content:space-between; align-items:center;" onmouseenter="this.style.background='#f9fafb'" onmouseleave="this.style.background='white'">
+                        <div style="flex:1;">
+                            <div style="font-weight:600; margin-bottom:0.25rem; display:flex; align-items:center; gap:0.5rem;">
+                                ${chat.itemName}
+                                ${unreadCount > 0 ? `<span style="background:#ef4444; color:white; font-size:11px; padding:2px 6px; border-radius:10px;">${unreadCount}</span>` : ''}
+                            </div>
+                            <div style="color:#6b7280; font-size:0.9rem;">
+                                ${lastMessage ? lastMessage.message.substring(0, 50) + (lastMessage.message.length > 50 ? '...' : '') : 'Нет сообщений'}
+                            </div>
+                        </div>
+                        <div style="color:#9ca3af; font-size:0.85rem;">
+                            ${lastMessage ? new Date(lastMessage.timestamp).toLocaleTimeString('ru-RU', {hour: '2-digit', minute: '2-digit'}) : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        window.openChatFromList = function(chatKey) {
+            const chats = JSON.parse(localStorage.getItem('chats') || '{}');
+            const chat = chats[chatKey];
+            
+            if (!chat) return;
+
+            // Get item
+            const items = JSON.parse(localStorage.getItem('mockItems')) || [];
+            const item = items.find(i => i.id === chat.itemId);
+            
+            if (item && typeof openItemDetail === 'function') {
+                document.getElementById('messagesModal').style.display = 'none';
+                openItemDetail(item.id);
+                setTimeout(() => {
+                    document.getElementById('contactOwnerBtn').click();
+                }, 100);
+            }
+        };
+
+        document.getElementById('closeMessagesModal')?.addEventListener('click', function() {
+            document.getElementById('messagesModal').style.display = 'none';
+        });
 
         // === CHAT FUNCTIONALITY FOR INDEX.HTML ===
         (function(){
@@ -689,11 +809,21 @@
                 // Save to localStorage
                 localStorage.setItem('chats', JSON.stringify(chats));
 
+                // Show notification
+                if (typeof showNotification === 'function') {
+                    showNotification('Сообщение отправлено', 'success', 2000);
+                }
+
                 // Clear input
                 input.value = '';
 
                 // Reload messages
                 loadChatMessages(currentChatItem.id);
+                
+                // Update message badge
+                if (typeof updateMessageBadge === 'function') {
+                    updateMessageBadge(getUnreadMessagesCount());
+                }
             }
 
             // Load chat messages
