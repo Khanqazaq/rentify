@@ -356,34 +356,40 @@ body {
 /* Телефонда да дәл осылай 2×3 болады */
 @media (max-width: 768px) {
     .popular-categories-grid {
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 16px;
-        padding: 15px;
-        max-width: 480px;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        padding: 15px 10px;
+        max-width: 100%;
     }
     
     .categories-wrapper {
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 16px;
-        padding: 15px;
-        max-width: 480px;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        padding: 15px 10px;
+        max-width: 100%;
     }
     
     .categories-grid {
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 16px;
-        padding: 15px;
-        max-width: 480px;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        padding: 15px 10px;
+        max-width: 100%;
     }
     
     .category-card {
-        width: 155px !important;
-        height: 155px !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 140px !important;
+        padding: 15px 10px;
     }
     
     .category-card img {
-        width: 80px !important;
-        height: 80px !important;
+        width: 70px !important;
+        height: 70px !important;
+    }
+    
+    .category-card .category-name {
+        font-size: 13px !important;
     }
 }
 
