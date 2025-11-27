@@ -341,8 +341,8 @@ body {
 }
 
 .category-card img {
-    width: 80px !important;
-    height: 80px !important;
+    width: 95px !important;
+    height: 95px !important;
     object-fit: contain;
     margin-bottom: 10px;
 }
@@ -384,8 +384,8 @@ body {
     }
     
     .category-card img {
-        width: 70px !important;
-        height: 70px !important;
+        width: 85px !important;
+        height: 85px !important;
     }
     
     .category-card .category-name {
