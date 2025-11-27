@@ -354,9 +354,38 @@ body {
 }
 
 .category-icon {
-    font-size: 2.5rem;
-    margin-bottom: 0.75rem;
-    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (min-width: 640px) {
+    .category-icon {
+        width: 72px;
+        height: 72px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .category-icon {
+        width: 56px;
+        height: 56px;
+        margin-bottom: 0.75rem;
+    }
+}
+
+.category-card:hover .category-icon {
+    transform: scale(1.1) rotate(2deg);
+}
+
+.category-icon svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08));
 }
 
 .category-image {
