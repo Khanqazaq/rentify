@@ -295,6 +295,13 @@ body {
     margin: 0 auto;
 }
 
+@media (min-width: 768px) {
+    .categories-grid {
+        grid-template-columns: repeat(6, 1fr);
+        gap: 0.75rem;
+    }
+}
+
 .category-card {
     background: var(--white);
     padding: 1.25rem 0.75rem;
@@ -307,6 +314,13 @@ body {
     border: 1px solid var(--gray-100);
     position: relative;
     overflow: hidden;
+}
+
+@media (min-width: 768px) {
+    .category-card {
+        padding: 1rem 0.5rem;
+        border-radius: 10px;
+    }
 }
 
 .category-card::before {
@@ -347,12 +361,26 @@ body {
     overflow: hidden;
 }
 
+@media (min-width: 768px) {
+    .category-image {
+        margin-bottom: 0.5rem;
+    }
+}
+
 .category-image img {
     width: 100%;
     height: auto;
     object-fit: cover;
     border-radius: 8px;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (min-width: 768px) {
+    .category-image img {
+        max-height: 60px;
+        width: auto;
+        max-width: 100%;
+    }
 }
 
 .category-card:hover .category-image img {
@@ -364,6 +392,12 @@ body {
     font-size: 0.85rem;
     line-height: 1.2;
     color: var(--gray-900);
+}
+
+@media (min-width: 768px) {
+    .category-name {
+        font-size: 0.75rem;
+    }
 }
 
 /* ========== ITEMS GRID ========== */
