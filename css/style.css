@@ -320,7 +320,7 @@ body {
 
 .category-image {
     width: 100%;
-    height: 100px;
+    height: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -992,6 +992,11 @@ body {
     .category-icon {
         font-size: 1.3rem;
         margin-bottom: 0.2rem;
+    }
+    
+    .category-image {
+        height: 80px;
+        margin-bottom: 0.4rem;
     }
     
     .category-name {
