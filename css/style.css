@@ -287,123 +287,107 @@ body {
     color: #1a1a2e;
 }
 
-.categories-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    max-width: 1200px;
-    margin: 0 auto;
+/* 2 қатар × 3 категория, телефонда да, ПК-да да бірдей */
+.popular-categories-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;   /* әрқашан 3 баған */
+    grid-template-rows: auto auto;        /* 2 қатар */
+    gap: 20px;
     justify-content: center;
+    padding: 20px;
+    max-width: 560px;     /* 3×155 + gap */
+    margin: 0 auto;
+}
+
+.categories-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+    max-width: 560px;
+    margin: 0 auto;
 }
 
 .category-card {
-    width: 260px;
-    height: 150px;
-    background: var(--white);
-    padding: 1rem;
-    border-radius: 12px;
-    text-align: center;
-    text-decoration: none;
-    color: var(--gray-900);
-    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-    border: 1px solid rgba(0, 0, 0, 0.04);
-    position: relative;
-    overflow: hidden;
-    backdrop-filter: blur(10px);
+    width: 155px !important;
+    height: 155px !important;
+    background: #fff;
+    border-radius: 28px;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.10);
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-}
-
-.category-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #FF6B35, #FF8C42, #FFA552);
-    transform: scaleX(0);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
 }
 
 .category-card:hover {
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-    border-color: rgba(59, 130, 246, 0.3);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.18);
 }
 
-.category-card:hover::before {
-    transform: scaleX(1);
+.category-card img {
+    width: 80px !important;
+    height: 80px !important;
+    object-fit: contain;
+    margin-bottom: 10px;
 }
 
-.category-icon {
-    width: 64px;
-    height: 64px;
-    margin: 0 auto 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+.category-card .category-name {
+    font-size: 15px !important;
+    font-weight: 500;
+    color: #111;
 }
 
-@media (min-width: 640px) {
-    .category-icon {
-        width: 72px;
-        height: 72px;
+/* Телефонда да дәл осылай 2×3 болады */
+@media (max-width: 768px) {
+    .popular-categories-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 16px;
+        padding: 15px;
+        max-width: 480px;
+    }
+    
+    .categories-wrapper {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 16px;
+        padding: 15px;
+        max-width: 480px;
+    }
+    
+    .categories-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 16px;
+        padding: 15px;
+        max-width: 480px;
+    }
+    
+    .category-card {
+        width: 155px !important;
+        height: 155px !important;
+    }
+    
+    .category-card img {
+        width: 80px !important;
+        height: 80px !important;
     }
 }
 
-@media (min-width: 1024px) {
-    .category-icon {
-        width: 56px;
-        height: 56px;
-        margin-bottom: 0.75rem;
-    }
-}
 
-.category-card:hover .category-icon {
-    transform: scale(1.1) rotate(2deg);
-}
-
-.category-card:hover .category-image {
-    transform: scale(1.05);
-}
-
-.category-icon svg {
-    width: 100%;
-    height: 100%;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08));
-}
-
-.category-image {
-    width: 100%;
-    height: 90px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    border-radius: 12px;
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.category-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-}
-
-.category-name {
-    font-weight: 600;
-    font-size: 0.875rem;
-    line-height: 1.3;
-    color: var(--gray-900);
-    letter-spacing: -0.01em;
-    margin-top: 0.5rem;
-}
 
 /* ========== ITEMS GRID ========== */
 .featured-items {
