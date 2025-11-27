@@ -394,7 +394,7 @@ body {
 
 .category-image {
     width: 100%;
-    height: 100px;
+    height: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -405,13 +405,13 @@ body {
 
 @media (min-width: 640px) {
     .category-image {
-        height: 110px;
+        height: 80px;
     }
 }
 
 @media (min-width: 1024px) {
     .category-image {
-        height: 90px;
+        height: 60px;
     }
 }
 
