@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Электроника - Rentify</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">Rentify</a>
+                <div class="language-switcher">
+                    <button class="lang-btn active" data-lang="ru">
+                        <img src="https://flagcdn.com/w40/ru.png" alt="RU">
+                    </button>
+                    <button class="lang-btn" data-lang="kk">
+                        <img src="https://flagcdn.com/w40/kz.png" alt="KZ">
+                    </button>
+                </div>
+                <button class="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <ul class="nav-list">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="items.html">Все вещи</a></li>
+                <li><a href="#" onclick="openAddModalOrLogin(event)">Добавить вещь</a></li>
+                <li><a href="login.html">Войти</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Breadcrumbs -->
+    <div class="breadcrumbs">
+        <div class="container">
+            <a href="index.html">Главная</a> / <span>Электроника</span>
+        </div>
+    </div>
+
+    <!-- Subcategories Section -->
+    <section class="subcategories-section">
+        <div class="container">
+            <h1>Электроника</h1>
+            
+            <div class="subcategories-block">
+                <h2>Подкатегории</h2>
+                <div class="subcategories-grid">
+                    <a href="items.html?category=phones" class="subcategory-card">
+                        <div class="subcategory-name">Телефоны</div>
+                        <div class="subcategory-link">Посмотреть все →</div>
+                    </a>
+                    
+                    <a href="items.html?category=computers" class="subcategory-card">
+                        <div class="subcategory-name">Компьютеры</div>
+                        <div class="subcategory-link">Посмотреть все →</div>
+                    </a>
+                    
+                    <a href="items.html?category=cameras" class="subcategory-card">
+                        <div class="subcategory-name">Камеры</div>
+                        <div class="subcategory-link">Посмотреть все →</div>
+                    </a>
+                    
+                    <a href="items.html?category=audio" class="subcategory-card">
+                        <div class="subcategory-name">Аудио</div>
+                        <div class="subcategory-link">Посмотреть все →</div>
+                    </a>
+                    
+                    <a href="items.html?category=tv-video" class="subcategory-card">
+                        <div class="subcategory-name">ТВ и видео</div>
+                        <div class="subcategory-link">Посмотреть все →</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Rentify</h3>
+                    <p>Платформа аренды вещей</p>
+                </div>
+                <div class="footer-section">
+                    <h4>О сервисе</h4>
+                    <ul>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Как это работает</a></li>
+                        <li><a href="#">Правила</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Поддержка</h4>
+                    <ul>
+                        <li><a href="#">Помощь</a></li>
+                        <li><a href="#">Контакты</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Rentify. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/language.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
