@@ -382,6 +382,10 @@ body {
     transform: scale(1.1) rotate(2deg);
 }
 
+.category-card:hover .category-image {
+    transform: scale(1.05);
+}
+
 .category-icon svg {
     width: 100%;
     height: 100%;
@@ -394,10 +398,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1rem;
     overflow: hidden;
     border-radius: 12px;
-    background: linear-gradient(135deg, #f5f7fa 0%, #fafbfc 100%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @media (min-width: 640px) {
@@ -409,7 +412,6 @@ body {
 @media (min-width: 1024px) {
     .category-image {
         height: 90px;
-        margin-bottom: 0.875rem;
     }
 }
 
@@ -418,11 +420,6 @@ body {
     height: 100%;
     object-fit: cover;
     border-radius: 10px;
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.category-card:hover .category-image img {
-    transform: scale(1.08);
 }
 
 .category-name {
