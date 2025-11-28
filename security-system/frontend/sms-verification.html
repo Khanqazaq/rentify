@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMS Верификация - Rentify</title>
+    <link rel="stylesheet" href="styles/verification.css">
+</head>
+<body>
+    <div class="verification-container">
+        <div class="verification-card">
+            <!-- Шаг 1: Ввод номера телефона -->
+            <div id="step-phone" class="verification-step active">
+                <div class="step-header">
+                    <div class="step-icon">📱</div>
+                    <h2>Подтверждение номера</h2>
+                    <p>Введите ваш номер телефона для получения кода</p>
+                </div>
+
+                <form id="phone-form">
+                    <div class="form-group">
+                        <label for="phone">Номер телефона</label>
+                        <div class="phone-input-wrapper">
+                            <span class="phone-prefix">+7</span>
+                            <input 
+                                type="tel" 
+                                id="phone" 
+                                name="phone"
+                                placeholder="7001234567" 
+                                maxlength="10"
+                                pattern="[0-9]{10}"
+                                required
+                            >
+                        </div>
+                        <small class="help-text">Формат: 7001234567 (10 цифр)</small>
+                    </div>
+
+                    <button type="submit" class="btn-primary" id="send-code-btn">
+                        <span class="btn-text">Отправить код</span>
+                        <span class="btn-loader" style="display:none;">
+                            <span class="spinner"></span> Отправка...
+                        </span>
+                    </button>
+                </form>
+
+                <div class="security-notice">
+                    <i class="icon-shield">🔒</i>
+                    <span>Ваш номер защищен и не будет передан третьим лицам</span>
+                </div>
+            </div>
+
+            <!-- Шаг 2: Ввод кода -->
+            <div id="step-code" class="verification-step">
+                <div class="step-header">
+                    <div class="step-icon">🔑</div>
+                    <h2>Введите код</h2>
+                    <p>Код отправлен на номер <span id="phone-display"></span></p>
+                </div>
+
+                <form id="code-form">
+                    <div class="code-input-group">
+                        <input type="text" maxlength="1" class="code-digit" data-index="0">
+                        <input type="text" maxlength="1" class="code-digit" data-index="1">
+                        <input type="text" maxlength="1" class="code-digit" data-index="2">
+                        <input type="text" maxlength="1" class="code-digit" data-index="3">
+                        <input type="text" maxlength="1" class="code-digit" data-index="4">
+                        <input type="text" maxlength="1" class="code-digit" data-index="5">
+                    </div>
+
+                    <div class="code-info">
+                        <div id="attempts-left">Осталось попыток: 3</div>
+                        <div id="timer">Код истекает через: <span id="countdown">5:00</span></div>
+                    </div>
+
+                    <button type="submit" class="btn-primary" id="verify-code-btn">
+                        <span class="btn-text">Подтвердить</span>
+                        <span class="btn-loader" style="display:none;">
+                            <span class="spinner"></span> Проверка...
+                        </span>
+                    </button>
+
+                    <button type="button" class="btn-link" id="resend-btn" disabled>
+                        Отправить код повторно (<span id="resend-timer">60</span>с)
+                    </button>
+
+                    <button type="button" class="btn-text" id="change-phone-btn">
+                        Изменить номер телефона
+                    </button>
+                </form>
+            </div>
+
+            <!-- Шаг 3: Успешная верификация -->
+            <div id="step-success" class="verification-step">
+                <div class="success-animation">
+                    <div class="checkmark-circle">
+                        <div class="checkmark">✓</div>
+                    </div>
+                </div>
+
+                <div class="step-header">
+                    <h2>Телефон подтвержден!</h2>
+                    <p>Ваш номер успешно верифицирован</p>
+                </div>
+
+                <div class="badge-earned">
+                    <div class="badge">
+                        <span class="badge-icon">✅</span>
+                        <span class="badge-text">Телефон подтвержден</span>
+                    </div>
+                </div>
+
+                <button class="btn-primary" onclick="closeVerificationModal()">
+                    Продолжить
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/sms-verification.js"></script>
+</body>
+</html>

@@ -179,6 +179,16 @@ translations.ru.cat_bicycles = 'Велосипеды';
 translations.kk.cat_bicycles = 'Велосипедтер';
 translations.ru.cat_furniture = 'Мебель';
 translations.kk.cat_furniture = 'Жиһаз';
+translations.ru.cat_music = 'Музыкальные инструменты';
+translations.kk.cat_music = 'Музыкалық аспаптар';
+translations.ru.cat_camping = 'Туризм и кемпинг';
+translations.kk.cat_camping = 'Туризм және кемпинг';
+translations.ru.cat_kids = 'Детские товары';
+translations.kk.cat_kids = 'Балалар тауарлары';
+translations.ru.cat_events = 'Для мероприятий';
+translations.kk.cat_events = 'Іс-шаралар үшін';
+translations.ru.cat_books = 'Книги';
+translations.kk.cat_books = 'Кітаптар';
 
 // Stats
 translations.ru.stat_items = 'Активных вещей';
@@ -310,7 +320,7 @@ function changeLanguage(lang) {
     const categoryNames = document.querySelectorAll('.category-name');
     categoryNames.forEach(cat => {
         const text = cat.textContent.trim();
-        if (text === 'Электроника') cat.textContent = t.cat_electronics;
+        if (text === 'Электроника' || text === 'Электроника и игры' || text === 'Электроника және ойындар') cat.textContent = t.cat_electronics;
         else if (text === 'Одежда' || text === 'Киім') cat.textContent = t.cat_clothing;
         else if (text === 'Спорт') cat.textContent = t.cat_sports;
         else if (text === 'Авто' || text === 'Көлік') cat.textContent = t.cat_auto;
@@ -318,6 +328,11 @@ function changeLanguage(lang) {
         else if (text === 'Камеры' || text === 'Камералар') cat.textContent = t.cat_cameras;
         else if (text === 'Велосипеды' || text === 'Велосипедтер') cat.textContent = t.cat_bicycles;
         else if (text === 'Мебель' || text === 'Жиһаз') cat.textContent = t.cat_furniture;
+        else if (text === 'Музыкальные инструменты' || text === 'Музыкалық аспаптар') cat.textContent = t.cat_music;
+        else if (text === 'Туризм и кемпинг' || text === 'Туризм және кемпинг') cat.textContent = t.cat_camping;
+        else if (text === 'Детские товары' || text === 'Балалар тауарлары') cat.textContent = t.cat_kids;
+        else if (text === 'Для мероприятий' || text === 'Іс-шаралар үшін') cat.textContent = t.cat_events;
+        else if (text === 'Книги' || text === 'Кітаптар') cat.textContent = t.cat_books;
     });
     
     // Stats

@@ -347,6 +347,13 @@ body {
     margin-bottom: 10px;
 }
 
+/* Увеличенные изображения для туризма и детских товаров */
+a[href*="camping"] img,
+a[href*="kids"] img {
+    width: 115px !important;
+    height: 115px !important;
+}
+
 .category-card .category-name {
     font-size: 15px !important;
     font-weight: 500;

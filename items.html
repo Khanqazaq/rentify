@@ -32,7 +32,9 @@
     <div class="container" style="padding: 2rem 0;">
         <!-- Breadcrumbs -->
         <div id="breadcrumbs" style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 8px; color: #6b7280; font-size: 0.9rem;">
-            <a href="index.html" style="color: #4f46e5; text-decoration: none;">Главная</a>
+            <a href="index.html" style="color: #4f46e5; text-decoration: none; display: flex; align-items: center; gap: 4px;">
+                <i class="fas fa-arrow-left"></i> Назад на главную
+            </a>
             <span>/</span>
             <span id="breadcrumbCategory">Все категории</span>
         </div>
@@ -142,7 +144,12 @@
             sports: { label: 'Спорт', icon: '⚽' },
             auto: { label: 'Авто', icon: '🚗' },
             tools: { label: 'Инструменты', icon: '🔧' },
-            furniture: { label: 'Мебель', icon: '🛋️' }
+            furniture: { label: 'Мебель', icon: '🛋️' },
+            music: { label: 'Музыкальные инструменты', icon: '🎸' },
+            camping: { label: 'Туризм и кемпинг', icon: '⛺' },
+            kids: { label: 'Детские товары', icon: '👶' },
+            events: { label: 'Для мероприятий', icon: '🎉' },
+            books: { label: 'Книги', icon: '📚' }
         };
 
         const subcategories = {
@@ -151,7 +158,8 @@
                 { value: 'computers', label: 'Компьютеры' },
                 { value: 'cameras', label: 'Камеры' },
                 { value: 'audio', label: 'Аудио' },
-                { value: 'tv', label: 'ТВ и видео' }
+                { value: 'tv', label: 'ТВ и видео' },
+                { value: 'games', label: 'Игры и консоли' }
             ],
             clothing: [
                 { value: 'men', label: 'Мужская' },
@@ -161,6 +169,7 @@
             ],
             sports: [
                 { value: 'fitness', label: 'Фитнес' },
+                { value: 'fitness-equipment', label: 'Фитнес оборудование' },
                 { value: 'bicycles', label: 'Велосипеды' },
                 { value: 'winter', label: 'Зимний спорт' },
                 { value: 'water', label: 'Водный спорт' },
@@ -183,6 +192,42 @@
                 { value: 'bedroom', label: 'Спальня' },
                 { value: 'office', label: 'Офисная' },
                 { value: 'outdoor', label: 'Уличная' }
+            ],
+            music: [
+                { value: 'string', label: 'Струнные' },
+                { value: 'keyboard', label: 'Клавишные' },
+                { value: 'percussion', label: 'Ударные' },
+                { value: 'wind', label: 'Духовые' },
+                { value: 'dj', label: 'DJ-оборудование' },
+                { value: 'studio', label: 'Студийное оборудование' }
+            ],
+            camping: [
+                { value: 'tents', label: 'Палатки' },
+                { value: 'sleeping', label: 'Спальники и коврики' },
+                { value: 'backpacks', label: 'Рюкзаки' },
+                { value: 'cooking', label: 'Походная посуда' },
+                { value: 'equipment', label: 'Туристическое снаряжение' }
+            ],
+            kids: [
+                { value: 'strollers', label: 'Коляски' },
+                { value: 'carseats', label: 'Автокресла' },
+                { value: 'toys', label: 'Игрушки' },
+                { value: 'furniture', label: 'Детская мебель' },
+                { value: 'clothes', label: 'Детская одежда' }
+            ],
+            events: [
+                { value: 'decorations', label: 'Декорации' },
+                { value: 'sound', label: 'Звуковое оборудование' },
+                { value: 'lighting', label: 'Световое оборудование' },
+                { value: 'costumes', label: 'Костюмы' },
+                { value: 'photo', label: 'Фотозоны' }
+            ],
+            books: [
+                { value: 'fiction', label: 'Художественная литература' },
+                { value: 'education', label: 'Образовательная литература' },
+                { value: 'business', label: 'Бизнес и саморазвитие' },
+                { value: 'children', label: 'Детская литература' },
+                { value: 'rare', label: 'Редкие издания' }
             ]
         };
 

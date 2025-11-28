@@ -93,7 +93,7 @@
         <div class="container">
             <h2 class="section-title">Популярные категории</h2>
             <div class="popular-categories-grid">
-                <a href="electronics.html" class="category-card">
+                <a href="items.html?category=electronics" class="category-card">
                     <img src="https://i.ibb.co/v4TPJcn4/Computer.png" alt="Электроника">
                     <div class="category-name">Электроника</div>
                 </a>
@@ -116,6 +116,26 @@
                 <a href="items.html?category=furniture" class="category-card">
                     <img src="./images/мебель-removebg-preview (1).png" alt="Мебель">
                     <div class="category-name">Мебель</div>
+                </a>
+                <a href="items.html?category=music" class="category-card">
+                    <img src="./images/Музыкальный инструмент.png" alt="Музыкальные инструменты">
+                    <div class="category-name">Музыкальные инструменты</div>
+                </a>
+                <a href="items.html?category=camping" class="category-card">
+                    <img src="./images/туризм и кемпинг.jpg" alt="Туризм и кемпинг">
+                    <div class="category-name">Туризм и кемпинг</div>
+                </a>
+                <a href="items.html?category=kids" class="category-card">
+                    <img src="./images/детских-товар.jpg" alt="Детские товары">
+                    <div class="category-name">Детские товары</div>
+                </a>
+                <a href="items.html?category=events" class="category-card">
+                    <img src="./images/для мероприятий.webp" alt="Для мероприятий">
+                    <div class="category-name">Для мероприятий</div>
+                </a>
+                <a href="items.html?category=books" class="category-card">
+                    <img src="./images/книги.jpg" alt="Книги">
+                    <div class="category-name">Книги</div>
                 </a>
             </div>
         </div>
@@ -308,6 +328,11 @@
                         <option value="auto">Авто</option>
                         <option value="tools">Инструменты</option>
                         <option value="furniture">Мебель</option>
+                        <option value="music">Музыкальные инструменты</option>
+                        <option value="camping">Туризм и кемпинг</option>
+                        <option value="kids">Детские товары</option>
+                        <option value="events">Для мероприятий</option>
+                        <option value="books">Книги</option>
                     </select>
                 </div>
                 <div style="flex:1;">
@@ -462,6 +487,42 @@
                     { value: 'bedroom', label: 'Спальня' },
                     { value: 'office', label: 'Офисная' },
                     { value: 'outdoor', label: 'Уличная' }
+                ],
+                music: [
+                    { value: 'string', label: 'Струнные' },
+                    { value: 'keyboard', label: 'Клавишные' },
+                    { value: 'percussion', label: 'Ударные' },
+                    { value: 'wind', label: 'Духовые' },
+                    { value: 'dj', label: 'DJ-оборудование' },
+                    { value: 'studio', label: 'Студийное оборудование' }
+                ],
+                camping: [
+                    { value: 'tents', label: 'Палатки' },
+                    { value: 'sleeping', label: 'Спальники и коврики' },
+                    { value: 'backpacks', label: 'Рюкзаки' },
+                    { value: 'cooking', label: 'Походная посуда' },
+                    { value: 'equipment', label: 'Туристическое снаряжение' }
+                ],
+                kids: [
+                    { value: 'strollers', label: 'Коляски' },
+                    { value: 'carseats', label: 'Автокресла' },
+                    { value: 'toys', label: 'Игрушки' },
+                    { value: 'furniture', label: 'Детская мебель' },
+                    { value: 'clothes', label: 'Детская одежда' }
+                ],
+                events: [
+                    { value: 'decorations', label: 'Декорации' },
+                    { value: 'sound', label: 'Звуковое оборудование' },
+                    { value: 'lighting', label: 'Световое оборудование' },
+                    { value: 'costumes', label: 'Костюмы' },
+                    { value: 'photo', label: 'Фотозоны' }
+                ],
+                books: [
+                    { value: 'fiction', label: 'Художественная литература' },
+                    { value: 'education', label: 'Образовательная литература' },
+                    { value: 'business', label: 'Бизнес и саморазвитие' },
+                    { value: 'children', label: 'Детская литература' },
+                    { value: 'rare', label: 'Редкие издания' }
                 ]
             };
 
