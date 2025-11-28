@@ -3,15 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rentify - Аренда вещей между людьми</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>Rentify.kz - Аренда вещей между людьми в Казахстане | От 1000₸/день</title>
+    <meta name="description" content="Rentify.kz — платформа аренды вещей между людьми в Казахстане. Камеры, ноутбуки, велосипеды, инструменты от 1000₸/день. Безопасные сделки в Алматы, Астане, Шымкенте.">
+    <meta name="keywords" content="аренда вещей казахстан, прокат техники алматы, аренда камеры, аренда ноутбука, шеринг экономика">
+    <meta name="author" content="Rentify Team">
+    <link rel="canonical" href="https://rentify.kz/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rentify.kz/">
+    <meta property="og:title" content="Rentify — аренда вещей между людьми в Казахстане">
+    <meta property="og:description" content="Камеры, ноутбуки, велосипеды, инструменты от 1000₸/день. Безопасные сделки с проверкой.">
+    <meta property="og:image" content="https://rentify.kz/images/og-preview.jpg">
+    <meta property="og:site_name" content="Rentify.kz">
+    <meta property="og:locale" content="ru_RU">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Rentify — аренда вещей между людьми">
+    <meta name="twitter:description" content="Камеры, ноутбуки, велосипеды от 1000₸/день в Казахстане">
+    <meta name="twitter:image" content="https://rentify.kz/images/twitter-preview.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Preconnect для ускорения -->
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link rel="dns-prefetch" href="https://firebaseio.com">
+    
+    <!-- Preload критических ресурсов -->
+    <link rel="preload" href="css/style.css" as="style">
+    
+    <!-- Styles -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' https: data: blob:; font-src 'self' https://cdnjs.cloudflare.com; connect-src 'self' https://*.firebaseio.com https://*.googleapis.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+    
+    <!-- Firebase SDK с defer -->
+    <script defer src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
+    
+    <!-- Schema.org Organization -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Rentify.kz",
+        "url": "https://rentify.kz",
+        "logo": "https://rentify.kz/images/logo.png",
+        "description": "Платформа аренды вещей между людьми в Казахстане",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Алматы",
+            "addressCountry": "KZ"
+        },
+        "sameAs": [
+            "https://www.instagram.com/rentify.kz",
+            "https://t.me/rentify_kz"
+        ],
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+7-700-123-45-67",
+            "contactType": "Customer Service",
+            "areaServed": "KZ",
+            "availableLanguage": ["Russian", "Kazakh"]
+        }
+    }
+    </script>
 </head>
 <body>
     <!-- Navbar -->
@@ -27,22 +96,22 @@
                 
                 <div class="nav-menu">
                     <a href="items.html">Все вещи</a>
-                    <a href="#" onclick="openAddModal(event)">Добавить вещь</a>
+                    <a href="#" data-action="add-item">Добавить вещь</a>
                     <a href="login.html" class="btn-login" id="loginBtn">Войти</a>
                     <a href="profile.html" class="btn-login" id="profileBtn" style="display:none;">Профиль</a>
                     <div class="language-switcher">
-                        <button class="lang-btn" onclick="changeLanguage('kk')">🇰🇿</button>
-                        <button class="lang-btn" onclick="changeLanguage('ru')">🇷🇺</button>
+                        <button class="lang-btn" data-lang="kk">🇰🇿</button>
+                        <button class="lang-btn" data-lang="ru">🇷🇺</button>
                     </div>
                 </div>
                 
                 <!-- Mobile language switcher (always visible) -->
                 <div class="mobile-lang-switcher">
-                    <button class="lang-btn" onclick="changeLanguage('kk')" title="Қазақша">🇰🇿</button>
-                    <button class="lang-btn" onclick="changeLanguage('ru')" title="Русский">🇷🇺</button>
+                    <button class="lang-btn" data-lang="kk" title="Қазақша">🇰🇿</button>
+                    <button class="lang-btn" data-lang="ru" title="Русский">🇷🇺</button>
                 </div>
                 
-                <button class="menu-toggle" onclick="toggleMenu()">
+                <button class="menu-toggle">
                     <i class="fas fa-bars"></i>
                 </button>
             </div>
@@ -62,7 +131,7 @@
                 </p>
                 <div class="hero-buttons">
                     <a href="items.html" class="btn btn-primary">Начать поиск</a>
-                    <button class="btn btn-earn" onclick="openAddModalOrLogin(event)" id="earn-btn-2025">💰 Заработать на своей вещи</button>
+                    <button class="btn btn-earn" data-action="add-item" id="earn-btn-2025">💰 Заработать на своей вещи</button>
                 </div>
             </div>
             
@@ -440,11 +509,13 @@
         </div>
     </div>
 
+    <script src="js/sanitizer.js"></script>
     <script src="js/firebase-config.js"></script>
     <script src="js/firebase-db.js"></script>
     <script src="js/notifications.js"></script>
     <script src="./js/main.js"></script>
     <script src="js/language.js"></script>
+    <script src="js/event-handlers.js"></script>
     <script>
         // Add listing modal logic with image upload (up to 5 images)
         (function(){

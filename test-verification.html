@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест Верификации - Rentify</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+
+        p {
+            color: #6b7280;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .step {
+            background: #f9fafb;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        .step h3 {
+            color: #111;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 15px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: #10b981;
+        }
+
+        .status {
+            background: #fef3c7;
+            border: 2px solid #fbbf24;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .status.show {
+            display: block;
+        }
+
+        .status.success {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+
+        .code {
+            background: #1f2937;
+            color: #10b981;
+            padding: 10px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+
+        .info {
+            background: #dbeafe;
+            border-left: 4px solid #0ea5e9;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .info strong {
+            color: #0ea5e9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Тест Системы Верификации</h1>
+        <p>Автоматический тест для проверки работы системы безопасности Rentify</p>
+
+        <div class="step">
+            <h3>
+                <span class="step-number">1</span>
+                Создать тестового пользователя
+            </h3>
+            <button class="btn" onclick="createTestUser()">
+                👤 Создать и войти как "Тест Пользователь"
+            </button>
+        </div>
+
+        <div class="step">
+            <h3>
+                <span class="step-number">2</span>
+                Открыть профиль
+            </h3>
+            <button class="btn btn-secondary" onclick="openProfile()">
+                📱 Открыть мой профиль
+            </button>
+        </div>
+
+        <div class="info">
+            <strong>💡 Что вы увидите в профиле:</strong><br><br>
+            • <strong>Trust Score:</strong> Индикатор 0-100 баллов с прогресс-баром<br>
+            • <strong>Бейджи верификации:</strong> Статусы телефона, liveness, ID<br>
+            • <strong>Вкладка "Верификация":</strong> 3 модуля для прохождения<br>
+            • <strong>Красивые карточки:</strong> С градиентами и иконками<br>
+            • <strong>Кнопки:</strong> Нажимайте для прохождения верификации
+        </div>
+
+        <div class="step">
+            <h3>
+                <span class="step-number">3</span>
+                Ручная проверка в Console
+            </h3>
+            <p style="font-size: 0.9rem; color: #6b7280; margin-bottom: 10px;">
+                Откройте DevTools (F12) → Console → введите команды:
+            </p>
+            <div class="code">
+// Проверить текущего пользователя
+sessionStorage.getItem('currentUser')
+
+// Или полный объект
+JSON.parse(sessionStorage.getItem('currentUser'))
+            </div>
+        </div>
+
+        <div id="status" class="status">
+            <strong>Статус:</strong> <span id="statusText">Ожидание...</span>
+        </div>
+
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e5e7eb;">
+            <h3 style="margin-bottom: 15px; color: #111;">🎯 Быстрые ссылки:</h3>
+            <button class="btn" onclick="window.location.href='login.html'" style="background: #6b7280;">
+                🔑 Страница входа
+            </button>
+            <button class="btn" onclick="window.location.href='profile.html'" style="background: #ec4899;">
+                👤 Профиль пользователя
+            </button>
+            <button class="btn" onclick="window.location.href='index.html'" style="background: #8b5cf6;">
+                🏠 Главная страница
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function createTestUser() {
+            const statusDiv = document.getElementById('status');
+            const statusText = document.getElementById('statusText');
+
+            // Создаем тестового пользователя
+            const testUser = {
+                userId: 'test_user_' + Date.now(),
+                name: 'Тест Пользователь',
+                phone: '+77001234567',
+                email: 'test@rentify.kz',
+                city: 'Алматы',
+                verification: {
+                    phone: false,
+                    liveness: false,
+                    id: false
+                },
+                trustScore: 0,
+                badges: [],
+                rating: 5.0,
+                reviewCount: 0,
+                transactionCount: 0,
+                created: new Date().toISOString()
+            };
+
+            // Сохраняем в sessionStorage
+            sessionStorage.setItem('currentUser', JSON.stringify(testUser));
+            
+            // Также сохраняем в localStorage для совместимости
+            localStorage.setItem('currentUser', JSON.stringify(testUser));
+
+            // Показываем статус
+            statusDiv.className = 'status show success';
+            statusText.innerHTML = `
+                ✅ Пользователь создан!<br>
+                <strong>Имя:</strong> ${testUser.name}<br>
+                <strong>Телефон:</strong> ${testUser.phone}<br>
+                <strong>Trust Score:</strong> ${testUser.trustScore}/100<br>
+                <br>
+                🎉 Теперь можете открыть профиль!
+            `;
+
+            console.log('✅ Тестовый пользователь создан:', testUser);
+        }
+
+        function openProfile() {
+            const currentUser = sessionStorage.getItem('currentUser');
+            
+            if (!currentUser) {
+                alert('❌ Сначала создайте тестового пользователя (шаг 1)');
+                return;
+            }
+
+            // Открываем профиль
+            window.location.href = 'profile.html';
+        }
+
+        // Автоматическая проверка при загрузке
+        window.addEventListener('load', function() {
+            const currentUser = sessionStorage.getItem('currentUser');
+            const statusDiv = document.getElementById('status');
+            const statusText = document.getElementById('statusText');
+
+            if (currentUser) {
+                const user = JSON.parse(currentUser);
+                statusDiv.className = 'status show';
+                statusText.innerHTML = `
+                    ℹ️ Вы уже вошли как: <strong>${user.name}</strong><br>
+                    Trust Score: <strong>${user.trustScore}/100</strong><br>
+                    <br>
+                    Можете сразу открыть профиль (шаг 2)
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "security-system",
+  "version": "1.0.0",
+  "description": "Профессиональная 4-модульная система верификации и доверия для платформы аренды.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "mongoose": "^9.0.0"
+  }
+}

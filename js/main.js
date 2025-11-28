@@ -71,22 +71,48 @@ function displayItems(items, containerId) {
     const container = document.getElementById(containerId);
     if (!container) return;
     
-    container.innerHTML = items.map(item => `
-        <div class="item-card" style="position: relative;">
-            <button class="favorite-btn" data-item-id="${item.id}" onclick="event.stopPropagation(); toggleFavorite(${item.id})" 
+    // Проверяем наличие функции sanitizeItem (из sanitizer.js)
+    const sanitize = typeof sanitizeItem === 'function' ? sanitizeItem : (item) => item;
+    const sanitizeURL = typeof sanitizeImageURL === 'function' ? sanitizeImageURL : (url) => url;
+    
+    container.innerHTML = items.map(item => {
+        const safe = sanitize(item);
+        const imageUrl = sanitizeURL(item.images && item.images[0] ? item.images[0] : item.image);
+        
+        return `
+        <div class="item-card" itemscope itemtype="https://schema.org/Product" style="position: relative;">
+            <meta itemprop="name" content="${safe.name || safe.title}">
+            <meta itemprop="description" content="${safe.description || ''}">
+            <link itemprop="image" href="${imageUrl}">
+            
+            <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                <meta itemprop="price" content="${item.price || 0}">
+                <meta itemprop="priceCurrency" content="KZT">
+                <meta itemprop="availability" content="https://schema.org/InStock">
+            </div>
+            
+            <div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
+                <meta itemprop="ratingValue" content="${item.rating || 4.5}">
+                <meta itemprop="reviewCount" content="${item.reviews || 0}">
+            </div>
+            
+            <button class="favorite-btn" data-item-id="${item.id}" 
                     style="position: absolute; top: 10px; right: 10px; background: white; border: none; border-radius: 50%; 
-                           width: 36px; height: 36px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.15); 
+                           width: 44px; height: 44px; min-width: 44px; min-height: 44px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.15); 
                            display: flex; align-items: center; justify-content: center; z-index: 10; transition: transform 0.2s;">
                 <i class="${isFavorite(item.id) ? 'fas' : 'far'} fa-heart" style="color: ${isFavorite(item.id) ? '#ef4444' : '#6b7280'}; font-size: 1.1rem;"></i>
             </button>
-            <div onclick="typeof openItemDetail === 'function' && openItemDetail(${item.id})" style="cursor:pointer;">
-                <img src="${item.images && item.images[0] ? item.images[0] : item.image || 'https://via.placeholder.com/400x200?text=No+Image'}" 
-                     alt="${item.name || item.title}" class="item-image" onerror="this.src='https://via.placeholder.com/400x200?text=No+Image'">
+            <div class="item-clickable" data-item-id="${item.id}" style="cursor:pointer;">
+                <img src="${imageUrl}" 
+                     alt="${safe.name || safe.title}" 
+                     class="item-image" 
+                     loading="lazy"
+                     onerror="this.src='https://via.placeholder.com/400x200?text=No+Image'">
                 <div class="item-info">
-                    <h3 class="item-title">${item.name || item.title}</h3>
+                    <h3 class="item-title" itemprop="name">${safe.name || safe.title}</h3>
                     <div class="item-location">
                         <i class="fas fa-map-marker-alt"></i>
-                        ${item.city || 'Не указан'}
+                        <span itemprop="availableAtOrFrom">${safe.city || 'Не указан'}</span>
                     </div>
                     <div class="item-footer">
                         <div class="item-rating">
@@ -101,7 +127,26 @@ function displayItems(items, containerId) {
                 </div>
             </div>
         </div>
-    `).join('');
+        `;
+    }).join('');
+    
+    // Добавляем обработчики событий после рендера (безопасно, без inline onclick)
+    container.querySelectorAll('.favorite-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const itemId = parseInt(btn.getAttribute('data-item-id'));
+            toggleFavorite(itemId);
+        });
+    });
+    
+    container.querySelectorAll('.item-clickable').forEach(div => {
+        div.addEventListener('click', () => {
+            const itemId = parseInt(div.getAttribute('data-item-id'));
+            if (typeof openItemDetail === 'function') {
+                openItemDetail(itemId);
+            }
+        });
+    });
 }
 
 // ========== ПОИСК И ФИЛЬТРАЦИЯ ==========

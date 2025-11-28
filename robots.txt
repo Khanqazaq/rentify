@@ -1,0 +1,34 @@
+# robots.txt для Rentify.kz
+# Обновлено: 29.11.2025
+
+# Разрешить всем поисковым роботам
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /test-verification.html
+Disallow: /security-system/
+
+# Sitemap
+Sitemap: https://rentify.kz/sitemap.xml
+
+# Настройки для Яндекса
+User-agent: Yandex
+Allow: /
+Crawl-delay: 1
+Clean-param: utm_source&utm_medium&utm_campaign
+
+# Настройки для Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0.5
+
+# Блокировка для плохих ботов
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /

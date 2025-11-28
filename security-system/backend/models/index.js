@@ -6,7 +6,7 @@
 const mongoose = require('mongoose');
 
 // Импорт схем
-const schemas = require('../database/mongodb/schemas');
+const schemas = require('../../database/mongodb/schemas');
 
 module.exports = {
     User: schemas.User,
