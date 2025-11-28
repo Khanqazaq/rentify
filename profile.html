@@ -558,6 +558,56 @@
         </div>
     </footer>
 
+    <!-- Welcome Modal для новых пользователей -->
+    <div id="welcomeModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10000; align-items: center; justify-content: center;">
+        <div style="background: white; padding: 2.5rem; border-radius: 20px; max-width: 480px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <div style="font-size: 4rem; margin-bottom: 1rem;">👋</div>
+                <h2 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Добро пожаловать!</h2>
+                <p style="color: #6b7280;">Давайте настроим ваш профиль</p>
+            </div>
+            
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #111;">Ваше имя</label>
+                <input type="text" id="welcomeName" placeholder="Например: Айдар Серикбаев" 
+                       style="width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 10px; font-size: 1rem;"
+                       autocomplete="name">
+            </div>
+            
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #111;">Город</label>
+                <select id="welcomeCity" style="width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 10px; font-size: 1rem;">
+                    <option value="">Выберите город</option>
+                    <option value="Алматы">Алматы</option>
+                    <option value="Астана">Астана</option>
+                    <option value="Шымкент">Шымкент</option>
+                    <option value="Караганда">Караганда</option>
+                    <option value="Актобе">Актобе</option>
+                    <option value="Тараз">Тараз</option>
+                    <option value="Павлодар">Павлодар</option>
+                    <option value="Усть-Каменогорск">Усть-Каменогорск</option>
+                    <option value="Семей">Семей</option>
+                    <option value="Атырау">Атырау</option>
+                    <option value="Костанай">Костанай</option>
+                    <option value="Кызылорда">Кызылорда</option>
+                    <option value="Уральск">Уральск</option>
+                    <option value="Петропавловск">Петропавловск</option>
+                    <option value="Актау">Актау</option>
+                    <option value="Темиртау">Темиртау</option>
+                    <option value="Туркестан">Туркестан</option>
+                </select>
+            </div>
+            
+            <button onclick="saveWelcomeInfo()" class="btn btn-primary" style="width: 100%; padding: 14px; font-size: 1.1rem;">
+                <i class="fas fa-check"></i> Сохранить и продолжить
+            </button>
+            
+            <button onclick="closeWelcomeModal()" style="width: 100%; margin-top: 0.75rem; background: transparent; border: none; color: #6b7280; padding: 8px; cursor: pointer; font-size: 0.9rem;">
+                Пропустить (можно изменить позже)
+            </button>
+        </div>
+    </div>
+
     <script src="js/language.js"></script>
     <script src="js/notifications.js"></script>
     <script src="js/main.js"></script>
@@ -572,14 +622,19 @@
                 return;
             }
 
+            // Показываем приветственное окно для новых пользователей
+            if (!user.name || user.name === 'Пользователь') {
+                document.getElementById('welcomeModal').style.display = 'flex';
+            }
+
             // Load user info
             document.getElementById('userName').textContent = user.name || 'Пользователь';
             document.getElementById('userPhone').textContent = user.phone || '';
-            document.getElementById('userJoined').textContent = new Date().toLocaleDateString('ru-RU');
+            document.getElementById('userJoined').textContent = new Date(user.created || Date.now()).toLocaleDateString('ru-RU');
             
             // Set avatar
             const avatar = document.getElementById('profileAvatar');
-            if (user.name) {
+            if (user.name && user.name !== 'Пользователь') {
                 avatar.textContent = user.name.charAt(0).toUpperCase();
             }
 
@@ -970,6 +1025,44 @@
             if (user.name) {
                 avatar.textContent = user.name.charAt(0).toUpperCase();
             }
+        }
+
+        function saveWelcomeInfo() {
+            const name = document.getElementById('welcomeName').value.trim();
+            const city = document.getElementById('welcomeCity').value;
+            
+            if (!name) {
+                alert('Пожалуйста, введите ваше имя');
+                return;
+            }
+            
+            const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            user.name = name;
+            if (city) user.city = city;
+            
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            
+            // Закрываем модальное окно
+            document.getElementById('welcomeModal').style.display = 'none';
+            
+            // Обновляем отображение
+            document.getElementById('userName').textContent = name;
+            const avatar = document.getElementById('profileAvatar');
+            avatar.textContent = name.charAt(0).toUpperCase();
+            
+            // Обновляем настройки
+            document.getElementById('settingsName').value = name;
+            if (city) document.getElementById('settingsCity').value = city;
+            
+            if (typeof showNotification === 'function') {
+                showNotification('Профиль успешно настроен! 🎉', 'success');
+            } else {
+                alert('✅ Профиль успешно настроен!');
+            }
+        }
+
+        function closeWelcomeModal() {
+            document.getElementById('welcomeModal').style.display = 'none';
         }
 
         function logout() {

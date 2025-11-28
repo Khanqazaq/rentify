@@ -401,8 +401,28 @@
                     const isDemo = (fullPhone === '+77001234567' || fullPhone === '+77001234568') && password === '1234';
 
                     if (user || isDemo) {
+                        // Создаем полный объект пользователя
+                        const currentUser = {
+                            userId: fullPhone,
+                            name: fullPhone === '+77001234567' ? 'Айдар Серикбаев' : fullPhone === '+77001234568' ? 'Анара Жумабаева' : 'Пользователь',
+                            phone: fullPhone,
+                            email: '',
+                            city: '',
+                            verification: {
+                                phone: fullPhone === '+77001234567' || fullPhone === '+77001234568', // Демо аккаунты верифицированы
+                                liveness: false,
+                                id: false
+                            },
+                            trustScore: fullPhone === '+77001234567' ? 25 : fullPhone === '+77001234568' ? 25 : 0,
+                            badges: fullPhone === '+77001234567' || fullPhone === '+77001234568' ? ['phone-verified'] : [],
+                            rating: 0,
+                            reviewCount: 0,
+                            transactionCount: 0,
+                            created: new Date().toISOString()
+                        };
+                        
+                        localStorage.setItem('currentUser', JSON.stringify(currentUser));
                         alert('✅ Вход выполнен успешно!');
-                        localStorage.setItem('currentUser', fullPhone);
                         window.location.href = 'index.html';
                     } else {
                         alert('❌ Неверный номер или пароль');
@@ -517,6 +537,29 @@
                     });
 
                     localStorage.setItem('users', JSON.stringify(users));
+                    
+                    // Создаем полный профиль пользователя
+                    const newUser = {
+                        userId: currentPhone,
+                        name: 'Пользователь',
+                        phone: currentPhone,
+                        email: '',
+                        city: '',
+                        verification: {
+                            phone: false,
+                            liveness: false,
+                            id: false
+                        },
+                        trustScore: 0,
+                        badges: [],
+                        rating: 0,
+                        reviewCount: 0,
+                        transactionCount: 0,
+                        created: new Date().toISOString()
+                    };
+                    
+                    // Сохраняем текущего пользователя
+                    localStorage.setItem('currentUser', JSON.stringify(newUser));
                     
                     // Show success animation
                     const successAnimation = document.getElementById('success-animation');
