@@ -413,26 +413,31 @@ a[href*="kids"] img {
     }
     
     .categories-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, 1fr);
         gap: 12px;
-        padding: 15px 10px;
+        padding: 15px;
         max-width: 100%;
     }
     
     .category-card {
         width: 100% !important;
-        height: auto !important;
-        min-height: 140px !important;
-        padding: 15px 10px;
+        height: 140px !important;
+        padding: 12px 8px;
+        border-radius: 20px;
     }
     
     .category-card img {
-        width: 85px !important;
-        height: 85px !important;
+        width: 70px !important;
+        height: 70px !important;
+        object-fit: contain;
+        margin-bottom: 8px;
     }
     
-    .category-card .category-name {
-        font-size: 13px !important;
+    .category-name {
+        font-size: 0.75rem;
+        line-height: 1.2;
+        text-align: center;
+        font-weight: 600;
     }
 }
 
@@ -964,16 +969,25 @@ a[href*="kids"] img {
 
     
     .categories-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0.6rem;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+        padding: 15px;
     }
     
     .category-card {
-        padding: 1.25rem 0.75rem;
+        width: 100% !important;
+        height: 130px !important;
+        padding: 10px;
+    }
+    
+    .category-card img {
+        width: 60px !important;
+        height: 60px !important;
     }
     
     .category-name {
-        font-size: 0.85rem;
+        font-size: 0.7rem;
+        line-height: 1.1;
     }
     
     /* Compact item cards for mobile */
@@ -1138,14 +1152,23 @@ a[href*="kids"] img {
     .categories-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 0.6rem;
+        padding: 10px;
     }
     
     .category-card {
-        padding: 1rem 0.6rem;
+        width: 100% !important;
+        height: 120px !important;
+        padding: 8px;
+    }
+    
+    .category-card img {
+        width: 55px !important;
+        height: 55px !important;
     }
     
     .category-name {
-        font-size: 0.8rem;
+        font-size: 0.65rem;
+        line-height: 1.1;
     }
     
     .featured-items {
@@ -2148,10 +2171,22 @@ html {
     .categories-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 0.5rem;
+        padding: 8px;
     }
     
     .category-card {
-        padding: 0.75rem;
+        width: 100% !important;
+        height: 110px !important;
+        padding: 6px;
+    }
+    
+    .category-card img {
+        width: 50px !important;
+        height: 50px !important;
+    }
+    
+    .category-name {
+        font-size: 0.6rem;
     }
     
     .category-icon {
