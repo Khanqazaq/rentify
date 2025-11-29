@@ -880,83 +880,6 @@ a[href*="kids"] img {
     transform: translateY(-2px);
 }
 
-.footer-bottom {
-    border-top: 1px solid #374151;
-    padding: 2rem 0;
-}
-
-.footer-bottom-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 2rem;
-}
-
-.footer-legal {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-}
-
-.footer-legal p {
-    margin: 0;
-    color: #9ca3af;
-    font-size: 0.9rem;
-}
-
-.footer-links-bottom {
-    display: flex;
-    gap: 1.5rem;
-}
-
-.footer-links-bottom a {
-    color: #9ca3af;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.3s;
-}
-
-.footer-links-bottom a:hover {
-    color: var(--white);
-}
-
-.footer-apps {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-.footer-apps span {
-    color: #9ca3af;
-    font-size: 0.9rem;
-    margin-right: 0.5rem;
-}
-
-.app-store, .google-play {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.6rem 1rem;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    color: var(--white);
-    text-decoration: none;
-    transition: all 0.3s;
-    font-size: 0.85rem;
-}
-
-.app-store:hover, .google-play:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-1px);
-}
-
-.app-store i, .google-play i {
-    font-size: 1.1rem;
-}
-
 /* ========== RESPONSIVE ========== */
 @media (min-width: 768px) {
     .nav-search {
@@ -2431,11 +2354,6 @@ html {
     .footer-column ul li a {
         font-size: 0.75rem;
         line-height: 1.6;
-    }
-    
-    .footer-bottom {
-        padding: 0.75rem 0;
-        font-size: 0.7rem;
     }
     
     /* Buttons */
