@@ -223,27 +223,41 @@ img {
 .stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
-    margin-top: 4rem;
+    gap: 1.5rem;
+    margin-top: 3rem;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+    padding: 0 1rem;
 }
 
 .stat-item {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    padding: 2rem 1.5rem;
     text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid #f1f5f9;
+}
+
+.stat-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
 }
 
 .stat-number {
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: bold;
     color: var(--primary-blue);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
+    line-height: 1;
 }
 
 .stat-label {
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     color: var(--gray-600);
+    font-weight: 500;
 }
 
 /* ========== BUTTONS ========== */
@@ -926,23 +940,26 @@ a[href*="kids"] img {
     .stats {
         margin-top: 2rem;
         gap: 1rem;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .stat-item {
+        padding: 1.5rem 1rem;
     }
     
     .stat-number {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
     }
     
     .stat-label {
-        font-size: 0.75rem;
+        font-size: 0.8rem;
     }
     
     .search-box {
         grid-template-columns: 1fr;
     }
     
-    .stats {
-        grid-template-columns: repeat(2, 1fr);
-    }
+
     
     .categories-grid {
         grid-template-columns: repeat(3, 1fr);
@@ -1028,12 +1045,17 @@ a[href*="kids"] img {
     
     .stats {
         margin-top: 1rem;
-        gap: 0.5rem;
+        gap: 0.8rem;
         padding: 0 0.5rem;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .stat-item {
+        padding: 1.2rem 0.8rem;
     }
     
     .stat-number {
-        font-size: 1.1rem;
+        font-size: 1.4rem;
     }
     
     .stat-label {
