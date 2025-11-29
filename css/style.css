@@ -310,37 +310,34 @@ img {
     color: #1a1a2e;
 }
 
-/* 2 қатар × 3 категория, телефонда да, ПК-да да бірдей */
+/* 2 колонки в ряду */
 .popular-categories-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;   /* әрқашан 3 баған */
-    grid-template-rows: auto auto;        /* 2 қатар */
+    grid-template-columns: 1fr 1fr;   /* 2 колонки */
     gap: 20px;
     justify-content: center;
     padding: 20px;
-    max-width: 560px;     /* 3×155 + gap */
+    max-width: 400px;     /* 2×155 + gap */
     margin: 0 auto;
 }
 
 .categories-wrapper {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: auto auto;
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
     justify-content: center;
     padding: 20px;
-    max-width: 560px;
+    max-width: 400px;
     margin: 0 auto;
 }
 
 .categories-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: auto auto;
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
     justify-content: center;
     padding: 20px;
-    max-width: 560px;
+    max-width: 400px;
     margin: 0 auto;
 }
 
