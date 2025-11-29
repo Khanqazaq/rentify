@@ -795,112 +795,166 @@ a[href*="kids"] img {
 
 /* ========== FOOTER ========== */
 .footer {
-    background: #1a1a1a;
+    background: var(--gray-900);
     color: var(--white);
-    padding: 3rem 0 1.5rem;
-    margin-top: 4rem;
 }
 
 .footer-content {
+    padding: 4rem 0 2rem;
+}
+
+.footer-main {
     display: grid;
     grid-template-columns: 1fr 2fr;
     gap: 4rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 3rem;
 }
 
-.footer-logo-section {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+.footer-brand {
+    max-width: 400px;
 }
 
-.footer-logo {
+.footer-brand h3 {
     font-size: 2rem;
-    font-weight: 700;
-    background: linear-gradient(to right, var(--primary-blue), var(--primary-purple));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin: 0;
+    margin-bottom: 1.5rem;
 }
 
-.footer-tagline {
-    color: #999;
-    font-size: 0.95rem;
-    margin: 0;
+.footer-brand p {
+    color: #d1d5db;
+    line-height: 1.6;
+    margin-bottom: 2rem;
 }
 
 .footer-links {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2.5rem;
+    gap: 3rem;
 }
 
-.footer-section h4 {
-    margin-bottom: 1.25rem;
-    font-size: 1rem;
-    font-weight: 700;
+.footer-column h4 {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
     color: var(--white);
+    font-weight: 600;
 }
 
-.footer-section a {
-    display: block;
-    color: #999;
+.footer-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-column a {
+    color: #d1d5db;
     text-decoration: none;
-    margin-bottom: 0.5rem;
-    transition: color 0.2s ease;
+    margin-bottom: 0.75rem;
+    transition: color 0.3s;
     font-size: 0.95rem;
-    font-weight: 500;
 }
 
-.footer-section a:hover {
-    color: var(--primary-blue);
-}
-
-.footer-desc {
-    color: rgba(255,255,255,0.5);
-    font-size: 0.85rem;
-    line-height: 1.5;
-    margin-bottom: 1.25rem;
-    margin-top: -0.25rem;
+.footer-column a:hover {
+    color: var(--white);
 }
 
 .footer-social {
     display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+    gap: 1rem;
+    margin-top: 1rem;
 }
 
 .social-link {
-    width: 40px;
-    height: 40px;
-    background: #2a2a2a;
-    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
     color: var(--white);
-    font-size: 1.25rem;
-    transition: all 0.3s;
     text-decoration: none;
+    transition: all 0.3s;
+    font-size: 1.2rem;
 }
 
 .social-link:hover {
     background: var(--primary-blue);
-    transform: translateY(-3px);
+    transform: translateY(-2px);
 }
 
 .footer-bottom {
-    text-align: center;
-    padding-top: 2rem;
-    border-top: 1px solid #333;
-    color: #666;
+    border-top: 1px solid #374151;
+    padding: 2rem 0;
+}
+
+.footer-bottom-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.footer-legal {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.footer-legal p {
+    margin: 0;
+    color: #9ca3af;
+    font-size: 0.9rem;
+}
+
+.footer-links-bottom {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footer-links-bottom a {
+    color: #9ca3af;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.footer-links-bottom a:hover {
+    color: var(--white);
+}
+
+.footer-apps {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.footer-apps span {
+    color: #9ca3af;
+    font-size: 0.9rem;
+    margin-right: 0.5rem;
+}
+
+.app-store, .google-play {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: var(--white);
+    text-decoration: none;
+    transition: all 0.3s;
     font-size: 0.85rem;
 }
 
-.footer-bottom p {
-    margin: 0;
+.app-store:hover, .google-play:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+.app-store i, .google-play i {
+    font-size: 1.1rem;
 }
 
 /* ========== RESPONSIVE ========== */
