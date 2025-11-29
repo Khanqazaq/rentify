@@ -563,4 +563,26 @@ function isFavorite(itemId) {
     });
 })();
 
+// ========== ФУНКЦИОНАЛЬНОСТЬ КАТЕГОРИЙ ==========
+document.addEventListener('DOMContentLoaded', function() {
+    const showMoreBtn = document.getElementById('showMoreCategories');
+    const categoriesContainer = document.getElementById('categoriesContainer');
+    
+    if (showMoreBtn && categoriesContainer) {
+        showMoreBtn.addEventListener('click', function() {
+            const isExpanded = categoriesContainer.classList.contains('categories-expanded');
+            
+            if (isExpanded) {
+                // Скрываем дополнительные категории
+                categoriesContainer.classList.remove('categories-expanded');
+                showMoreBtn.innerHTML = '<span>Показать еще</span><i class="fas fa-chevron-down"></i>';
+            } else {
+                // Показываем все категории
+                categoriesContainer.classList.add('categories-expanded');
+                showMoreBtn.innerHTML = '<span>Скрыть</span><i class="fas fa-chevron-up"></i>';
+            }
+        });
+    }
+});
+
 

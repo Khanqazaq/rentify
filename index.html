@@ -161,7 +161,8 @@
     <section class="categories">
         <div class="container">
             <h2 class="section-title">Популярные категории</h2>
-            <div class="popular-categories-grid">
+            <div class="categories-grid" id="categoriesContainer">
+                <!-- Основные 6 категорий (всегда видны) -->
                 <a href="items.html?category=electronics" class="category-card">
                     <img src="https://i.ibb.co/v4TPJcn4/Computer.png" alt="Электроника">
                     <div class="category-name">Электроника</div>
@@ -186,26 +187,36 @@
                     <img src="./images/мебель-removebg-preview (1).png" alt="Мебель">
                     <div class="category-name">Мебель</div>
                 </a>
-                <a href="items.html?category=music" class="category-card">
+                
+                <!-- Дополнительные категории (скрыты по умолчанию) -->
+                <a href="items.html?category=music" class="category-card category-hidden">
                     <img src="./images/Музыкальный инструмент.png" alt="Музыкальные инструменты">
                     <div class="category-name">Музыкальные инструменты</div>
                 </a>
-                <a href="items.html?category=camping" class="category-card">
+                <a href="items.html?category=camping" class="category-card category-hidden">
                     <img src="./images/туризм и кемпинг.jpg" alt="Туризм и кемпинг">
                     <div class="category-name">Туризм и кемпинг</div>
                 </a>
-                <a href="items.html?category=kids" class="category-card">
+                <a href="items.html?category=kids" class="category-card category-hidden">
                     <img src="./images/детских-товар.jpg" alt="Детские товары">
                     <div class="category-name">Детские товары</div>
                 </a>
-                <a href="items.html?category=events" class="category-card">
+                <a href="items.html?category=events" class="category-card category-hidden">
                     <img src="./images/для мероприятий.webp" alt="Для мероприятий">
                     <div class="category-name">Для мероприятий</div>
                 </a>
-                <a href="items.html?category=books" class="category-card">
+                <a href="items.html?category=books" class="category-card category-hidden">
                     <img src="./images/книги.jpg" alt="Книги">
                     <div class="category-name">Книги</div>
                 </a>
+            </div>
+            
+            <!-- Кнопка показать еще -->
+            <div class="categories-toggle">
+                <button class="btn-show-more" id="showMoreCategories">
+                    <span>Показать еще</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
             </div>
         </div>
     </section>
