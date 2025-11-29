@@ -347,19 +347,19 @@ img {
 
 .categories-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
     justify-content: center;
     padding: 20px;
-    max-width: 400px;
+    max-width: 500px;
     margin: 0 auto;
 }
 
 .category-card {
-    width: 155px !important;
-    height: 155px !important;
+    width: 140px !important;
+    height: 140px !important;
     background: #fff;
-    border-radius: 28px;
+    border-radius: 25px;
     box-shadow: 0 6px 25px rgba(0,0,0,0.10);
     display: flex;
     flex-direction: column;
@@ -962,8 +962,8 @@ a[href*="kids"] img {
 
     
     .categories-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.75rem;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.6rem;
     }
     
     .category-card {
