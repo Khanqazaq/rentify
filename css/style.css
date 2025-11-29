@@ -355,50 +355,7 @@ img {
     margin: 0 auto;
 }
 
-/* Скрытые категории */
-.category-hidden {
-    display: none;
-}
 
-.categories-expanded .category-hidden {
-    display: flex;
-}
-
-/* Кнопка показать еще */
-.categories-toggle {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.btn-show-more {
-    background: none;
-    border: 2px solid var(--primary-blue);
-    color: var(--primary-blue);
-    padding: 12px 24px;
-    border-radius: 25px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin: 0 auto;
-}
-
-.btn-show-more:hover {
-    background: var(--primary-blue);
-    color: white;
-    transform: translateY(-2px);
-}
-
-.btn-show-more i {
-    transition: transform 0.3s ease;
-}
-
-.categories-expanded .btn-show-more i {
-    transform: rotate(180deg);
-}
 
 .category-card {
     width: 145px !important;
