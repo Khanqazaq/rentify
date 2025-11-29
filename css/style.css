@@ -157,9 +157,11 @@ img {
 
 /* ========== HERO ========== */
 .hero {
-    background: linear-gradient(to bottom right, #eff6ff, var(--white), #faf5ff);
+    /* Base spacing & layout */
     padding: 3rem 0 2rem;
     text-align: center;
+    position: relative;
+    overflow: hidden;
 }
 
 .hero-content {
@@ -1766,41 +1768,27 @@ a[href*="kids"] img {
     initial-value: hsla(217, 100%, 30%, 1)
 }
 
-.hero {
-    --y-0: 63%;
-    --x-0: 93%;
-    --c-0: hsla(217, 100%, 30%, 1);
-    --x-1: 33%;
-    --c-1: hsla(0, 0%, 0%, 1);
-    --y-1: -7%;
-    --y-2: 7%;
-    --c-2: hsla(0, 0%, 0%, 1);
-    --x-2: 84%;
-    --c-3: hsla(0, 0%, 0%, 1);
-    --x-3: 14%;
-    --y-3: 5%;
-    --y-4: 96%;
-    --c-4: hsla(217, 100%, 30%, 1);
-    --x-4: 7%;
-    --y-5: 90%;
-    --c-5: hsla(0, 0%, 0%, 1);
-    --x-5: 93%;
-    --x-6: 3%;
-    --y-6: 61%;
-    --c-6: hsla(279, 67%, 27%, 1);
-    --x-7: 94%;
-    --c-7: hsla(279, 67%, 27%, 1);
-    --y-7: 59%;
-    --x-8: 48%;
-    --c-8: hsla(217, 100%, 39%, 1);
-    --y-8: 63%;
-    --x-9: 96%;
-    --y-9: 78%;
-    --c-9: hsla(217, 100%, 30%, 1);
-    background-color: hsla(262, 82%, 3%, 1);
-    background-image: radial-gradient(circle at var(--x-0) var(--y-0), var(--c-0) var(--s-start-0), transparent var(--s-end-0)), radial-gradient(circle at var(--x-1) var(--y-1), var(--c-1) var(--s-start-1), transparent var(--s-end-1)), radial-gradient(circle at var(--x-2) var(--y-2), var(--c-2) var(--s-start-2), transparent var(--s-end-2)), radial-gradient(circle at var(--x-3) var(--y-3), var(--c-3) var(--s-start-3), transparent var(--s-end-3)), radial-gradient(circle at var(--x-4) var(--y-4), var(--c-4) var(--s-start-4), transparent var(--s-end-4)), radial-gradient(circle at var(--x-5) var(--y-5), var(--c-5) var(--s-start-5), transparent var(--s-end-5)), radial-gradient(circle at var(--x-6) var(--y-6), var(--c-6) var(--s-start-6), transparent var(--s-end-6)), radial-gradient(circle at var(--x-7) var(--y-7), var(--c-7) var(--s-start-7), transparent var(--s-end-7)), radial-gradient(circle at var(--x-8) var(--y-8), var(--c-8) var(--s-start-8), transparent var(--s-end-8)), radial-gradient(circle at var(--x-9) var(--y-9), var(--c-9) var(--s-start-9), transparent var(--s-end-9));
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    /* Initial custom properties */
+    --y-0: 63%; --x-0: 93%; --c-0: hsla(217,100%,30%,1);
+    --x-1: 33%; --c-1: hsla(0,0%,0%,1); --y-1: -7%; --y-2: 7%; --c-2: hsla(0,0%,0%,1); --x-2: 84%; --c-3: hsla(0,0%,0%,1); --x-3: 14%; --y-3: 5%; --y-4: 96%; --c-4: hsla(217,100%,30%,1); --x-4: 7%; --y-5: 90%; --c-5: hsla(0,0%,0%,1); --x-5: 93%; --x-6: 3%; --y-6: 61%; --c-6: hsla(279,67%,27%,1); --x-7: 94%; --c-7: hsla(279,67%,27%,1); --y-7: 59%; --x-8: 48%; --c-8: hsla(217,100%,39%,1); --y-8: 63%; --x-9: 96%; --y-9: 78%; --c-9: hsla(217,100%,30%,1);
+    background-color: hsla(262,82%,3%,1);
+    background-image: radial-gradient(circle at var(--x-0) var(--y-0), var(--c-0) var(--s-start-0), transparent var(--s-end-0)),
+        radial-gradient(circle at var(--x-1) var(--y-1), var(--c-1) var(--s-start-1), transparent var(--s-end-1)),
+        radial-gradient(circle at var(--x-2) var(--y-2), var(--c-2) var(--s-start-2), transparent var(--s-end-2)),
+        radial-gradient(circle at var(--x-3) var(--y-3), var(--c-3) var(--s-start-3), transparent var(--s-end-3)),
+        radial-gradient(circle at var(--x-4) var(--y-4), var(--c-4) var(--s-start-4), transparent var(--s-end-4)),
+        radial-gradient(circle at var(--x-5) var(--y-5), var(--c-5) var(--s-start-5), transparent var(--s-end-5)),
+        radial-gradient(circle at var(--x-6) var(--y-6), var(--c-6) var(--s-start-6), transparent var(--s-end-6)),
+        radial-gradient(circle at var(--x-7) var(--y-7), var(--c-7) var(--s-start-7), transparent var(--s-end-7)),
+        radial-gradient(circle at var(--x-8) var(--y-8), var(--c-8) var(--s-start-8), transparent var(--s-end-8)),
+        radial-gradient(circle at var(--x-9) var(--y-9), var(--c-9) var(--s-start-9), transparent var(--s-end-9));
     animation: hero-gradient-animation 10s linear infinite alternate;
-    background-blend-mode: normal, normal, normal, normal, normal, normal, normal, normal, normal, normal;
+    background-blend-mode: normal;
+    z-index: -1;
 }
 
 /* ========== SMOOTH SCROLL ========== */
