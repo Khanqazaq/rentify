@@ -414,16 +414,23 @@ a[href*="kids"] img {
     
     .categories-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-        padding: 15px;
+        gap: 15px;
+        padding: 20px 15px;
         max-width: 100%;
     }
     
     .category-card {
         width: 100% !important;
-        height: 140px !important;
-        padding: 12px 8px;
-        border-radius: 20px;
+        height: 150px !important;
+        padding: 15px 10px;
+        border-radius: 25px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        transition: all 0.3s ease;
+    }
+    
+    .category-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.18);
     }
     
     .category-card img {
@@ -941,7 +948,8 @@ a[href*="kids"] img {
     }
     
     .hero {
-        padding: 2rem 0 1.5rem;
+        padding: 2.5rem 0 2rem;
+        min-height: 80vh;
     }
     
     .stats {
@@ -951,7 +959,14 @@ a[href*="kids"] img {
     }
     
     .stat-item {
-        padding: 1.5rem 1rem;
+        padding: 1.8rem 1.2rem;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .stat-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
     }
     
     .stat-number {
@@ -1056,7 +1071,8 @@ a[href*="kids"] img {
     }
     
     .hero {
-        padding: 1rem 0 0.75rem;
+        padding: 2rem 0 1.5rem;
+        min-height: 70vh;
     }
     
     .stats {
@@ -1067,7 +1083,9 @@ a[href*="kids"] img {
     }
     
     .stat-item {
-        padding: 1.2rem 0.8rem;
+        padding: 1.5rem 1rem;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        border-radius: 18px;
     }
     
     .stat-number {
@@ -1081,27 +1099,43 @@ a[href*="kids"] img {
     .hero-buttons {
         flex-direction: column;
         padding: 0 1rem;
-        gap: 0.75rem;
+        gap: 1rem;
         width: 100%;
     }
     
     .hero-buttons .btn {
         width: 100%;
-        padding: 0.75rem 1rem;
-        font-size: 0.9rem;
+        padding: 1rem 1.5rem;
+        font-size: 1rem;
+        border-radius: 30px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
     }
     
-    /* Extra compact item cards for small phones */
+    .hero-buttons .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+    
+    /* Beautiful item cards for mobile */
     .item-card {
-        border-radius: 10px;
+        border-radius: 18px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
+    
+    .item-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.15);
     }
     
     .item-image {
-        height: 130px;
+        height: 140px;
     }
     
     .item-info {
-        padding: 0.75rem;
+        padding: 1rem;
     }
     
     .item-title {
@@ -1157,8 +1191,16 @@ a[href*="kids"] img {
     
     .category-card {
         width: 100% !important;
-        height: 120px !important;
-        padding: 8px;
+        height: 135px !important;
+        padding: 12px 8px;
+        border-radius: 22px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .category-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
     }
     
     .category-card img {
@@ -2176,8 +2218,16 @@ html {
     
     .category-card {
         width: 100% !important;
-        height: 110px !important;
-        padding: 6px;
+        height: 125px !important;
+        padding: 10px 6px;
+        border-radius: 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        transition: all 0.3s ease;
+    }
+    
+    .category-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.12);
     }
     
     .category-card img {
