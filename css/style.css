@@ -1016,7 +1016,7 @@ a[href*="kids"] img {
     .stats {
         margin-top: 2rem;
         gap: 1rem;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(4, 1fr);
     }
     
     .stat-item {
@@ -1910,17 +1910,18 @@ html {
         font-size: 1.6rem !important;
     }
 
-    /* Статистика в 1 колонку на очень маленьких экранах */
+    /* Статистика в 4 колонки даже на очень маленьких экранах */
     .stats {
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.3rem;
     }
 
     .stat-item {
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
+        justify-content: center;
         align-items: center;
-        padding: 0.75rem 1rem;
+        padding: 0.5rem 0.25rem;
         background: rgba(255,255,255,0.15);
         border-radius: 8px;
     }
