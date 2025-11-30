@@ -1380,8 +1380,21 @@ a[href*="kids"] img {
     .chat-panel { width: 92vw; right: 4vw; bottom: 20px; }
 }
 
-/* ========== HERO STATIC BACKGROUND ========== */
-/* Анимация удалена для лучшей производительности на мобильных */
+/* ========== HERO GRADIENT ANIMATION (simplified test) ========== */
+@keyframes hero-gradient-animation {
+    0% {
+        background: linear-gradient(45deg, #ff6b35, #f7931e, #8b5a3c);
+        transform: scale(1);
+    }
+    50% {
+        background: linear-gradient(135deg, #667eea, #764ba2, #ff6b35);
+        transform: scale(1.1);
+    }
+    100% {
+        background: linear-gradient(225deg, #f093fb, #f5576c, #4facfe);
+        transform: scale(1);
+    }
+}
 
 /* @property удалено */
 
@@ -1571,10 +1584,10 @@ a[href*="kids"] img {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    /* animation: hero-gradient-animation 3s ease-in-out infinite alternate; */
+    background: linear-gradient(45deg, #ff6b35, #f7931e, #8b5a3c);
+    animation: hero-gradient-animation 3s ease-in-out infinite alternate;
     z-index: -1;
-    opacity: 0.1;
+    opacity: 0.8;
 }
 
 /* ========== SMOOTH SCROLL ========== */
