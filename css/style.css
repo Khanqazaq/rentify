@@ -978,8 +978,8 @@ a[href*="kids"] img {
     
     /* Оптимизация hero анимации для мобильных */
     .hero::before {
-        animation-duration: 4s; /* Медленнее на мобильных */
-        opacity: 0.6; /* Менее интенсивно */
+        animation-duration: 3.5s; /* Немного медленнее */
+        opacity: 0.85; /* Ярче и красивее! */
     }
     
     .nav-menu {
@@ -1467,9 +1467,17 @@ a[href*="kids"] img {
         background: linear-gradient(45deg, #ff6b35, #f7931e, #8b5a3c);
         transform: scale(1);
     }
+    25% {
+        background: linear-gradient(90deg, #667eea, #764ba2);
+        transform: scale(1.05);
+    }
     50% {
         background: linear-gradient(135deg, #667eea, #764ba2, #ff6b35);
         transform: scale(1.1);
+    }
+    75% {
+        background: linear-gradient(180deg, #f093fb, #f5576c);
+        transform: scale(1.05);
     }
     100% {
         background: linear-gradient(225deg, #f093fb, #f5576c, #4facfe);
@@ -1668,7 +1676,7 @@ a[href*="kids"] img {
     background: linear-gradient(45deg, #ff6b35, #f7931e, #8b5a3c);
     animation: hero-gradient-animation 3s ease-in-out infinite alternate;
     z-index: -1;
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 /* ========== SMOOTH SCROLL ========== */
