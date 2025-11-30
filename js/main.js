@@ -267,6 +267,16 @@ document.addEventListener('DOMContentLoaded', function() {
             menu.classList.remove('active');
         }
     });
+    
+    // Закрыть меню при нажатии ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            const menu = document.querySelector('.nav-menu');
+            if (menu && menu.classList.contains('active')) {
+                menu.classList.remove('active');
+            }
+        }
+    });
 });
 
 // Сохранить элементы в localStorage для использования на других страницах

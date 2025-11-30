@@ -1105,12 +1105,11 @@ a[href*="kids"] img {
     
     .hero-buttons .btn {
         width: 100%;
-        padding: 14px 20px;
-        font-size: 0.95rem;
-        border-radius: 25px;
+        padding: 1rem 1.5rem;
+        font-size: 1rem;
+        border-radius: 30px;
         box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         transition: all 0.3s ease;
-        min-height: 48px;
     }
     
     .hero-buttons .btn:hover {
@@ -1383,188 +1382,68 @@ a[href*="kids"] img {
 /* ========== HERO STATIC BACKGROUND ========== */
 /* Анимация удалена для лучшей производительности на мобильных */
 
-/* @property удалено */
+}
 
 /* Удалены проблемные @property декларации для лучшей совместимости */
 
-@property --y-4 {
-    syntax: '<percentage>';
-    inherits: false;
-    initial-value: 96%
 }
 
-@property --s-start-4 {
-    syntax: '<percentage>';
-    inherits: false;
-    initial-value: 8.392121895570533%
 }
 
-@property --s-end-4 {
-    syntax: '<percentage>';
-    inherits: false;
-    initial-value: 22.558651527792346%
 }
 
-@property --c-4 {
-    syntax: '<color>';
-    inherits: false;
-    initial-value: hsla(0, 0%, 0%, 1)
 }
 
-@property --x-4 {
-    syntax: '<percentage>';
-    inherits: false;
-    initial-value: 7%
 }
 
-@property --y-5 {
-    syntax: '<percentage>';
-    inherits: false;
-    initial-value: 90%
 }
 
-@property --c-5 {
-    syntax: '<color>';
-    inherits: false;
-    initial-value: hsla(0, 0%, 0%, 1)
 }
 
-@property --s-start-5 {
-    syntax: '<percentage>';
-    inherits: false;
-    initial-value: 8.392121895570533%
 }
 
-@property --s-end-5 {
-    syntax: '<percentage>';
-    inherits: false;
-    initial-value: 22.558651527792346%
 }
 
-@property --x-5 {
-    syntax: '<percentage>';
-    inherits: false;
-    initial-value: 93%
 }
 
-@property --x-6 {
-    syntax: '<percentage>';
-    inherits: false;
-    initial-value: 3%
 }
 
-@property --s-start-6 {
-    syntax: '<percentage>';
-    inherits: false;
-    initial-value: 8.392121895570533%
 }
 
-@property --s-end-6 {
-    syntax: '<percentage>';
-    inherits: false;
-    initial-value: 39.67138181429644%
 }
 
-@property --y-6 {
-    syntax: '<percentage>';
-    inherits: false;
-    initial-value: 61%
 }
 
-@property --c-6 {
-    syntax: '<color>';
-    inherits: false;
-    initial-value: hsla(279.7894736842105, 67%, 27%, 1)
 }
 
-@property --s-start-7 {
-    syntax: '<percentage>';
-    inherits: false;
-    initial-value: 8.392121895570533%
 }
 
-@property --s-end-7 {
-    syntax: '<percentage>';
-    inherits: false;
-    initial-value: 49.58090142552271%
 }
 
-@property --x-7 {
-    syntax: '<percentage>';
-    inherits: false;
-    initial-value: 94%
 }
 
-@property --c-7 {
-    syntax: '<color>';
-    inherits: false;
-    initial-value: hsla(279.7894736842105, 67%, 27%, 1)
 }
 
-@property --y-7 {
-    syntax: '<percentage>';
-    inherits: false;
-    initial-value: 59%
 }
 
-@property --s-start-8 {
-    syntax: '<percentage>';
-    inherits: false;
-    initial-value: 8.392121895570533%
 }
 
-@property --s-end-8 {
-    syntax: '<percentage>';
-    inherits: false;
-    initial-value: 34.815367581495366%
 }
 
-@property --x-8 {
-    syntax: '<percentage>';
-    inherits: false;
-    initial-value: 48%
 }
 
-@property --c-8 {
-    syntax: '<color>';
-    inherits: false;
-    initial-value: hsla(217.68844221105527, 100%, 39%, 1)
 }
 
-@property --y-8 {
-    syntax: '<percentage>';
-    inherits: false;
-    initial-value: 63%
 }
 
-@property --x-9 {
-    syntax: '<percentage>';
-    inherits: false;
-    initial-value: 96%
 }
 
-@property --y-9 {
-    syntax: '<percentage>';
-    inherits: false;
-    initial-value: 78%
 }
 
-@property --s-start-9 {
-    syntax: '<percentage>';
-    inherits: false;
-    initial-value: 8.392121895570533%
 }
 
-@property --s-end-9 {
-    syntax: '<percentage>';
-    inherits: false;
-    initial-value: 31.77166380372925%
 }
 
-@property --c-9 {
-    syntax: '<color>';
-    inherits: false;
-    initial-value: hsla(217.59493670886076, 100%, 30%, 1)
 }
 
 .hero::before {
@@ -1684,22 +1563,11 @@ html {
     outline: none;
 }
 
-/* Лучшие touch targets для мобильных */
+/* Увеличенный target для touch устройств */
 @media (hover: none) and (pointer: coarse) {
-    a, button, .btn, .favorite-btn, .menu-toggle, .lang-btn {
+    a, button, .btn, .favorite-btn {
         min-height: 44px;
         min-width: 44px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .category-card {
-        min-height: 120px;
-    }
-    
-    .nav-menu a {
-        padding: 12px 16px;
     }
 }
 
