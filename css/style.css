@@ -537,67 +537,243 @@ a[href*="kids"] img {
     font-size: 0.9rem;
 }
 
+/* ========== ITEMS GRID (КАК НА СКРИНШОТЕ) ========== */
 .items-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
 }
 
 .item-card {
-    background: var(--white);
-    border-radius: 10px;
+    background: white;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    transition: all 0.3s;
-    text-decoration: none;
-    color: var(--gray-900);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.05);
 }
 
 .item-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+.item-header {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+}
+
+.item-timer {
+    background: #ff4757;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: monospace;
+}
+
+.item-favorite {
+    background: rgba(255,255,255,0.9);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.item-favorite:hover {
+    background: white;
+    transform: scale(1.1);
+}
+
+.item-favorite i {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.item-image-wrapper {
+    position: relative;
 }
 
 .item-image {
     width: 100%;
-    height: 170px;
+    height: 200px;
     object-fit: cover;
-    background: var(--gray-100);
 }
 
-.item-info {
-    padding: 1rem;
+.item-discount {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    background: #2ed573;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.item-details {
+    padding: 16px;
 }
 
 .item-title {
-    font-weight: 600;
-    font-size: 0.95rem;
-    margin-bottom: 0.4rem;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #333;
+    line-height: 1.3;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-.item-location {
-    font-size: 0.8rem;
-    color: var(--gray-600);
-    margin-bottom: 0.75rem;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.item-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
 .item-rating {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.rating-score {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+.rating-stars {
+    display: flex;
+    gap: 2px;
+}
+
+.rating-stars i {
+    color: #ffa500;
     font-size: 0.8rem;
+}
+
+.rating-count {
+    color: #666;
+    font-size: 0.85rem;
+}
+
+.item-pricing {
+    margin-top: auto;
+}
+
+.item-price-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.item-price {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.item-old-price {
+    font-size: 0.9rem;
+    color: #999;
+    text-decoration: line-through;
+}
+
+.item-installment {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.installment-price {
+    background: #ffa726;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.installment-term {
+    color: #666;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* Мобильные стили для карточек товаров */
+@media (max-width: 768px) {
+    .items-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    
+    .item-card {
+        border-radius: 8px;
+    }
+    
+    .item-image {
+        height: 160px;
+    }
+    
+    .item-details {
+        padding: 12px;
+    }
+    
+    .item-title {
+        font-size: 0.9rem;
+        margin-bottom: 6px;
+    }
+    
+    .item-price {
+        font-size: 1rem;
+    }
+    
+    .installment-price {
+        font-size: 0.7rem;
+        padding: 1px 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    .items-grid {
+        gap: 8px;
+    }
+    
+    .item-image {
+        height: 140px;
+    }
+    
+    .item-details {
+        padding: 10px;
+    }
+    
+    .item-title {
+        font-size: 0.85rem;
+    }
+    
+    .rating-score {
+        font-size: 0.8rem;
+    }
+    
+    .rating-count {
+        font-size: 0.75rem;
+    }
+    
+    .item-price {
+        font-size: 0.9rem;
+    }
 }
 
 .item-price {
@@ -2868,4 +3044,4 @@ html {
     .section-title {
         font-size: 1.15rem;
     }
-}
+}}
