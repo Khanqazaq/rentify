@@ -2214,6 +2214,7 @@ html {
         margin-top: 0.75rem;
         gap: 0.4rem;
         padding: 0 0.25rem;
+        grid-template-columns: repeat(4, 1fr) !important; /* ПРИНУДИТЕЛЬНО 4 КОЛОНКИ! */
     }
     
     .stat-item {
@@ -2414,6 +2415,10 @@ html {
     
     .hero-description {
         font-size: 0.75rem;
+    }
+    
+    .stats {
+        grid-template-columns: repeat(4, 1fr) !important; /* ПРИНУДИТЕЛЬНО 4 КОЛОНКИ! */
     }
     
     .stat-number {
