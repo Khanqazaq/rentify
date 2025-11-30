@@ -2111,6 +2111,14 @@ html {
     }
 }
 
+/* ========== УНИВЕРСАЛЬНАЯ МОБИЛЬНАЯ СТАТИСТИКА ========== */
+@media (max-width: 767px) {
+    .stats {
+        grid-template-columns: repeat(4, 1fr) !important;
+        display: grid !important;
+    }
+}
+
 /* ========== iOS SAFARI FIXES ========== */
 @supports (-webkit-touch-callout: none) {
     input,
