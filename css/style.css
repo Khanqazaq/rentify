@@ -158,7 +158,7 @@ img {
 /* ========== HERO ========== */
 .hero {
     /* Base spacing & layout */
-    padding: 4rem 0 2rem;
+    padding: 2.5rem 0 1.5rem;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -1242,8 +1242,8 @@ a[href*="kids"] img {
     }
     
     .hero {
-        padding: 5rem 0 2.5rem;
-        min-height: 85vh;
+        padding: 2.5rem 0 1.5rem;
+        min-height: 60vh;
     }
     
     /* Stats section removed */
@@ -1342,15 +1342,15 @@ a[href*="kids"] img {
     }
     
     .hero-description {
-        line-height: 1.4;
-        margin-bottom: 1.5rem;
-        padding: 0 1.5rem;
+        line-height: 1.35;
+        margin-bottom: 1rem;
+        padding: 0 1rem;
         animation: slideInUp 0.8s ease-out 0.3s both;
     }
     
     .hero {
-        padding: 4.5rem 0 2rem;
-        min-height: 75vh;
+        padding: 2rem 0 1.5rem;
+        min-height: 55vh;
     }
     
     .stats {
@@ -1383,10 +1383,10 @@ a[href*="kids"] img {
     
     .hero-buttons {
         flex-direction: column;
-        padding: 0 1.5rem;
-        gap: 1.2rem;
+        padding: 0 1rem;
+        gap: 0.8rem;
         width: 100%;
-        margin-top: 1rem;
+        margin-top: 0.5rem;
     }
     
     .hero-buttons .btn {
@@ -2693,7 +2693,7 @@ html {
     
     /* Hero Section - Ultra Compact */
     .hero {
-        padding: 3rem 0 1.5rem;
+        padding: 1.5rem 0 1rem;
     }
     
     .hero-title {
