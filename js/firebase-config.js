@@ -1,11 +1,12 @@
 // Firebase Configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyBqVV4YdVmxJ_PYuXKqWx3h8TtGxYrK6Nk",
+    apiKey: "AIzaSyACuJHz3o4iW7bJOuAHLKbjrcZtFONpqh8",
     authDomain: "rentify-kz.firebaseapp.com",
     projectId: "rentify-kz",
-    storageBucket: "rentify-kz.appspot.com",
-    messagingSenderId: "123456789012",
-    appId: "1:123456789012:web:abcdef1234567890"
+    storageBucket: "rentify-kz.firebasestorage.app",
+    messagingSenderId: "168071575894",
+    appId: "1:168071575894:web:16f7b3cfc976352dcdfef7",
+    measurementId: "G-YSRKP1FMM0"
 };
 
 // Initialize Firebase

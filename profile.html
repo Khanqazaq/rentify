@@ -989,7 +989,15 @@
 
             // Load user info
             document.getElementById('userName').textContent = user.name || 'Пользователь';
-            document.getElementById('userPhone').textContent = user.phone || '';
+            
+            // Показать номер телефона или кнопку для добавления
+            const phoneElement = document.getElementById('userPhone');
+            if (user.phone) {
+                phoneElement.textContent = user.phone;
+            } else {
+                phoneElement.innerHTML = '<span style="color: #6b7280;">Не указан</span> <button onclick="openPhoneModal()" style="margin-left: 10px; padding: 4px 8px; background: #3b82f6; color: white; border: none; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">Добавить</button>';
+            }
+            
             document.getElementById('userJoined').textContent = new Date(user.created || Date.now()).toLocaleDateString('ru-RU');
             
             // Set avatar
@@ -1640,6 +1648,25 @@
 
         // Сделать функцию logout глобально доступной
         window.logout = logout;
+        
+        // Функция для открытия модала добавления телефона
+        window.openPhoneModal = function() {
+            const phone = prompt('Введите ваш номер телефона (например: +77771234567):');
+            if (phone && phone.trim()) {
+                // Сохранить номер телефона
+                const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser') || '{}');
+                currentUser.phone = phone.trim();
+                
+                // Обновить в обеих хранилищах
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
+                
+                // Обновить отображение
+                document.getElementById('userPhone').textContent = phone.trim();
+                
+                alert('Номер телефона успешно добавлен!');
+            }
+        };
 
         // Добавить обработчик для кнопки выхода (на случай если onclick не работает)
         document.addEventListener('DOMContentLoaded', function() {
