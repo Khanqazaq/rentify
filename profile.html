@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Firebase SDK -->
-    <script defer src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
     
     <style>
         .profile-container {
@@ -851,8 +851,8 @@
                         <div class="footer-social">
                             <a href="https://instagram.com/rentify.kz" class="social-link" aria-label="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
                             <a href="https://t.me/rentifykz" class="social-link" aria-label="Telegram" target="_blank"><i class="fab fa-telegram"></i></a>
-                            <a href="https://wa.me/77771234567" class="social-link" aria-label="WhatsApp" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                            <a href="mailto:info@rentify.kz" class="social-link" aria-label="Email" target="_blank"><i class="fas fa-envelope"></i></a>
+                            <a href="https://wa.me/77472007077" class="social-link" aria-label="WhatsApp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                            <a href="mailto:nadirkansabyr@gmail.com" class="social-link" aria-label="Email" target="_blank"><i class="fas fa-envelope"></i></a>
                         </div>
                     </div>
                     <div class="footer-links">
@@ -872,8 +872,8 @@
                         </div>
                         <div class="footer-column">
                             <h4>Контакты</h4>
-                            <a href="tel:+77771234567">+7 (777) 123-45-67</a>
-                            <a href="mailto:info@rentify.kz">info@rentify.kz</a>
+                            <a href="tel:+77472007077">+7 (747) 200-70-77</a>
+                            <a href="mailto:nadirkansabyr@gmail.com">nadirkansabyr@gmail.com</a>
                             <a href="#" onclick="openInfoModal('partnership', event)">Партнерство</a>
                             <a href="#">Реклама</a>
                         </div>
@@ -1600,22 +1600,57 @@
         async function logout() {
             if (confirm('Вы уверены, что хотите выйти?')) {
                 try {
-                    // Выход через Firebase Auth
-                    await auth.signOut();
+                    // Проверить, доступен ли Firebase Auth
+                    if (typeof firebase !== 'undefined' && firebase.auth) {
+                        console.log('Выход через Firebase Auth...');
+                        await firebase.auth().signOut();
+                    } else {
+                        console.log('Firebase Auth недоступен, выполняется локальный выход...');
+                    }
                     
-                    // Очистить локальные данные
+                    // Очистить все локальные данные
                     localStorage.removeItem('currentUser');
+                    sessionStorage.removeItem('currentUser');
+                    localStorage.removeItem('user_location');
                     
-                    console.log('Пользователь вышел из системы');
+                    // Очистить cookies (если есть)
+                    document.cookie.split(";").forEach(function(c) { 
+                        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
+                    });
+                    
+                    console.log('✅ Пользователь вышел из системы');
+                    
+                    // Показать уведомление об успешном выходе
+                    alert('Вы успешно вышли из системы');
                     
                     // Перенаправить на главную страницу
                     window.location.href = 'index.html';
                 } catch (error) {
-                    console.error('Ошибка выхода:', error);
-                    alert('Ошибка при выходе из системы');
+                    console.error('❌ Ошибка выхода:', error);
+                    
+                    // Все равно очистить данные и перенаправить
+                    localStorage.clear();
+                    sessionStorage.clear();
+                    
+                    alert('Произошла ошибка, но вы все равно будете перенаправлены на главную страницу');
+                    window.location.href = 'index.html';
                 }
             }
         }
+
+        // Сделать функцию logout глобально доступной
+        window.logout = logout;
+
+        // Добавить обработчик для кнопки выхода (на случай если onclick не работает)
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoutBtn = document.querySelector('.logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    logout();
+                });
+            }
+        });
 
         // Info modal functionality
         const infoContent = {
@@ -1705,7 +1740,7 @@
                 A: Мы работаем по всему Казахстану! Основные города: Алматы, Нур-Султан, Шымкент, Актобе.<br><br>
                 
                 <strong>💡 Есть еще вопросы?</strong><br>
-                Напишите нам в чат или на support@rentify.kz — ответим в течение часа!`
+                Напишите нам в чат или на nadirkhansabyr@gmail.com — ответим в течение часа!`
             },
             partnership: {
                 title: 'Партнерство и сотрудничество',
@@ -1749,8 +1784,8 @@
                 • Привлекательные финансовые условия<br><br>
                 
                 <strong>📞 Начнем сотрудничество:</strong><br>
-                📧 Напишите нам: partners@rentify.kz<br>
-                📱 Или звоните: +7 (777) 123-45-67<br><br>
+                📧 Напишите нам: nadirkhansabyr@gmail.com<br>
+                📱 Или звоните: +7 (747) 200-77-77<br><br>
                 
                 Опишите ваше предложение — мы ответим в течение 24 часов!`
             }
