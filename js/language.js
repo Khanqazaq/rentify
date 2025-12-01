@@ -191,7 +191,7 @@ translations.ru.cat_books = 'Книги';
 translations.kk.cat_books = 'Кітаптар';
 
 // Stats
-translations.ru.stat_items = 'Активных вещей';
+// translations.ru.stat_items = 'Активных вещей'; // Removed
 translations.kk.stat_items = 'Белсенді заттар';
 translations.ru.stat_users = 'Довольных пользователей';
 translations.kk.stat_users = 'Қанағат пайдаланушылар';

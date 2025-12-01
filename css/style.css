@@ -220,31 +220,7 @@ img {
     flex-wrap: wrap;
 }
 
-.stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
-    margin-top: 3rem;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0 1rem;
-}
-
-.stat-item {
-    background: #fff;
-    border-radius: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    padding: 2rem 1.5rem;
-    text-align: center;
-    transition: all 0.3s ease;
-    border: 1px solid #f1f5f9;
-}
-
-.stat-item:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-}
+/* Stats section removed */
 
 .stat-number {
     font-size: 2.2rem;
@@ -1270,30 +1246,7 @@ a[href*="kids"] img {
         min-height: 80vh;
     }
     
-    .stats {
-        margin-top: 2rem;
-        gap: 1rem;
-        grid-template-columns: repeat(4, 1fr);
-    }
-    
-    .stat-item {
-        padding: 1.8rem 1.2rem;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-        transition: all 0.3s ease;
-    }
-    
-    .stat-item:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    }
-    
-    .stat-number {
-        font-size: 1.8rem;
-    }
-    
-    .stat-label {
-        font-size: 0.8rem;
-    }
+    /* Stats section removed */
     
     .search-box {
         grid-template-columns: 1fr;
@@ -2754,17 +2707,7 @@ html {
         padding: 0 0.5rem;
     }
     
-    .stats {
-        margin-top: 0.75rem;
-        gap: 0.4rem;
-        padding: 0 0.25rem;
-        grid-template-columns: repeat(4, 1fr) !important; /* ПРИНУДИТЕЛЬНО 4 КОЛОНКИ! */
-    }
-    
-    .stat-item {
-        min-width: auto;
-        padding: 0.4rem 0.6rem;
-    }
+    /* Stats section removed */
     
     .stat-number {
         font-size: 1rem;
