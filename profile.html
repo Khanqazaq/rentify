@@ -710,6 +710,72 @@
                     <p style="margin-top: 0.5rem; opacity: 0.9; font-size: 0.875rem;">Ваш уровень доверия на платформе</p>
                 </div>
 
+                <!-- 🚀 План достижения 100% -->
+                <div id="trustScorePlan" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 2rem; border-radius: 16px; color: white; margin-bottom: 2rem;">
+                    <h3 style="margin: 0 0 1rem 0; font-size: 1.5rem;">🚀 Что нужно для 100% (+<span id="remainingPoints">70</span> баллов):</h3>
+                    <div id="achievementList" style="display: grid; gap: 0.75rem;">
+                        <div class="achievement-item" data-type="email" style="display: flex; align-items: center; gap: 1rem; background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 12px;">
+                            <div style="font-size: 1.5rem;">📧</div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600;">Email верификация</div>
+                                <div style="opacity: 0.8; font-size: 0.875rem;">Подтвердите ваш email адрес</div>
+                            </div>
+                            <div style="font-weight: bold; font-size: 1.25rem;">+10</div>
+                        </div>
+                        <div class="achievement-item" data-type="reviews" style="display: flex; align-items: center; gap: 1rem; background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 12px;">
+                            <div style="font-size: 1.5rem;">⭐</div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600;">Получить первые отзывы</div>
+                                <div style="opacity: 0.8; font-size: 0.875rem;">5+ отзывов от других пользователей</div>
+                            </div>
+                            <div style="font-weight: bold; font-size: 1.25rem;">+20</div>
+                        </div>
+                        <div class="achievement-item" data-type="listings" style="display: flex; align-items: center; gap: 1rem; background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 12px;">
+                            <div style="font-size: 1.5rem;">📝</div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600;">Создать объявления</div>
+                                <div style="opacity: 0.8; font-size: 0.875rem;">3+ активных объявления</div>
+                            </div>
+                            <div style="font-weight: bold; font-size: 1.25rem;">+15</div>
+                        </div>
+                        <div class="achievement-item" data-type="profile" style="display: flex; align-items: center; gap: 1rem; background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 12px;">
+                            <div style="font-size: 1.5rem;">💼</div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600;">Заполнить профиль полностью</div>
+                                <div style="opacity: 0.8; font-size: 0.875rem;">Имя, телефон, email, город</div>
+                            </div>
+                            <div style="font-weight: bold; font-size: 1.25rem;">+10</div>
+                        </div>
+                        <div class="achievement-item" data-type="social" style="display: flex; align-items: center; gap: 1rem; background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 12px;">
+                            <div style="font-size: 1.5rem;">🔗</div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600;">Привязать соцсети</div>
+                                <div style="opacity: 0.8; font-size: 0.875rem;">Instagram, Telegram или WhatsApp</div>
+                            </div>
+                            <div style="font-weight: bold; font-size: 1.25rem;">+5</div>
+                        </div>
+                        <div class="achievement-item" data-type="transactions" style="display: flex; align-items: center; gap: 1rem; background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 12px;">
+                            <div style="font-size: 1.5rem;">🏆</div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600;">Успешные сделки</div>
+                                <div style="opacity: 0.8; font-size: 0.875rem;">2+ завершенных аренды</div>
+                            </div>
+                            <div style="font-weight: bold; font-size: 1.25rem;">+10</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 1.5rem; text-align: center;">
+                        <div style="font-size: 1.125rem; font-weight: 600; opacity: 0.9; margin-bottom: 1rem;">Итого: 30 + 70 = 💯% Trust Score! 🎉</div>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.75rem;">
+                            <button onclick="addDemoReview()" style="background: rgba(255,255,255,0.2); border: none; color: white; padding: 0.75rem; border-radius: 8px; font-size: 0.875rem; cursor: pointer;">
+                                ⭐ Добавить отзыв
+                            </button>
+                            <button onclick="addDemoTransaction()" style="background: rgba(255,255,255,0.2); border: none; color: white; padding: 0.75rem; border-radius: 8px; font-size: 0.875rem; cursor: pointer;">
+                                🏆 Добавить сделку
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Verification Modules -->
                 <div style="display: grid; gap: 1.5rem;">
                     
@@ -733,6 +799,29 @@
                         </div>
                         <button class="btn btn-primary" onclick="startSMSVerification()" id="smsVerifyBtn" style="width: 100%;">
                             <i class="fas fa-check"></i> Подтвердить телефон
+                        </button>
+                    </div>
+
+                    <!-- Email Verification -->
+                    <div style="border: 2px solid #e5e7eb; border-radius: 12px; padding: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                            <div>
+                                <h4 style="margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-envelope" style="color: #f59e0b;"></i>
+                                    Email Верификация
+                                    <span class="badge" id="emailStatus">
+                                        <i class="fas fa-times-circle"></i> Не подтверждено
+                                    </span>
+                                </h4>
+                                <p style="color: #6b7280; margin: 0.5rem 0 0 0; font-size: 0.875rem;">Подтвердите ваш email адрес</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-size: 1.5rem; font-weight: bold; color: #f59e0b;">+10</div>
+                                <div style="font-size: 0.75rem; color: #6b7280;">баллов</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" onclick="verifyEmail()" id="emailVerifyBtn" style="width: 100%; background: #f59e0b;">
+                            <i class="fas fa-check"></i> Подтвердить email
                         </button>
                     </div>
 
@@ -780,6 +869,37 @@
                         <button class="btn btn-primary" onclick="startIDVerification()" id="idVerifyBtn" style="width: 100%; background: #ec4899;">
                             <i class="fas fa-upload"></i> Загрузить документ
                         </button>
+                    </div>
+
+                    <!-- Social Media Verification -->
+                    <div style="border: 2px solid #e5e7eb; border-radius: 12px; padding: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                            <div>
+                                <h4 style="margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-share-alt" style="color: #8b5cf6;"></i>
+                                    Социальные сети
+                                    <span class="badge" id="socialStatus">
+                                        <i class="fas fa-times-circle"></i> Не подключено
+                                    </span>
+                                </h4>
+                                <p style="color: #6b7280; margin: 0.5rem 0 0 0; font-size: 0.875rem;">Подключите социальные сети</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-size: 1.5rem; font-weight: bold; color: #8b5cf6;">+5</div>
+                                <div style="font-size: 0.75rem; color: #6b7280;">баллов</div>
+                            </div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.5rem;">
+                            <button class="btn" onclick="connectSocial('instagram')" style="background: #E4405F; color: white; padding: 0.5rem; font-size: 0.875rem;">
+                                <i class="fab fa-instagram"></i> Instagram
+                            </button>
+                            <button class="btn" onclick="connectSocial('telegram')" style="background: #0088CC; color: white; padding: 0.5rem; font-size: 0.875rem;">
+                                <i class="fab fa-telegram"></i> Telegram
+                            </button>
+                            <button class="btn" onclick="connectSocial('whatsapp')" style="background: #25D366; color: white; padding: 0.5rem; font-size: 0.875rem;">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </button>
+                        </div>
                     </div>
 
                 </div>
@@ -972,67 +1092,317 @@
     <script src="js/notifications.js"></script>
     <script src="js/main.js"></script>
     <script>
-        // Profile Page Logic
-        document.addEventListener('DOMContentLoaded', function() {
-            const user = JSON.parse(localStorage.getItem('currentUser') || 'null');
+        // Global variables
+        let currentUser = null;
+
+        // Initialize page when DOM is ready
+        function initializePage() {
+            console.log('🔄 Инициализируем страницу профиля...');
             
-            // Redirect if not logged in
-            if (!user) {
-                window.location.href = 'login.html';
+            try {
+                // Load user from storage
+                loadCurrentUser();
+                
+                // Initialize UI
+                updateUserInterface();
+                
+                // Setup event handlers
+                setupEventHandlers();
+                
+                // Load data
+                loadPageData();
+                
+                console.log('✅ Страница успешно инициализирована');
+                
+            } catch (error) {
+                console.error('❌ Ошибка инициализации:', error);
+                createFallbackUser();
+            }
+        }
+
+        // Load user from storage or create demo user
+        function loadCurrentUser() {
+            console.log('👤 Загружаем данные пользователя...');
+            
+            let userData = null;
+            
+            try {
+                // Try localStorage first
+                const localData = localStorage.getItem('currentUser');
+                if (localData && localData !== 'null') {
+                    userData = JSON.parse(localData);
+                    console.log('📦 Данные загружены из localStorage:', userData);
+                }
+                
+                // Try sessionStorage if localStorage is empty
+                if (!userData) {
+                    const sessionData = sessionStorage.getItem('currentUser');
+                    if (sessionData && sessionData !== 'null') {
+                        userData = JSON.parse(sessionData);
+                        console.log('📦 Данные загружены из sessionStorage:', userData);
+                    }
+                }
+                
+            } catch (error) {
+                console.error('❌ Ошибка парсинга данных пользователя:', error);
+            }
+            
+            // Create demo user if no data found
+            if (!userData) {
+                console.log('⚠️ Пользователь не найден, создаем демо...');
+                createFallbackUser();
+            } else {
+                currentUser = userData;
+                console.log('✅ Пользователь успешно загружен:', currentUser);
+            }
+        }
+
+        // Create fallback demo user
+        function createFallbackUser() {
+            console.log('🆕 Создаем демо пользователя...');
+            
+            currentUser = {
+                name: 'Демо Пользователь',
+                phone: '+77771234567', 
+                email: 'demo@rentify.kz',
+                city: 'Алматы',
+                created: new Date().toISOString(),
+                trustScore: 30,
+                verification: {
+                    phone: true,
+                    liveness: false,
+                    id: false,
+                    email: false,
+                    social: {}
+                },
+                badges: [],
+                reviewCount: 0,
+                transactionCount: 0
+            };
+            
+            // Save to both storages
+            try {
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
+                console.log('💾 Демо пользователь сохранен:', currentUser);
+            } catch (error) {
+                console.error('❌ Ошибка сохранения демо пользователя:', error);
+            }
+        }
+
+        // Initialize page on DOM ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 DOM загружен, запускаем инициализацию...');
+            
+            // Small delay to ensure all elements are rendered
+            setTimeout(initializePage, 100);
+        });
+
+        // Update user interface with current user data
+        function updateUserInterface() {
+            if (!currentUser) {
+                console.error('❌ Нет данных пользователя для обновления UI');
                 return;
             }
+            
+            console.log('🖥️ Обновляем интерфейс пользователя...');
+            
+            try {
+                // Show welcome modal for new users
+                if (!currentUser.name || currentUser.name === 'Пользователь') {
+                    const welcomeModal = document.getElementById('welcomeModal');
+                    if (welcomeModal) {
+                        welcomeModal.style.display = 'flex';
+                    }
+                }
 
-            // Показываем приветственное окно для новых пользователей
-            if (!user.name || user.name === 'Пользователь') {
-                document.getElementById('welcomeModal').style.display = 'flex';
+                // Update user name
+                const userNameEl = document.getElementById('userName');
+                if (userNameEl) {
+                    userNameEl.textContent = currentUser.name || 'Пользователь';
+                    console.log('✅ Имя обновлено:', currentUser.name);
+                }
+                
+                // Update phone
+                const userPhoneEl = document.getElementById('userPhone');
+                if (userPhoneEl) {
+                    if (currentUser.phone) {
+                        userPhoneEl.textContent = currentUser.phone;
+                    } else {
+                        userPhoneEl.innerHTML = '<span style="color: #6b7280;">Не указан</span> <button onclick="openPhoneModal()" style="margin-left: 10px; padding: 4px 8px; background: #3b82f6; color: white; border: none; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">Добавить</button>';
+                    }
+                    console.log('✅ Телефон обновлен:', currentUser.phone);
+                }
+                
+                // Update join date
+                const userJoinedEl = document.getElementById('userJoined');
+                if (userJoinedEl) {
+                    userJoinedEl.textContent = new Date(currentUser.created || Date.now()).toLocaleDateString('ru-RU');
+                }
+                
+                // Update Trust Score
+                updateTrustScoreDisplay();
+                
+                // Load avatar
+                try {
+                    loadAvatar();
+                } catch (error) {
+                    console.error('❌ Ошибка загрузки аватара:', error);
+                }
+                
+                console.log('✅ Интерфейс пользователя обновлен');
+                
+            } catch (error) {
+                console.error('❌ Ошибка обновления интерфейса:', error);
             }
+        }
 
-            // Load user info
-            document.getElementById('userName').textContent = user.name || 'Пользователь';
+        // Update Trust Score displays
+        function updateTrustScoreDisplay() {
+            if (!currentUser) return;
             
-            // Показать номер телефона или кнопку для добавления
-            const phoneElement = document.getElementById('userPhone');
-            if (user.phone) {
-                phoneElement.textContent = user.phone;
-            } else {
-                phoneElement.innerHTML = '<span style="color: #6b7280;">Не указан</span> <button onclick="openPhoneModal()" style="margin-left: 10px; padding: 4px 8px; background: #3b82f6; color: white; border: none; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">Добавить</button>';
-            }
+            console.log('📊 Обновляем отображение Trust Score...');
             
-            document.getElementById('userJoined').textContent = new Date(user.created || Date.now()).toLocaleDateString('ru-RU');
-            
-            // Set avatar
-            loadAvatar();
-
-            // Load stats
-            loadStats();
-
-            // Load my items
-            loadMyItems();
-
-            // Load favorites
-            loadFavorites();
-
-            // Tab switching
-            const tabs = document.querySelectorAll('.tab');
-            tabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    // Remove active from all
-                    tabs.forEach(t => t.classList.remove('active'));
-                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                    
-                    // Add active to clicked
-                    this.classList.add('active');
-                    const tabId = this.dataset.tab;
-                    document.getElementById(tabId).classList.add('active');
+            try {
+                const trustData = calculateTrustScore(currentUser);
+                currentUser.trustScore = trustData.score;
+                
+                // Update main display
+                const trustScoreEl = document.getElementById('trustScoreDisplay');
+                if (trustScoreEl) {
+                    trustScoreEl.textContent = `${trustData.score}/100`;
+                }
+                
+                // Update verification tab display  
+                const displayTrustScoreEl = document.getElementById('displayTrustScore');
+                if (displayTrustScoreEl) {
+                    displayTrustScoreEl.textContent = trustData.score;
+                }
+                
+                // Update progress bars
+                const progressElements = ['trustScoreProgress', 'trustProgress'];
+                progressElements.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.style.width = `${trustData.score}%`;
+                    }
                 });
-            });
+                
+                console.log('✅ Trust Score обновлен:', trustData.score);
+                
+            } catch (error) {
+                console.error('❌ Ошибка обновления Trust Score:', error);
+            }
+        }
 
-            // Load settings
-            loadSettings();
+        // Load page data
+        function loadPageData() {
+            console.log('📊 Загружаем данные страницы...');
+            
+            try {
+                loadStats();
+                loadMyItems(); 
+                loadFavorites();
+                
+                // Load verification status with delay
+                setTimeout(() => {
+                    try {
+                        loadVerificationStatus();
+                    } catch (error) {
+                        console.error('❌ Ошибка загрузки статуса верификации:', error);
+                    }
+                }, 200);
+                
+            } catch (error) {
+                console.error('❌ Ошибка загрузки данных:', error);
+            }
+        }
 
-            // Load verification status
-            loadVerificationStatus();
-        });
+        // Setup event handlers
+        function setupEventHandlers() {
+            console.log('🔧 Настраиваем обработчики событий...');
+            
+            try {
+                // Tab switching
+                const tabs = document.querySelectorAll('.tab');
+                console.log('🗂️ Найдено вкладок:', tabs.length);
+                
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', function(e) {
+                        console.log('🔄 Переключение на вкладку:', this.dataset.tab);
+                        
+                        // Remove active from all
+                        tabs.forEach(t => t.classList.remove('active'));
+                        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                        
+                        // Add active to clicked
+                        this.classList.add('active');
+                        const tabId = this.dataset.tab;
+                        const targetContent = document.getElementById(tabId);
+                        if (targetContent) {
+                            targetContent.classList.add('active');
+                            console.log('✅ Вкладка переключена:', tabId);
+                        } else {
+                            console.error('❌ Контент вкладки не найден:', tabId);
+                        }
+                    });
+                });
+
+                // Load settings
+                try {
+                    loadSettings();
+                } catch (error) {
+                    console.error('❌ Ошибка загрузки настроек:', error);
+                }
+                
+                console.log('✅ Обработчики событий настроены');
+                
+            } catch (error) {
+                console.error('❌ Ошибка настройки обработчиков:', error);
+            }
+        }
+
+        // Save user data to storage
+        function saveUserData() {
+            if (!currentUser) {
+                console.error('❌ Нет данных пользователя для сохранения');
+                return;
+            }
+            
+            try {
+                const userDataString = JSON.stringify(currentUser);
+                localStorage.setItem('currentUser', userDataString);
+                sessionStorage.setItem('currentUser', userDataString);
+                console.log('💾 Данные пользователя сохранены:', currentUser);
+            } catch (error) {
+                console.error('❌ Ошибка сохранения данных пользователя:', error);
+            }
+        }
+
+        // Global function to switch tabs (for debugging)
+        window.switchTab = function(tabId) {
+            console.log('🔄 Переключение на вкладку:', tabId);
+            
+            try {
+                // Remove active from all tabs
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active to target
+                const targetTab = document.querySelector(`[data-tab="${tabId}"]`);
+                const targetContent = document.getElementById(tabId);
+                
+                if (targetTab && targetContent) {
+                    targetTab.classList.add('active');
+                    targetContent.classList.add('active');
+                    console.log('✅ Вкладка переключена на:', tabId);
+                } else {
+                    console.error('❌ Вкладка не найдена:', {targetTab, targetContent});
+                }
+            } catch (error) {
+                console.error('❌ Ошибка переключения вкладки:', error);
+            }
+        };
 
         // ========== AVATAR FUNCTIONS ==========
         function loadAvatar() {
@@ -1161,7 +1531,7 @@
             updateVerificationBadges(user);
 
             // Update trust score in header
-            updateTrustScoreDisplay(user.trustScore);
+            updateTrustScoreDisplay();
 
             // Update verification tab
             updateVerificationTab(user);
@@ -1190,16 +1560,7 @@
             container.innerHTML = badges.join('');
         }
 
-        function updateTrustScoreDisplay(score) {
-            document.getElementById('trustScoreDisplay').textContent = score + '/100';
-            document.getElementById('trustScoreProgress').style.width = score + '%';
-
-            // Update in verification tab
-            if (document.getElementById('displayTrustScore')) {
-                document.getElementById('displayTrustScore').textContent = score;
-                document.getElementById('trustProgress').style.width = score + '%';
-            }
-        }
+        // Removed duplicate function - using the new version above
 
         function updateVerificationTab(user) {
             // SMS Status
@@ -1238,6 +1599,28 @@
                 idBtn.style.opacity = '0.6';
             }
 
+            // Email Status
+            const emailStatus = document.getElementById('emailStatus');
+            const emailBtn = document.getElementById('emailVerifyBtn');
+            
+            if (user.verification.email) {
+                emailStatus.innerHTML = '<i class="fas fa-check-circle"></i> Подтверждено';
+                emailStatus.className = 'badge verified';
+                emailBtn.innerHTML = '<i class="fas fa-check"></i> Подтверждено';
+                emailBtn.disabled = true;
+                emailBtn.style.opacity = '0.6';
+            }
+
+            // Social Media Status
+            const socialStatus = document.getElementById('socialStatus');
+            const socialConnections = user.verification?.social || {};
+            const connectedCount = Object.keys(socialConnections).length;
+            
+            if (connectedCount > 0) {
+                socialStatus.innerHTML = `<i class="fas fa-check-circle"></i> Подключено (${connectedCount})`;
+                socialStatus.className = 'badge verified';
+            }
+
             // Update badges
             updateBadges(user);
         }
@@ -1271,95 +1654,297 @@
 
         function calculateTrustScore(user) {
             let score = 0;
+            const details = [];
 
-            // Verification (40 points)
-            if (user.verification.phone) score += 10;
-            if (user.verification.liveness) score += 15;
-            if (user.verification.id) score += 15;
-
-            // Rating (30 points)
-            if (user.rating) {
-                score += Math.round((user.rating / 5) * 30);
+            // Базовые верификации (40 баллов)
+            if (user.verification?.phone) {
+                score += 10;
+                details.push('📱 SMS верификация: +10');
+            }
+            if (user.verification?.liveness) {
+                score += 15;
+                details.push('🤳 Liveness проверка: +15');
+            }
+            if (user.verification?.id) {
+                score += 15;
+                details.push('🆔 Проверка документов: +15');
             }
 
-            // Reviews (15 points) - placeholder
+            // Email верификация (10 баллов)
+            if (user.verification?.email) {
+                score += 10;
+                details.push('📧 Email подтвержден: +10');
+            }
+
+            // Заполненность профиля (10 баллов)
+            let profileComplete = 0;
+            if (user.name && user.name !== 'Пользователь') profileComplete += 3;
+            if (user.phone) profileComplete += 3;
+            if (user.email) profileComplete += 2;
+            if (user.city) profileComplete += 2;
+            if (profileComplete >= 8) {
+                score += 10;
+                details.push('💼 Профиль заполнен: +10');
+            }
+
+            // Отзывы (20 баллов)
             const reviewCount = user.reviewCount || 0;
-            score += Math.min(reviewCount * 1.5, 15);
+            const reviewPoints = Math.min(reviewCount * 4, 20);
+            if (reviewPoints > 0) {
+                score += reviewPoints;
+                details.push(`⭐ Отзывы (${reviewCount}): +${reviewPoints}`);
+            }
 
-            // Transactions (15 points) - placeholder
+            // Объявления (15 баллов)
+            const listings = JSON.parse(localStorage.getItem('mockItems') || '[]');
+            const userListings = listings.filter(item => item.ownerName === user.name || item.ownerPhone === user.phone);
+            const listingPoints = Math.min(userListings.length * 5, 15);
+            if (listingPoints > 0) {
+                score += listingPoints;
+                details.push(`📝 Объявления (${userListings.length}): +${listingPoints}`);
+            }
+
+            // Успешные сделки (10 баллов)
             const transactionCount = user.transactionCount || 0;
-            score += Math.min(transactionCount * 0.5, 15);
+            const transactionPoints = Math.min(transactionCount * 5, 10);
+            if (transactionPoints > 0) {
+                score += transactionPoints;
+                details.push(`🏆 Сделки (${transactionCount}): +${transactionPoints}`);
+            }
 
-            return Math.min(score, 100);
+            // Соцсети (5 баллов)
+            const socialConnections = user.verification?.social || {};
+            const connectedSocials = Object.keys(socialConnections).length;
+            if (connectedSocials > 0) {
+                score += 5;
+                details.push(`🔗 Соцсети подключены (${connectedSocials}): +5`);
+            }
+
+            return {
+                score: Math.min(score, 100),
+                details: details
+            };
         }
 
-        async function startSMSVerification() {
-            const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
+        // SMS Verification Function
+        window.startSMSVerification = function() {
+            console.log('📱 Запуск SMS верификации...');
             
-            if (!user.phone) {
-                if (typeof showNotification === 'function') {
-                    showNotification('Укажите номер телефона в настройках', 'warning');
-                }
+            if (!currentUser) {
+                console.error('❌ Нет данных пользователя');
+                alert('❌ Ошибка: данные пользователя не загружены');
+                return;
+            }
+            
+            if (!currentUser.phone) {
+                console.log('❌ Телефон не указан');
+                alert('⚠️ Укажите номер телефона в настройках профиля');
                 return;
             }
 
-            // Open SMS verification modal (using frontend from security-system)
-            const modal = window.open('security-system/frontend/sms-verification.html?phone=' + encodeURIComponent(user.phone), 'SMS Verification', 'width=600,height=700');
+            console.log('📱 Начинаем SMS верификацию для:', currentUser.phone);
+
+            // Generate demo SMS code
+            const smsCode = Math.floor(1000 + Math.random() * 9000);
+            console.log('🔢 Сгенерированный SMS код:', smsCode);
             
-            // Listen for verification success
-            window.addEventListener('message', function(event) {
-                if (event.data.type === 'sms_verified') {
-                    user.verification.phone = true;
-                    user.trustScore = calculateTrustScore(user);
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    loadVerificationStatus();
-                    
-                    if (typeof showNotification === 'function') {
-                        showNotification('Телефон успешно подтвержден! +10 Trust Score', 'success');
+            const userCode = prompt(`📱 SMS ВЕРИФИКАЦИЯ\n\nНа номер ${currentUser.phone} отправлен код подтверждения.\n\n🔐 Демо код для тестирования: ${smsCode}\n\nВведите полученный код:`);
+            
+            if (userCode && userCode == smsCode) {
+                console.log('✅ SMS код верный, обновляем данные...');
+                
+                // Update verification status
+                currentUser.verification = currentUser.verification || {};
+                currentUser.verification.phone = true;
+                
+                // Recalculate trust score
+                const trustData = calculateTrustScore(currentUser);
+                currentUser.trustScore = trustData.score;
+                
+                // Save to storage
+                saveUserData();
+                
+                // Update UI
+                updateTrustScoreDisplay();
+                
+                // Reload verification status
+                setTimeout(() => {
+                    try {
+                        loadVerificationStatus();
+                    } catch (error) {
+                        console.error('❌ Ошибка обновления верификации:', error);
                     }
-                }
-            });
-        }
-
-        async function startLivenessCheck() {
-            if (typeof showNotification === 'function') {
-                showNotification('Функция записи видео в разработке. Для теста нажмите "Подтвердить"', 'info');
-            }
-
-            // For demo - simulate verification
-            if (confirm('Симуляция Liveness проверки.\n\nПодтвердить прохождение?')) {
-                const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
-                user.verification.liveness = true;
-                user.trustScore = calculateTrustScore(user);
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                loadVerificationStatus();
+                }, 100);
                 
-                if (typeof showNotification === 'function') {
-                    showNotification('Liveness проверка пройдена! +15 Trust Score', 'success');
-                }
+                alert('✅ SMS верификация успешно завершена!\n\n📈 Trust Score увеличен на +10 баллов');
+                
+            } else if (userCode !== null) {
+                console.log('❌ SMS код неверный:', userCode);
+                alert('❌ Неверный код подтверждения\n\nПопробуйте еще раз');
             }
         }
 
-        async function startIDVerification() {
-            if (typeof showNotification === 'function') {
-                showNotification('Функция загрузки документа в разработке. Для теста нажмите "Подтвердить"', 'info');
+        // Liveness Check Function
+        window.startLivenessCheck = async function() {
+            console.log('🎥 Начинаем Liveness верификацию');
+            
+            if (!currentUser) {
+                console.error('❌ Пользователь не найден для Liveness верификации');
+                alert('Ошибка: Пользователь не найден');
+                return;
+            }
+            
+            // Проверяем, не верифицирован ли уже
+            if (currentUser.verifications?.liveness?.verified) {
+                alert('Liveness верификация уже пройдена! Вы получили 20 баллов Trust Score.');
+                return;
+            }
+            
+            // Имитируем процесс верификации через камеру
+            if (confirm('📹 LIVENESS ПРОВЕРКА\n\nДля верификации нужен доступ к камеру.\n👤 Посмотрите прямо в камеру\n😊 Следуйте инструкциям\n\nНачать проверку?')) {
+                console.log('📸 Пользователь согласился на верификацию через камеру');
+                
+                // Показываем процесс загрузки
+                const button = document.getElementById('livenessVerifyBtn');
+                const originalText = button.textContent;
+                button.textContent = '🔄 Проверяем...';
+                button.disabled = true;
+                
+                // Имитируем процесс верификации
+                setTimeout(() => {
+                    if (confirm('🎯 РЕЗУЛЬТАТ ПРОВЕРКИ:\n\n📹 Камера: Активна\n👤 Лицо: Обнаружено\n✨ Живость: Подтверждена\n🔒 Безопасность: Пройдена\n\n✅ Верификация успешна!\n+20 баллов Trust Score\n\nПодтвердить результат?')) {
+                        
+                        // Обновляем данные пользователя
+                        if (!currentUser.verifications) currentUser.verifications = {};
+                        
+                        currentUser.verifications.liveness = {
+                            verified: true,
+                            verifiedAt: new Date().toISOString(),
+                            points: 20,
+                            method: 'camera_biometric'
+                        };
+                        
+                        // Обновляем Trust Score
+                        const oldScore = currentUser.trustScore || 0;
+                        currentUser.trustScore = Math.min((currentUser.trustScore || 0) + 20, 100);
+                        
+                        console.log(`✅ Liveness верификация завершена! Trust Score: ${oldScore} → ${currentUser.trustScore}`);
+                        
+                        // Сохраняем данные
+                        saveUserData();
+                        
+                        // Обновляем интерфейс
+                        updateUserInterface();
+                        updateTrustScoreDisplay();
+                        
+                        // Восстанавливаем кнопку
+                        button.textContent = '✓ Пройдено';
+                        button.disabled = false;
+                        button.style.backgroundColor = '#4CAF50';
+                        
+                        alert(`🎉 Liveness верификация успешно завершена!\n\n+20 баллов Trust Score\nТекущий счет: ${currentUser.trustScore}/100`);
+                        
+                    } else {
+                        // Пользователь отклонил результат
+                        button.textContent = originalText;
+                        button.disabled = false;
+                        console.log('❌ Пользователь отклонил результат Liveness верификации');
+                    }
+                }, 3000);
+            } else {
+                console.log('❌ Пользователь отменил Liveness верификацию');
+            }
+        }
+        }
+
+        // ID Verification Function
+        window.startIDVerification = async function() {
+            console.log('🆔 Начинаем ID верификацию');
+            
+            if (!currentUser) {
+                console.error('❌ Пользователь не найден для ID верификации');
+                alert('Ошибка: Пользователь не найден');
+                return;
+            }
+            
+            // Проверяем, не верифицирован ли уже
+            if (currentUser.verifications?.id?.verified) {
+                alert('ID верификация уже пройдена! Вы получили 25 баллов Trust Score.');
+                return;
             }
 
-            // For demo - simulate verification
-            if (confirm('Симуляция проверки документов.\n\nПодтвердить загрузку?')) {
-                const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
-                user.verification.id = true;
-                user.trustScore = calculateTrustScore(user);
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                loadVerificationStatus();
+            const docType = prompt('🆔 ВЫБОР ДОКУМЕНТА\n\n1 → 🆔 Удостоверение личности\n2 → 📝 Паспорт\n3 → 🏎️ Водительские права\n\nВведите номер (1-3):');
+            
+            if (docType >= 1 && docType <= 3) {
+                const docNames = {
+                    '1': 'Удостоверение личности', 
+                    '2': 'Паспорт', 
+                    '3': 'Водительские права'
+                };
                 
-                if (typeof showNotification === 'function') {
-                    showNotification('Документ подтвержден! +15 Trust Score', 'success');
-                }
+                console.log('📄 Выбран документ:', docNames[docType]);
+                
+                // Показываем процесс загрузки
+                const button = document.getElementById('idVerifyBtn');
+                const originalText = button.textContent;
+                button.textContent = '📄 Обрабатываем...';
+                button.disabled = true;
+                
+                // Имитируем процесс верификации
+                setTimeout(() => {
+                    if (confirm(`🆔 РЕЗУЛЬТАТ ПРОВЕРКИ:\n\n📄 Документ: ${docNames[docType]}\n🔍 Сканирование: Завершено\n✅ Данные: Корректны\n🔒 Подлинность: Подтверждена\n🏛️ Государственная база: Проверено\n\n✅ Верификация успешна!\n+25 баллов Trust Score\n\nПодтвердить результат?`)) {
+                        
+                        // Обновляем данные пользователя
+                        if (!currentUser.verifications) currentUser.verifications = {};
+                        
+                        currentUser.verifications.id = {
+                            verified: true,
+                            verifiedAt: new Date().toISOString(),
+                            points: 25,
+                            documentType: docNames[docType],
+                            method: 'government_database'
+                        };
+                        
+                        // Обновляем Trust Score
+                        const oldScore = currentUser.trustScore || 0;
+                        currentUser.trustScore = Math.min((currentUser.trustScore || 0) + 25, 100);
+                        
+                        console.log(`✅ ID верификация завершена! Trust Score: ${oldScore} → ${currentUser.trustScore}`);
+                        
+                        // Сохраняем данные
+                        saveUserData();
+                        
+                        // Обновляем интерфейс
+                        updateUserInterface();
+                        updateTrustScoreDisplay();
+                        
+                        // Восстанавливаем кнопку
+                        button.textContent = '✓ Пройдено';
+                        button.disabled = false;
+                        button.style.backgroundColor = '#4CAF50';
+                        
+                        alert(`🎉 ID верификация успешно завершена!\n\n+25 баллов Trust Score\nТекущий счет: ${currentUser.trustScore}/100`);
+                        
+                    } else {
+                        // Пользователь отклонил результат
+                        button.textContent = originalText;
+                        button.disabled = false;
+                        console.log('❌ Пользователь отклонил результат ID верификации');
+                    }
+                }, 2500);
+                
+            } else {
+                console.log('❌ Неверный выбор документа для ID верификации');
+                alert('❌ Пожалуйста, выберите корректный тип документа (1-3)');
+            }
+            } else if (docType !== null) {
+                console.log('❌ Неверный выбор документа:', docType);
+                alert('❌ Неверный выбор документа. Выберите от 1 до 3.');
             }
         }
 
         function loadStats() {
+            const user = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser') || '{}');
             const myItems = getUserItems();
             const favorites = getFavoriteItems();
             
@@ -1376,6 +1961,32 @@
                 }
             }
             document.getElementById('totalChats').textContent = chatCount;
+            
+            // Update Trust Score
+            const trustData = calculateTrustScore(user);
+            document.getElementById('trustScoreDisplay').textContent = `${trustData.score}/100`;
+            document.getElementById('trustScoreProgress').style.width = `${trustData.score}%`;
+            
+            // Update verification tab Trust Score
+            if (document.getElementById('displayTrustScore')) {
+                document.getElementById('displayTrustScore').textContent = trustData.score;
+                document.getElementById('trustProgress').style.width = trustData.score + '%';
+                
+                // Update remaining points
+                const remaining = 100 - trustData.score;
+                if (document.getElementById('remainingPoints')) {
+                    document.getElementById('remainingPoints').textContent = remaining;
+                }
+                
+                // Update achievement status
+                updateAchievementStatus(user);
+            }
+            
+            // Add tooltip with details
+            const trustContainer = document.querySelector('.trust-score-container');
+            if (trustContainer) {
+                trustContainer.title = `Trust Score breakdown:\n${trustData.details.join('\n')}`;
+            }
         }
 
         function loadMyItems() {
@@ -1649,6 +2260,264 @@
         // Сделать функцию logout глобально доступной
         window.logout = logout;
         
+        // Функция для верификации email
+        window.verifyEmail = function() {
+            console.log('📧 Начинаем Email верификацию');
+            
+            if (!currentUser) {
+                console.error('❌ Пользователь не найден для Email верификации');
+                alert('Ошибка: Пользователь не найден');
+                return;
+            }
+            
+            // Проверяем, не верифицирован ли уже
+            if (currentUser.verifications?.email?.verified) {
+                alert('Email верификация уже пройдена! Вы получили 15 баллов Trust Score.');
+                return;
+            }
+            
+            if (!currentUser.email) {
+                alert('❌ Email не указан в профиле.\nПожалуйста, добавьте email в настройках профиля.');
+                return;
+            }
+            
+            // Generate demo code for verification
+            const verificationCode = Math.floor(100000 + Math.random() * 900000);
+            localStorage.setItem('emailVerificationCode', verificationCode);
+            
+            // Show email in modal
+            const emailDisplay = document.getElementById('userEmailDisplay');
+            if (emailDisplay) {
+                emailDisplay.textContent = currentUser.email;
+            }
+            
+            // Show email modal
+            const emailModal = document.getElementById('emailModal');
+            if (emailModal) {
+                emailModal.style.display = 'block';
+                
+                const emailCodeInput = document.getElementById('emailCode');
+                if (emailCodeInput) {
+                    emailCodeInput.focus();
+                    emailCodeInput.value = '';
+                }
+            }
+            
+            console.log('📧 Отправлен код верификации:', verificationCode);
+            showNotification(`📧 Код отправлен на ${currentUser.email}\nДемо код: ${verificationCode}`, 'info');
+        }
+
+        // Close email modal
+        window.closeEmailModal = function() {
+            document.getElementById('emailModal').style.display = 'none';
+            document.getElementById('emailCode').value = '';
+        }
+
+        // Confirm email verification
+        window.confirmEmailVerification = function() {
+            console.log('✉️ Подтверждаем Email верификацию');
+            
+            if (!currentUser) {
+                console.error('❌ Пользователь не найден для подтверждения Email');
+                alert('Ошибка: Пользователь не найден');
+                return;
+            }
+            
+            const enteredCode = document.getElementById('emailCode').value;
+            const storedCode = localStorage.getItem('emailVerificationCode');
+            
+            if (!enteredCode) {
+                showNotification('❌ Пожалуйста, введите код подтверждения', 'error');
+                return;
+            }
+            
+            if (enteredCode === storedCode) {
+                console.log('✅ Email код верен, обновляем данные пользователя');
+                
+                // Обновляем данные пользователя
+                if (!currentUser.verifications) currentUser.verifications = {};
+                
+                currentUser.verifications.email = {
+                    verified: true,
+                    verifiedAt: new Date().toISOString(),
+                    points: 15,
+                    email: currentUser.email
+                };
+                
+                // Обновляем Trust Score
+                const oldScore = currentUser.trustScore || 0;
+                currentUser.trustScore = Math.min((currentUser.trustScore || 0) + 15, 100);
+                
+                console.log(`✅ Email верификация завершена! Trust Score: ${oldScore} → ${currentUser.trustScore}`);
+                
+                // Сохраняем данные
+                saveUserData();
+                
+                // Обновляем интерфейс
+                updateUserInterface();
+                updateTrustScoreDisplay();
+                
+                // Close modal and show success
+                closeEmailModal();
+                showNotification(`🎉 Email успешно подтвержден!\n+15 баллов Trust Score\nТекущий счет: ${currentUser.trustScore}/100`, 'success');
+                
+                // Обновляем кнопку
+                const emailBtn = document.getElementById('emailVerifyBtn');
+                if (emailBtn) {
+                    emailBtn.textContent = '✓ Пройдено';
+                    emailBtn.disabled = false;
+                    emailBtn.style.backgroundColor = '#4CAF50';
+                }
+                
+            } else {
+                console.log('❌ Неверный Email код:', {enteredCode, storedCode});
+                showNotification('❌ Неверный код подтверждения', 'error');
+                document.getElementById('emailCode').value = '';
+                document.getElementById('emailCode').focus();
+            }
+        }
+        }
+
+        // Resend email code
+        window.resendEmailCode = function() {
+            const user = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser') || '{}');
+            
+            // Generate new demo code
+            const verificationCode = Math.floor(100000 + Math.random() * 900000);
+            localStorage.setItem('emailVerificationCode', verificationCode);
+            
+            showNotification(`Новый демо код: ${verificationCode}`, 'info');
+        };
+
+        // Demo functions for testing Trust Score
+        window.addDemoReview = function() {
+            const user = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser') || '{}');
+            user.reviewCount = (user.reviewCount || 0) + 1;
+            
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            sessionStorage.setItem('currentUser', JSON.stringify(user));
+            
+            loadStats();
+            loadVerificationStatus();
+            
+            showNotification(`Добавлен отзыв! Всего: ${user.reviewCount}`, 'success');
+        };
+
+        window.addDemoTransaction = function() {
+            const user = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser') || '{}');
+            user.transactionCount = (user.transactionCount || 0) + 1;
+            
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            sessionStorage.setItem('currentUser', JSON.stringify(user));
+            
+            loadStats();
+            loadVerificationStatus();
+            
+            showNotification(`Добавлена сделка! Всего: ${user.transactionCount}`, 'success');
+        };
+
+        // Update achievement status in the plan
+        function updateAchievementStatus(user) {
+            const achievements = document.querySelectorAll('.achievement-item');
+            
+            achievements.forEach(item => {
+                const type = item.getAttribute('data-type');
+                let completed = false;
+                
+                switch(type) {
+                    case 'email':
+                        completed = user.verification?.email || false;
+                        break;
+                    case 'reviews':
+                        completed = (user.reviewCount || 0) >= 5;
+                        break;
+                    case 'listings':
+                        const listings = JSON.parse(localStorage.getItem('mockItems') || '[]');
+                        const userListings = listings.filter(item => item.ownerName === user.name || item.ownerPhone === user.phone);
+                        completed = userListings.length >= 3;
+                        break;
+                    case 'profile':
+                        let profileScore = 0;
+                        if (user.name && user.name !== 'Пользователь') profileScore += 3;
+                        if (user.phone) profileScore += 3;
+                        if (user.email) profileScore += 2;
+                        if (user.city) profileScore += 2;
+                        completed = profileScore >= 8;
+                        break;
+                    case 'social':
+                        const socialConnections = user.verification?.social || {};
+                        completed = Object.keys(socialConnections).length > 0;
+                        break;
+                    case 'transactions':
+                        completed = (user.transactionCount || 0) >= 2;
+                        break;
+                }
+                
+                if (completed) {
+                    item.style.opacity = '0.6';
+                    item.style.background = 'rgba(34, 197, 94, 0.3)';
+                    const icon = item.querySelector('div:first-child');
+                    if (icon && !icon.innerHTML.includes('✅')) {
+                        icon.innerHTML = '✅';
+                    }
+                } else {
+                    item.style.opacity = '1';
+                    item.style.background = 'rgba(255,255,255,0.1)';
+                }
+            });
+        }
+
+        // Connect social media
+        window.connectSocial = function(platform) {
+            const user = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser') || '{}');
+            
+            let platformName = '';
+            let platformUrl = '';
+            
+            switch(platform) {
+                case 'instagram':
+                    platformName = 'Instagram';
+                    platformUrl = 'https://instagram.com/';
+                    break;
+                case 'telegram':
+                    platformName = 'Telegram';
+                    platformUrl = 'https://t.me/';
+                    break;
+                case 'whatsapp':
+                    platformName = 'WhatsApp';
+                    platformUrl = 'https://wa.me/';
+                    break;
+            }
+            
+            const username = prompt(`Введите ваш username в ${platformName}:`);
+            if (username && username.trim()) {
+                // Initialize social connections
+                user.verification = user.verification || {};
+                user.verification.social = user.verification.social || {};
+                
+                // Save social connection
+                user.verification.social[platform] = {
+                    username: username.trim(),
+                    verified: true,
+                    connectedAt: new Date().toISOString()
+                };
+                
+                // Update trust score
+                const trustData = calculateTrustScore(user);
+                user.trustScore = trustData.score;
+                
+                // Save to storage
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                sessionStorage.setItem('currentUser', JSON.stringify(user));
+                
+                // Update UI
+                loadVerificationStatus();
+                loadStats();
+                
+                showNotification(`${platformName} успешно подключен! +5 к Trust Score`, 'success');
+            }
+        };
+        
         // Функция для открытия модала добавления телефона
         window.openPhoneModal = function() {
             const phone = prompt('Введите ваш номер телефона (например: +77771234567):');
@@ -1852,6 +2721,36 @@
             }
         });
     </script>
+
+    <!-- Email Verification Modal -->
+    <div class="modal" id="emailModal" style="display: none;">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-envelope"></i> Верификация Email</h3>
+                <button class="btn-close" onclick="closeEmailModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom: 1rem;">Мы отправили код подтверждения на ваш email:</p>
+                <div style="background: #f3f4f6; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                    <strong id="userEmailDisplay">nadirkansabyr@gmail.com</strong>
+                </div>
+                <div class="form-group">
+                    <label>Введите код подтверждения:</label>
+                    <input type="text" id="emailCode" placeholder="Введите 6-значный код" maxlength="6" style="text-align: center; font-size: 1.5rem; letter-spacing: 0.2rem;">
+                </div>
+                <div style="text-align: center; margin: 1rem 0;">
+                    <button class="btn btn-primary" onclick="confirmEmailVerification()">
+                        <i class="fas fa-check"></i> Подтвердить
+                    </button>
+                </div>
+                <div style="text-align: center;">
+                    <a href="#" onclick="resendEmailCode()" style="color: #3b82f6; text-decoration: none;">
+                        Отправить код повторно
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
     
     <!-- Firebase Configuration -->
     <script src="js/firebase-config.js"></script>

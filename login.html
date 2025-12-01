@@ -598,31 +598,41 @@
                         }
                     }
 
-                    // Демо аккаунты (только для телефонов)
-                    const isDemo = loginType === 'phone' && (identifier === '+77001234567' || identifier === '+77001234568') && password === '1234';
+                    // Демо аккаунты для тестирования
+                    const demoAccounts = {
+                        '+77001234567': { name: 'Айдар Серикбаев', password: '1234' },
+                        '+77771234567': { name: 'Демо Пользователь', password: '1234' },
+                        'demo@rentify.kz': { name: 'Демо Email', password: '1234' },
+                        'nadirkansabyr@gmail.com': { name: 'Nadir Kansabyr', password: '1234' }
+                    };
+                    
+                    const isDemo = demoAccounts[identifier] && demoAccounts[identifier].password === password;
 
                     if (user || isDemo) {
                         // Создаем полный объект пользователя
                         let currentUser;
                         
                         if (isDemo) {
+                            const demoData = demoAccounts[identifier];
                             currentUser = {
                                 userId: identifier,
-                                name: identifier === '+77001234567' ? 'Айдар Серикбаев' : 'Анара Жумабаева',
-                                phone: identifier,
-                                email: '',
-                                city: '',
+                                name: demoData.name,
+                                phone: identifier.startsWith('+7') ? identifier : '+77772007077',
+                                email: identifier.includes('@') ? identifier : 'demo@rentify.kz',
+                                city: 'Алматы',
                                 verification: {
                                     phone: true, // Демо аккаунты верифицированы
                                     liveness: false,
-                                    id: false
+                                    id: false,
+                                    email: false
                                 },
-                                trustScore: 25,
+                                trustScore: 30,
                                 badges: ['phone-verified'],
-                                rating: 0,
+                                rating: 5.0,
                                 reviewCount: 0,
-                                created: Date.now(),
-                                loginMethod: 'phone'
+                                transactionCount: 0,
+                                created: new Date().toISOString(),
+                                loginMethod: identifier.includes('@') ? 'email' : 'phone'
                             };
                         } else {
                             currentUser = {
@@ -640,15 +650,23 @@
                                 badges: user.badges || [],
                                 rating: user.rating || 0,
                                 reviewCount: user.reviewCount || 0,
-                            transactionCount: 0,
-                            created: new Date().toISOString()
-                        };
+                                transactionCount: 0,
+                                created: user.created || new Date().toISOString(),
+                                loginMethod: user.loginMethod || 'email'
+                            };
                         
+                        console.log('Сохраняем пользователя:', currentUser);
                         localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                        sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
+                        
                         alert('✅ Вход выполнен успешно!');
-                        window.location.href = 'index.html';
+                        setTimeout(() => {
+                            window.location.href = 'profile.html';
+                        }, 500);
                     } else {
-                        alert('❌ Неверный номер или пароль');
+                        console.log('Пользователь не найден для:', identifier);
+                        console.log('Доступные пользователи:', registeredUsers);
+                        alert('❌ Неверный логин или пароль');
                     }
                 });
             }
