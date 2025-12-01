@@ -3003,7 +3003,7 @@ html {
 
 .section-tabs .tab {
     flex: 1;
-    padding: 12px 20px;
+    padding: 14px 20px;
     border: none;
     background: transparent;
     color: var(--gray-600);
@@ -3013,6 +3013,10 @@ html {
     cursor: pointer;
     transition: all 0.2s ease;
     white-space: nowrap;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .section-tabs .tab:hover {
@@ -3075,12 +3079,17 @@ html {
 
 @media (max-width: 768px) {
     .section-tabs {
-        padding: 2px;
+        padding: 4px;
+        gap: 2px;
     }
     
     .section-tabs .tab {
-        padding: 10px 12px;
-        font-size: 12px;
+        padding: 14px 16px;
+        font-size: 14px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     .profile-stats {
