@@ -1855,7 +1855,6 @@
                 console.log('❌ Пользователь отменил Liveness верификацию');
             }
         }
-        }
 
         // ID Verification Function
         window.startIDVerification = async function() {
@@ -1936,10 +1935,6 @@
             } else {
                 console.log('❌ Неверный выбор документа для ID верификации');
                 alert('❌ Пожалуйста, выберите корректный тип документа (1-3)');
-            }
-            } else if (docType !== null) {
-                console.log('❌ Неверный выбор документа:', docType);
-                alert('❌ Неверный выбор документа. Выберите от 1 до 3.');
             }
         }
 
@@ -2375,7 +2370,6 @@
                 document.getElementById('emailCode').value = '';
                 document.getElementById('emailCode').focus();
             }
-        }
         }
 
         // Resend email code
