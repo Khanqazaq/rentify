@@ -3079,17 +3079,19 @@ html {
 
 @media (max-width: 768px) {
     .section-tabs {
-        padding: 4px;
-        gap: 2px;
+        padding: 6px;
+        gap: 4px;
     }
     
     .section-tabs .tab {
-        padding: 14px 16px;
-        font-size: 14px;
-        min-height: 44px;
+        padding: 16px 20px;
+        font-size: 15px;
+        min-height: 48px;
         display: flex;
         align-items: center;
         justify-content: center;
+        font-weight: 600;
+        letter-spacing: 0.3px;
     }
     
     .profile-stats {
