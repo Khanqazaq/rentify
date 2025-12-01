@@ -252,6 +252,15 @@
                         <i class="fab fa-google"></i>
                         Продолжить с Google
                     </button>
+                    
+                    <!-- Информация о HTTP сервере -->
+                    <div id="protocol-warning" style="display: none; background: #fef3c7; border: 1px solid #f59e0b; border-radius: 8px; padding: 12px; margin-top: 8px; font-size: 0.9em;">
+                        <div style="color: #92400e; text-align: left;">
+                            <strong>⚠️ Внимание:</strong> Для Google входа требуется HTTP сервер.<br>
+                            <strong>🔧 Решение:</strong> Откройте сайт по адресу: 
+                            <a href="http://127.0.0.1:8000/login.html" style="color: #1d4ed8; text-decoration: underline;">http://127.0.0.1:8000/login.html</a>
+                        </div>
+                    </div>
                 </div>
                 <p style="text-align: center; margin-top: 1rem; color: #6b7280;">
                     Нет аккаунта? <a href="#" id="show-register" style="color: var(--primary-blue); text-decoration: underline; cursor:pointer;">Зарегистрироваться</a>
@@ -426,6 +435,15 @@
         // Простая и рабочая логика входа и регистрации
         document.addEventListener('DOMContentLoaded', function(){
             console.log('✅ Страница загружена');
+            
+            // Проверить протокол и показать предупреждение
+            if (window.location.protocol === 'file:') {
+                const warningDiv = document.getElementById('protocol-warning');
+                if (warningDiv) {
+                    warningDiv.style.display = 'block';
+                }
+                console.warn('⚠️ Сайт запущен через file:// - Google Auth может не работать');
+            }
 
             // === ВХОД ===
             const loginForm = document.getElementById('loginForm');
@@ -497,6 +515,11 @@
                         this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Подключение...';
                         this.disabled = true;
                         
+                        // Проверить доступность Firebase
+                        if (typeof firebase === 'undefined' || !firebase.auth) {
+                            throw new Error('Firebase недоступен - используется демо режим');
+                        }
+                        
                         // Настроить Google Provider
                         const provider = new firebase.auth.GoogleAuthProvider();
                         provider.addScope('email');
@@ -508,15 +531,19 @@
                         
                         console.log('Google вход успешен:', user);
                         
-                        // Сохранить данные пользователя в Firestore
-                        await db.collection('users').doc(user.uid).set({
+                        // Сохранить данные пользователя локально
+                        const userData = {
+                            uid: user.uid,
                             name: user.displayName,
                             email: user.email,
                             photoURL: user.photoURL,
                             provider: 'google',
-                            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                            lastLogin: firebase.firestore.FieldValue.serverTimestamp()
-                        }, { merge: true });
+                            createdAt: Date.now(),
+                            lastLogin: Date.now()
+                        };
+                        
+                        localStorage.setItem('currentUser', JSON.stringify(userData));
+                        sessionStorage.setItem('currentUser', JSON.stringify(userData));
                         
                         // Показать успех
                         this.innerHTML = '<i class="fas fa-check"></i> Успешно!';
@@ -524,11 +551,42 @@
                         
                         // Перенаправить на главную страницу
                         setTimeout(() => {
-                            window.location.href = 'index.html';
+                            window.location.href = 'profile.html';
                         }, 1000);
                         
                     } catch (error) {
                         console.error('Ошибка Google входа:', error);
+                        
+                        // Демо-режим для локального тестирования
+                        if (error.message.includes('демо режим') || 
+                            error.code === 'auth/operation-not-supported-in-this-environment' ||
+                            typeof firebase === 'undefined') {
+                            
+                            console.log('🎭 Активирован демо-режим');
+                            
+                            // Создать демо пользователя
+                            const demoUser = {
+                                uid: 'demo_' + Date.now(),
+                                name: 'Тестовый Пользователь',
+                                email: 'test@rentify.kz',
+                                photoURL: 'https://via.placeholder.com/100/4F46E5/FFFFFF?text=👤',
+                                provider: 'demo',
+                                createdAt: Date.now(),
+                                lastLogin: Date.now()
+                            };
+                            
+                            localStorage.setItem('currentUser', JSON.stringify(demoUser));
+                            sessionStorage.setItem('currentUser', JSON.stringify(demoUser));
+                            
+                            this.innerHTML = '<i class="fas fa-check"></i> Демо вход выполнен!';
+                            this.style.background = '#10b981';
+                            
+                            setTimeout(() => {
+                                window.location.href = 'profile.html';
+                            }, 1500);
+                            
+                            return;
+                        }
                         
                         // Показать ошибку
                         this.innerHTML = '<i class="fab fa-google"></i> Продолжить с Google';
@@ -547,6 +605,9 @@
                                 break;
                             case 'auth/cancelled-popup-request':
                                 errorMessage = 'Запрос отменен';
+                                break;
+                            case 'auth/operation-not-supported-in-this-environment':
+                                errorMessage = 'Требуется HTTP/HTTPS протокол. Откройте http://127.0.0.1:8000/login.html';
                                 break;
                             default:
                                 errorMessage = `Ошибка: ${error.message}`;
