@@ -642,6 +642,9 @@
                         </div>
                     </div>
                     
+                    <button class="settings-btn" onclick="showSettings()" style="width: 100%; padding: 12px; background: rgba(255,255,255,0.2); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; margin-bottom: 10px; backdrop-filter: blur(10px); transition: background 0.3s;">
+                        <i class="fas fa-cog"></i> Настройки
+                    </button>
                     <button class="logout-btn" onclick="logout()">
                         <i class="fas fa-sign-out-alt"></i> Выйти
                     </button>
@@ -678,7 +681,7 @@
             <button class="tab active" data-tab="my-items">Мои объявления</button>
             <button class="tab" data-tab="favorites">Избранное</button>
             <button class="tab" data-tab="verification">Верификация</button>
-            <button class="tab" data-tab="settings">Настройки</button>
+            <button class="tab" data-tab="messages">Сообщения</button>
         </div>
 
         <!-- Tab Content: My Items -->
@@ -917,8 +920,20 @@
             </div>
         </div>
 
-        <!-- Tab Content: Settings -->
-        <div class="tab-content" id="settings">
+        <!-- Tab Content: Messages -->
+        <div class="tab-content" id="messages">
+            <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                <h2 style="margin-bottom: 1.5rem;">Сообщения</h2>
+                <div style="text-align: center; padding: 3rem 1rem; color: #6b7280;">
+                    <i class="fas fa-comments" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                    <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">Пока сообщений нет</p>
+                    <p style="font-size: 0.9rem;">Здесь будут отображаться ваши диалоги с другими пользователями</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Content: Settings (moved to bottom) -->
+        <div class="tab-content" id="settings" style="display: none;">
             <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
                 <h2 style="margin-bottom: 1.5rem;">Настройки профиля</h2>
                 <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 500px;">
@@ -2209,6 +2224,25 @@
                     }
                 }, 300);
             }, 4000);
+        }
+
+        function showSettings() {
+            // Скрыть все табы
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Показать настройки
+            const settingsTab = document.getElementById('settings');
+            if (settingsTab) {
+                settingsTab.classList.add('active');
+                settingsTab.style.display = 'block';
+            }
+            
+            // Прокрутить к настройкам
+            settingsTab.scrollIntoView({ behavior: 'smooth' });
         }
 
         async function logout() {
