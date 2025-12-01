@@ -654,6 +654,7 @@
                                 created: user.created || new Date().toISOString(),
                                 loginMethod: user.loginMethod || 'email'
                             };
+                        }
                         
                         console.log('Сохраняем пользователя:', currentUser);
                         localStorage.setItem('currentUser', JSON.stringify(currentUser));
