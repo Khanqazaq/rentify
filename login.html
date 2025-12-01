@@ -191,6 +191,32 @@
             }
         }
 
+        /* Стили для вкладок */
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        
+        .tab-btn.active-tab {
+            background: white;
+            color: #1e40af;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .tab-btn:not(.active-tab) {
+            color: #6b7280;
+        }
+        
+        .tab-btn:hover:not(.active-tab) {
+            background: rgba(255,255,255,0.5);
+        }
+
         /* Mobile responsive */
         @media (max-width: 480px) {
             .one-div {
@@ -222,8 +248,24 @@
 
             
 
+            <!-- Переключатель формы -->
+            <div style="display: flex; margin-bottom: 20px; background: #f1f5f9; border-radius: 8px; padding: 4px;">
+                <button type="button" id="loginTab" class="tab-btn active-tab" onclick="switchToLogin()">Вход</button>
+                <button type="button" id="registerTab" class="tab-btn" onclick="switchToRegister()">Регистрация</button>
+            </div>
+
+            <!-- Форма входа -->
             <form id="loginForm">
-                <div class="form-group">
+                <div class="form-group" id="loginTypeGroup">
+                    <label>Способ входа</label>
+                    <select id="loginType" onchange="toggleLoginFields()" style="width: 100%; padding: 12px; border: 1px solid #e5e7eb; border-radius: 8px;">
+                        <option value="phone">По номеру телефона</option>
+                        <option value="email">По email</option>
+                    </select>
+                </div>
+                
+                <!-- Поля для телефона -->
+                <div class="form-group" id="phoneGroup">
                     <label>Номер телефона (Казахстан)</label>
                     <div style="display:flex; gap:8px; align-items:center;">
                         <select id="countryCode" style="padding:10px;border-radius:8px;border:1px solid #e5e7eb;background:#fff; min-width:80px;">
@@ -232,6 +274,13 @@
                         <input id="phoneNumber" type="tel" placeholder="7011234567" maxlength="10" style="flex:1;" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
                     </div>
                 </div>
+                
+                <!-- Поля для email -->
+                <div class="form-group" id="emailGroup" style="display: none;">
+                    <label>Email</label>
+                    <input id="emailInput" type="email" placeholder="example@gmail.com">
+                </div>
+                
                 <div class="form-group">
                     <label>Пароль</label>
                     <input id="password" type="password" required placeholder="••••••••">
@@ -262,9 +311,49 @@
                         </div>
                     </div>
                 </div>
-                <p style="text-align: center; margin-top: 1rem; color: #6b7280;">
-                    Нет аккаунта? <a href="#" id="show-register" style="color: var(--primary-blue); text-decoration: underline; cursor:pointer;">Зарегистрироваться</a>
-                </p>
+            </form>
+
+            <!-- Форма регистрации -->
+            <form id="registerForm" style="display: none;">
+                <div class="form-group">
+                    <label>Имя</label>
+                    <input id="registerName" type="text" required placeholder="Введите ваше имя">
+                </div>
+                
+                <div class="form-group">
+                    <label>Email</label>
+                    <input id="registerEmail" type="email" required placeholder="example@gmail.com">
+                </div>
+                
+                <div class="form-group">
+                    <label>Номер телефона (необязательно)</label>
+                    <div style="display:flex; gap:8px; align-items:center;">
+                        <select style="padding:10px;border-radius:8px;border:1px solid #e5e7eb;background:#fff; min-width:80px;">
+                            <option value="+7">+7 (KZ)</option>
+                        </select>
+                        <input id="registerPhone" type="tel" placeholder="7011234567" maxlength="10" style="flex:1;" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input id="registerPassword" type="password" required placeholder="••••••••" minlength="6">
+                </div>
+                
+                <div class="form-group">
+                    <label>Подтвердите пароль</label>
+                    <input id="confirmPassword" type="password" required placeholder="••••••••">
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">Зарегистрироваться</button>
+                
+                <div class="divider">Или</div>
+                <div style="text-align:center; margin-bottom:12px; display:flex; flex-direction:column; gap:8px;">
+                    <button type="button" class="google-btn" onclick="handleGoogleLogin()">
+                        <i class="fab fa-google"></i>
+                        Продолжить с Google
+                    </button>
+                </div>
             </form>
         </div>
     </div>
@@ -454,47 +543,103 @@
                     e.preventDefault();
                     console.log('Попытка входа...');
 
-                    const phoneInput = document.getElementById('phoneNumber').value.replace(/\D/g,'');
+                    const loginType = document.getElementById('loginType').value;
                     const password = document.getElementById('password').value;
-
-                    if (!/^\d{10}$/.test(phoneInput)) {
-                        alert('Введите корректный 10-значный номер телефона');
-                        return;
-                    }
-
+                    
                     if (!password) {
                         alert('Введите пароль');
                         return;
                     }
 
-                    const fullPhone = '+7' + phoneInput;
-                    console.log('Проверяем:', fullPhone);
+                    let identifier = '';
+                    
+                    if (loginType === 'phone') {
+                        const phoneInput = document.getElementById('phoneNumber').value.replace(/\D/g,'');
+                        if (!/^\d{10}$/.test(phoneInput)) {
+                            alert('Введите корректный 10-значный номер телефона');
+                            return;
+                        }
+                        identifier = '+7' + phoneInput;
+                    } else {
+                        const emailInput = document.getElementById('emailInput').value.trim();
+                        if (!emailInput || !emailInput.includes('@')) {
+                            alert('Введите корректный email');
+                            return;
+                        }
+                        identifier = emailInput;
+                    }
 
-                    // Проверяем в localStorage
-                    const usersRaw = localStorage.getItem('users');
-                    const users = usersRaw ? JSON.parse(usersRaw) : [];
-                    const user = users.find(u => u.id === fullPhone && u.password === password);
+                    console.log('Проверяем:', identifier);
 
-                    // Демо аккаунты
-                    const isDemo = (fullPhone === '+77001234567' || fullPhone === '+77001234568') && password === '1234';
+                    // Проверяем зарегистрированных пользователей
+                    const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+                    let user = null;
+                    
+                    if (loginType === 'email') {
+                        user = registeredUsers.find(u => u.email === identifier && btoa(password) === u.password);
+                    } else {
+                        user = registeredUsers.find(u => u.phone === identifier && btoa(password) === u.password);
+                    }
+                    
+                    // Также проверяем старые аккаунты по телефону
+                    if (!user && loginType === 'phone') {
+                        const usersRaw = localStorage.getItem('users');
+                        const oldUsers = usersRaw ? JSON.parse(usersRaw) : [];
+                        const oldUser = oldUsers.find(u => u.id === identifier && u.password === password);
+                        
+                        if (oldUser) {
+                            user = {
+                                name: 'Пользователь',
+                                phone: identifier,
+                                email: '',
+                                created: Date.now(),
+                                loginMethod: 'phone'
+                            };
+                        }
+                    }
+
+                    // Демо аккаунты (только для телефонов)
+                    const isDemo = loginType === 'phone' && (identifier === '+77001234567' || identifier === '+77001234568') && password === '1234';
 
                     if (user || isDemo) {
                         // Создаем полный объект пользователя
-                        const currentUser = {
-                            userId: fullPhone,
-                            name: fullPhone === '+77001234567' ? 'Айдар Серикбаев' : fullPhone === '+77001234568' ? 'Анара Жумабаева' : 'Пользователь',
-                            phone: fullPhone,
-                            email: '',
-                            city: '',
-                            verification: {
-                                phone: fullPhone === '+77001234567' || fullPhone === '+77001234568', // Демо аккаунты верифицированы
-                                liveness: false,
-                                id: false
-                            },
-                            trustScore: fullPhone === '+77001234567' ? 25 : fullPhone === '+77001234568' ? 25 : 0,
-                            badges: fullPhone === '+77001234567' || fullPhone === '+77001234568' ? ['phone-verified'] : [],
-                            rating: 0,
-                            reviewCount: 0,
+                        let currentUser;
+                        
+                        if (isDemo) {
+                            currentUser = {
+                                userId: identifier,
+                                name: identifier === '+77001234567' ? 'Айдар Серикбаев' : 'Анара Жумабаева',
+                                phone: identifier,
+                                email: '',
+                                city: '',
+                                verification: {
+                                    phone: true, // Демо аккаунты верифицированы
+                                    liveness: false,
+                                    id: false
+                                },
+                                trustScore: 25,
+                                badges: ['phone-verified'],
+                                rating: 0,
+                                reviewCount: 0,
+                                created: Date.now(),
+                                loginMethod: 'phone'
+                            };
+                        } else {
+                            currentUser = {
+                                userId: user.email || user.phone || user.id,
+                                name: user.name || 'Пользователь',
+                                phone: user.phone || '',
+                                email: user.email || '',
+                                city: user.city || '',
+                                verification: {
+                                    phone: !!user.phone,
+                                    liveness: false,
+                                    id: false
+                                },
+                                trustScore: user.trustScore || 0,
+                                badges: user.badges || [],
+                                rating: user.rating || 0,
+                                reviewCount: user.reviewCount || 0,
                             transactionCount: 0,
                             created: new Date().toISOString()
                         };
@@ -940,6 +1085,106 @@
                     }, 3000);
                 }
             });
+        });
+
+        // Функции переключения форм
+        function switchToLogin() {
+            document.getElementById('loginTab').classList.add('active-tab');
+            document.getElementById('registerTab').classList.remove('active-tab');
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('registerForm').style.display = 'none';
+            document.querySelector('.login-title').textContent = 'Вход';
+        }
+
+        function switchToRegister() {
+            document.getElementById('loginTab').classList.remove('active-tab');
+            document.getElementById('registerTab').classList.add('active-tab');
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+            document.querySelector('.login-title').textContent = 'Регистрация';
+        }
+
+        // Переключение полей входа (телефон/email)
+        function toggleLoginFields() {
+            const loginType = document.getElementById('loginType').value;
+            const phoneGroup = document.getElementById('phoneGroup');
+            const emailGroup = document.getElementById('emailGroup');
+            
+            if (loginType === 'phone') {
+                phoneGroup.style.display = 'block';
+                emailGroup.style.display = 'none';
+                document.getElementById('phoneNumber').required = true;
+                document.getElementById('emailInput').required = false;
+            } else {
+                phoneGroup.style.display = 'none';
+                emailGroup.style.display = 'block';
+                document.getElementById('phoneNumber').required = false;
+                document.getElementById('emailInput').required = true;
+            }
+        }
+
+        // Обработка формы регистрации
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('registerName').value.trim();
+            const email = document.getElementById('registerEmail').value.trim();
+            const phone = document.getElementById('registerPhone').value.trim();
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // Валидация
+            if (!name) {
+                alert('Введите ваше имя');
+                return;
+            }
+            
+            if (!email) {
+                alert('Введите email');
+                return;
+            }
+            
+            if (password.length < 6) {
+                alert('Пароль должен содержать минимум 6 символов');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                alert('Пароли не совпадают');
+                return;
+            }
+            
+            // Проверка существующих пользователей
+            const existingUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+            if (existingUsers.find(user => user.email === email)) {
+                alert('Пользователь с таким email уже существует');
+                return;
+            }
+            
+            // Создание нового пользователя
+            const newUser = {
+                id: Date.now(),
+                name: name,
+                email: email,
+                phone: phone ? '+7' + phone : '',
+                password: btoa(password), // Простое кодирование (в реальности нужен хеш)
+                created: Date.now(),
+                loginMethod: 'email'
+            };
+            
+            // Сохранение пользователя
+            existingUsers.push(newUser);
+            localStorage.setItem('registeredUsers', JSON.stringify(existingUsers));
+            
+            // Автоматический вход
+            const userForSession = { ...newUser };
+            delete userForSession.password; // Удаляем пароль из сессии
+            
+            localStorage.setItem('currentUser', JSON.stringify(userForSession));
+            sessionStorage.setItem('currentUser', JSON.stringify(userForSession));
+            
+            alert('Регистрация успешна! Добро пожаловать на Rentify.kz');
+            window.location.href = 'profile.html';
         });
 
         // Info modal functionality
