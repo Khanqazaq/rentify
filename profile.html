@@ -6,6 +6,13 @@
     <title>Мой профиль - Rentify.kz</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Firebase SDK -->
+    <script defer src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
+    
     <style>
         .profile-container {
             max-width: 1200px;
@@ -1457,12 +1464,28 @@
             document.getElementById('welcomeModal').style.display = 'none';
         }
 
-        function logout() {
+        async function logout() {
             if (confirm('Вы уверены, что хотите выйти?')) {
-                localStorage.removeItem('currentUser');
-                window.location.href = 'index.html';
+                try {
+                    // Выход через Firebase Auth
+                    await auth.signOut();
+                    
+                    // Очистить локальные данные
+                    localStorage.removeItem('currentUser');
+                    
+                    console.log('Пользователь вышел из системы');
+                    
+                    // Перенаправить на главную страницу
+                    window.location.href = 'index.html';
+                } catch (error) {
+                    console.error('Ошибка выхода:', error);
+                    alert('Ошибка при выходе из системы');
+                }
             }
         }
     </script>
+    
+    <!-- Firebase Configuration -->
+    <script src="js/firebase-config.js"></script>
 </body>
 </html>

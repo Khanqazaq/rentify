@@ -431,9 +431,69 @@
             }
 
             if (googleBtn) {
-                googleBtn.addEventListener('click', function() {
-                    alert('Google вход (ДЕМО)');
-                    window.location.href = 'index.html';
+                googleBtn.addEventListener('click', async function() {
+                    try {
+                        // Показать индикатор загрузки
+                        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Подключение...';
+                        this.disabled = true;
+                        
+                        // Настроить Google Provider
+                        const provider = new firebase.auth.GoogleAuthProvider();
+                        provider.addScope('email');
+                        provider.addScope('profile');
+                        
+                        // Выполнить вход через Google
+                        const result = await auth.signInWithPopup(provider);
+                        const user = result.user;
+                        
+                        console.log('Google вход успешен:', user);
+                        
+                        // Сохранить данные пользователя в Firestore
+                        await db.collection('users').doc(user.uid).set({
+                            name: user.displayName,
+                            email: user.email,
+                            photoURL: user.photoURL,
+                            provider: 'google',
+                            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                            lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+                        }, { merge: true });
+                        
+                        // Показать успех
+                        this.innerHTML = '<i class="fas fa-check"></i> Успешно!';
+                        this.style.background = '#10b981';
+                        
+                        // Перенаправить на главную страницу
+                        setTimeout(() => {
+                            window.location.href = 'index.html';
+                        }, 1000);
+                        
+                    } catch (error) {
+                        console.error('Ошибка Google входа:', error);
+                        
+                        // Показать ошибку
+                        this.innerHTML = '<i class="fab fa-google"></i> Продолжить с Google';
+                        this.disabled = false;
+                        this.style.background = '';
+                        
+                        // Показать понятное сообщение об ошибке
+                        let errorMessage = 'Ошибка входа через Google';
+                        
+                        switch (error.code) {
+                            case 'auth/popup-closed-by-user':
+                                errorMessage = 'Вход отменен пользователем';
+                                break;
+                            case 'auth/popup-blocked':
+                                errorMessage = 'Всплывающее окно заблокировано браузером';
+                                break;
+                            case 'auth/cancelled-popup-request':
+                                errorMessage = 'Запрос отменен';
+                                break;
+                            default:
+                                errorMessage = `Ошибка: ${error.message}`;
+                        }
+                        
+                        alert(errorMessage);
+                    }
                 });
             }
 
