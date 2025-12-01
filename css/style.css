@@ -158,7 +158,7 @@ img {
 /* ========== HERO ========== */
 .hero {
     /* Base spacing & layout */
-    padding: 3rem 0 2rem;
+    padding: 4rem 0 2rem;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -1242,7 +1242,7 @@ a[href*="kids"] img {
     }
     
     .hero {
-        padding: 2.5rem 0 2rem;
+        padding: 3.5rem 0 2rem;
         min-height: 80vh;
     }
     
@@ -1349,7 +1349,7 @@ a[href*="kids"] img {
     }
     
     .hero {
-        padding: 2rem 0 1.5rem;
+        padding: 3rem 0 1.5rem;
         min-height: 70vh;
     }
     
@@ -2691,7 +2691,7 @@ html {
     
     /* Hero Section - Ultra Compact */
     .hero {
-        padding: 0.75rem 0 0.5rem;
+        padding: 1.25rem 0 0.5rem;
     }
     
     .hero-title {
