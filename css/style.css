@@ -1242,8 +1242,8 @@ a[href*="kids"] img {
     }
     
     .hero {
-        padding: 3.5rem 0 2rem;
-        min-height: 80vh;
+        padding: 5rem 0 2.5rem;
+        min-height: 85vh;
     }
     
     /* Stats section removed */
@@ -1335,22 +1335,22 @@ a[href*="kids"] img {
     }
     
     .hero-title {
-        margin-bottom: 0.75rem;
+        margin-bottom: 1rem;
         line-height: 1.2;
-        padding: 0 0.5rem;
+        padding: 0 1rem;
         animation: slideInUp 0.8s ease-out 0.1s both;
     }
     
     .hero-description {
-        line-height: 1.35;
-        margin-bottom: 1.25rem;
-        padding: 0 1rem;
+        line-height: 1.4;
+        margin-bottom: 1.5rem;
+        padding: 0 1.5rem;
         animation: slideInUp 0.8s ease-out 0.3s both;
     }
     
     .hero {
-        padding: 3rem 0 1.5rem;
-        min-height: 70vh;
+        padding: 4.5rem 0 2rem;
+        min-height: 75vh;
     }
     
     .stats {
@@ -1383,20 +1383,22 @@ a[href*="kids"] img {
     
     .hero-buttons {
         flex-direction: column;
-        padding: 0 1rem;
-        gap: 1rem;
+        padding: 0 1.5rem;
+        gap: 1.2rem;
         width: 100%;
+        margin-top: 1rem;
     }
     
     .hero-buttons .btn {
         width: 100%;
-        padding: 14px 20px;
-        font-size: 0.95rem;
-        border-radius: 25px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        padding: 16px 24px;
+        font-size: 1rem;
+        border-radius: 30px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         transition: all 0.3s ease;
-        min-height: 48px;
+        min-height: 52px;
         animation: slideInUp 0.8s ease-out;
+        font-weight: 600;
     }
     
     .hero-buttons .btn:nth-child(1) { animation-delay: 0.2s; }
@@ -2691,7 +2693,7 @@ html {
     
     /* Hero Section - Ultra Compact */
     .hero {
-        padding: 1.25rem 0 0.5rem;
+        padding: 3rem 0 1.5rem;
     }
     
     .hero-title {
