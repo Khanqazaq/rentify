@@ -122,6 +122,7 @@
                     <a href="items.html">Все вещи</a>
                     <a href="#" data-action="add-item">Добавить вещь</a>
                     <a href="login.html" class="btn-login" id="loginBtn">Войти</a>
+                    <a href="login.html" class="btn-login" id="registerBtn">Регистрация</a>
                     <a href="profile.html" class="btn-login" id="profileBtn" style="display:none;">Профиль</a>
                     <div class="language-switcher">
                         <button class="lang-btn" data-lang="kk">🇰🇿</button>
@@ -167,47 +168,35 @@
             <h2 class="section-title">Популярные категории</h2>
             <div class="categories-grid" id="categoriesContainer">
                 <!-- Основные 6 категорий (всегда видны) -->
-                <a href="items.html?category=electronics" class="category-card">
-                    <picture>
-                        <source srcset="./images/computer.webp" type="image/webp">
-                        <img src="https://i.ibb.co/v4TPJcn4/Computer.png" alt="Электроника" width="80" height="80" loading="eager">
-                    </picture>
-                    <div class="category-name">Электроника</div>
+                <a href="items.html?category=photo-video" class="category-card">
+                    <div class="category-icon" style="font-size: 3rem; color: #3b82f6;">📷</div>
+                    <div class="category-name">Фото- и видеотехника</div>
+                    <div class="category-price">(от 5 000 ₸/день)</div>
                 </a>
-                <a href="items.html?category=clothing" class="category-card">
-                    <picture>
-                        <source srcset="./images/одежда.webp" type="image/webp">
-                        <img src="./images/одежда.png" alt="Одежда" width="80" height="80" loading="eager">
-                    </picture>
-                    <div class="category-name">Одежда</div>
-                </a>
-                <a href="items.html?category=sports" class="category-card">
-                    <picture>
-                        <source srcset="./images/спорт.webp" type="image/webp">
-                        <img src="./images/спорт-removebg-preview.png" alt="Спорт" width="80" height="80" loading="eager">
-                    </picture>
-                    <div class="category-name">Спорт</div>
-                </a>
-                <a href="items.html?category=auto" class="category-card">
-                    <picture>
-                        <source srcset="./images/авто.webp" type="image/webp">
-                        <img src="./images/авто.jpg" alt="Авто" width="80" height="80" loading="eager">
-                    </picture>
-                    <div class="category-name">Авто</div>   
+                <a href="items.html?category=computers" class="category-card">
+                    <div class="category-icon" style="font-size: 3rem; color: #3b82f6;">💻</div>
+                    <div class="category-name">Ноутбуки и компьютеры</div>
+                    <div class="category-price">(от 3 000 ₸/день)</div>
                 </a>
                 <a href="items.html?category=tools" class="category-card">
-                    <picture>
-                        <source srcset="./images/техника.webp" type="image/webp">
-                        <img src="./images/техника.png" alt="Инструменты" width="80" height="80" loading="eager">
-                    </picture>
-                    <div class="category-name">Инструменты</div>
+                    <div class="category-icon" style="font-size: 3rem; color: #3b82f6;">🔨</div>
+                    <div class="category-name">Инструменты и стройка</div>
+                    <div class="category-price">(от 2 000 ₸/день)</div>
                 </a>
-                <a href="items.html?category=furniture" class="category-card">
-                    <picture>
-                        <source srcset="./images/мебель.webp" type="image/webp">
-                        <img src="./images/мебель-removebg-preview (1).png" alt="Мебель" width="80" height="80" loading="eager">
-                    </picture>
-                    <div class="category-name">Мебель</div>
+                <a href="items.html?category=bikes" class="category-card">
+                    <div class="category-icon" style="font-size: 3rem; color: #3b82f6;">🚴</div>
+                    <div class="category-name">Велосипеды и самокаты</div>
+                    <div class="category-price">(от 1 500 ₸/день)</div>
+                </a>
+                <a href="items.html?category=gaming" class="category-card">
+                    <div class="category-icon" style="font-size: 3rem; color: #3b82f6;">🎮</div>
+                    <div class="category-name">PlayStation и игровые приставки</div>
+                    <div class="category-price">(от 4 000 ₸/день)</div>
+                </a>
+                <a href="items.html?category=drones" class="category-card">
+                    <div class="category-icon" style="font-size: 3rem; color: #3b82f6;">🚁</div>
+                    <div class="category-name">Дроны и квадрокоптеры</div>
+                    <div class="category-price">(от 10 000 ₸/день)</div>
                 </a>
                 
                 <!-- Остальные категории -->
@@ -458,6 +447,19 @@
         </div>
     </section>
 
+    <!-- Security Section -->
+    <section class="security-section" style="padding: 4rem 0; background: #f8fafc;">
+        <div class="container">
+            <h2 class="section-title">Безопасность превыше всего</h2>
+            <ul class="security-list" style="max-width: 800px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8;">
+                <li>• Все пользователи проходят проверку по номеру телефона и удостоверению</li>
+                <li>• Деньги замораживаются до получения вещи</li>
+                <li>• В 90% случаев — аренда без залога</li>
+                <li>• При порче вещи — решаем споры и компенсируем до 500 000 ₸</li>
+            </ul>
+        </div>
+    </section>
+
     <!-- Testimonials -->
     <section class="testimonials">
         <div class="container">
@@ -486,6 +488,9 @@
                     <p class="testimonial-text">Арендую велосипед каждые выходные. Намного дешевле, чем покупать свой!</p>
                 </div>
             </div>
+            <p style="text-align: center; margin-top: 2rem; font-size: 0.9rem; color: #6b7280;">
+                Уже более 12 000 успешных аренд по Казахстану
+            </p>
         </div>
     </section>
 
@@ -520,11 +525,17 @@
                             <a href="#">Политика конфиденциальности</a>
                         </div>
                         <div class="footer-column">
-                            <h4>Контакты</h4>
-                            <a href="tel:+77472007077">+7 (747) 200-70-77</a>
-                            <a href="mailto:nadirkansabyr@gmail.com">nadirkansabyr@gmail.com</a>
-                            <a href="#" onclick="openInfoModal('partnership', event)">Партнерство</a>
-                            <a href="#">Реклама</a>
+                            <h4>Поддержка</h4>
+                            <a href="mailto:nadirkhansabyr@gmail.com">nadirkhansabyr@gmail.com</a>
+                            <a href="https://t.me/rentify_bot">Telegram: rentify_bot</a>
+                            <a href="tel:+77472007077">Горячая линия: +7 (747) 200-70-77</a>
+                        </div>
+                        <div class="footer-column">
+                            <h4>Помощь</h4>
+                            <a href="#">• Как это работает</a>
+                            <a href="#">• Правила аренды</a>
+                            <a href="#">• Безопасность и страховка</a>
+                            <a href="#">• Часто задаваемые вопросы</a>
                         </div>
                     </div>
                 </div>
@@ -532,7 +543,7 @@
                 <!-- Footer Bottom -->
                 <div class="footer-bottom">
                     <div class="footer-copyright">
-                        <p>&copy; 2025 Rentify.kz. Все права защищены.</p>
+                        <p>Rentify.kz © 2025. Все права защищены.</p>
                         <p class="footer-legal">ТОО "Rentify" | БИН: 123456789012 | Лицензия НБ РК №5432</p>
                     </div>
                     <div class="footer-meta">
