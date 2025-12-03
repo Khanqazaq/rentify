@@ -6,16 +6,16 @@
     
     <!-- Главная страница -->
     <url>
-        <loc>https://rentify.kz/</loc>
-        <lastmod>2025-11-29</lastmod>
+        <loc>https://rentify-ii2d.vercel.app/</loc>
+        <lastmod>2025-12-01</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
     
     <!-- Каталог всех вещей -->
     <url>
-        <loc>https://rentify.kz/items.html</loc>
-        <lastmod>2025-11-29</lastmod>
+        <loc>https://rentify-ii2d.vercel.app/items.html</loc>
+        <lastmod>2025-12-01</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
     </url>

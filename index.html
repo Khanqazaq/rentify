@@ -9,14 +9,14 @@
     <meta name="description" content="Rentify.kz — платформа аренды вещей между людьми в Казахстане. Камеры, ноутбуки, велосипеды, инструменты от 1000₸/день. Безопасные сделки в Алматы, Астане, Шымкенте.">
     <meta name="keywords" content="аренда вещей казахстан, прокат техники алматы, аренда камеры, аренда ноутбука, шеринг экономика">
     <meta name="author" content="Rentify Team">
-    <link rel="canonical" href="https://rentify.kz/">
+    <link rel="canonical" href="https://rentify-ii2d.vercel.app/">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://rentify.kz/">
+    <meta property="og:url" content="https://rentify-ii2d.vercel.app/">
     <meta property="og:title" content="Rentify — аренда вещей между людьми в Казахстане">
     <meta property="og:description" content="Камеры, ноутбуки, велосипеды, инструменты от 1000₸/день. Безопасные сделки с проверкой.">
-    <meta property="og:image" content="https://rentify.kz/images/og-preview.jpg">
+    <meta property="og:image" content="https://rentify-ii2d.vercel.app/images/og-preview.jpg">
     <meta property="og:site_name" content="Rentify.kz">
     <meta property="og:locale" content="ru_RU">
     
@@ -24,7 +24,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Rentify — аренда вещей между людьми">
     <meta name="twitter:description" content="Камеры, ноутбуки, велосипеды от 1000₸/день в Казахстане">
-    <meta name="twitter:image" content="https://rentify.kz/images/twitter-preview.jpg">
+    <meta name="twitter:image" content="https://rentify-ii2d.vercel.app/images/twitter-preview.jpg">
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -45,8 +45,32 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(self), payment=()">
+    
     <!-- Content Security Policy -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://cdnjs.cloudflare.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' https: data: blob:; font-src 'self' https://cdnjs.cloudflare.com; connect-src 'self' https://*.firebaseio.com https://*.googleapis.com https://securetoken.googleapis.com https://identitytoolkit.googleapis.com; frame-src https://accounts.google.com https://rentify-kz.firebaseapp.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"">
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.gstatic.com https://cdnjs.cloudflare.com https://apis.google.com https://www.googletagmanager.com;
+        style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com;
+        img-src 'self' https: data: blob: https://*.unsplash.com https://images.unsplash.com https://i.ibb.co;
+        font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com;
+        connect-src 'self' https://*.firebaseio.com https://*.googleapis.com https://securetoken.googleapis.com https://identitytoolkit.googleapis.com wss://*.firebaseio.com https://api.unsplash.com;
+        frame-src 'self' https://accounts.google.com https://rentify-kz.firebaseapp.com;
+        object-src 'none';
+        media-src 'self' https:;
+        child-src 'self';
+        worker-src 'self' blob:;
+        manifest-src 'self';
+        frame-ancestors 'none';
+        base-uri 'self';
+        form-action 'self';
+        upgrade-insecure-requests;
+    ">
     
     <!-- Firebase SDK с defer -->
     <script defer src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -144,49 +168,79 @@
             <div class="categories-grid" id="categoriesContainer">
                 <!-- Основные 6 категорий (всегда видны) -->
                 <a href="items.html?category=electronics" class="category-card">
-                    <img src="https://i.ibb.co/v4TPJcn4/Computer.png" alt="Электроника">
+                    <picture>
+                        <source srcset="./images/computer.webp" type="image/webp">
+                        <img src="https://i.ibb.co/v4TPJcn4/Computer.png" alt="Электроника" width="80" height="80" loading="eager">
+                    </picture>
                     <div class="category-name">Электроника</div>
                 </a>
                 <a href="items.html?category=clothing" class="category-card">
-                    <img src="./images/одежда.png" alt="Одежда">
+                    <picture>
+                        <source srcset="./images/одежда.webp" type="image/webp">
+                        <img src="./images/одежда.png" alt="Одежда" width="80" height="80" loading="eager">
+                    </picture>
                     <div class="category-name">Одежда</div>
                 </a>
                 <a href="items.html?category=sports" class="category-card">
-                    <img src="./images/спорт-removebg-preview.png" alt="Спорт">
+                    <picture>
+                        <source srcset="./images/спорт.webp" type="image/webp">
+                        <img src="./images/спорт-removebg-preview.png" alt="Спорт" width="80" height="80" loading="eager">
+                    </picture>
                     <div class="category-name">Спорт</div>
                 </a>
                 <a href="items.html?category=auto" class="category-card">
-                    <img src="./images/авто.jpg" alt="Авто">
+                    <picture>
+                        <source srcset="./images/авто.webp" type="image/webp">
+                        <img src="./images/авто.jpg" alt="Авто" width="80" height="80" loading="eager">
+                    </picture>
                     <div class="category-name">Авто</div>   
                 </a>
                 <a href="items.html?category=tools" class="category-card">
-                    <img src="./images/техника.png" alt="Инструменты">
+                    <picture>
+                        <source srcset="./images/техника.webp" type="image/webp">
+                        <img src="./images/техника.png" alt="Инструменты" width="80" height="80" loading="eager">
+                    </picture>
                     <div class="category-name">Инструменты</div>
                 </a>
                 <a href="items.html?category=furniture" class="category-card">
-                    <img src="./images/мебель-removebg-preview (1).png" alt="Мебель">
+                    <picture>
+                        <source srcset="./images/мебель.webp" type="image/webp">
+                        <img src="./images/мебель-removebg-preview (1).png" alt="Мебель" width="80" height="80" loading="eager">
+                    </picture>
                     <div class="category-name">Мебель</div>
                 </a>
                 
                 <!-- Остальные категории -->
                 <a href="items.html?category=music" class="category-card">
-                    <img src="./images/Музыкальный инструмент.png" alt="Музыкальные инструменты - аренда гитар, пианино, синтезаторов" loading="lazy">
+                    <picture>
+                        <source srcset="./images/музыка.webp" type="image/webp">
+                        <img src="./images/Музыкальный инструмент.png" alt="Музыкальные инструменты - аренда гитар, пианино, синтезаторов" width="80" height="80" loading="lazy">
+                    </picture>
                     <div class="category-name">Музыкальные инструменты</div>
                 </a>
                 <a href="items.html?category=camping" class="category-card">
-                    <img src="./images/туризм и кемпинг.jpg" alt="Туризм и кемпинг - аренда палаток, спальников, снаряжения" loading="lazy">
+                    <picture>
+                        <source srcset="./images/туризм.webp" type="image/webp">
+                        <img src="./images/туризм и кемпинг.jpg" alt="Туризм и кемпинг - аренда палаток, спальников, снаряжения" width="80" height="80" loading="lazy">
+                    </picture>
                     <div class="category-name">Туризм и кемпинг</div>
                 </a>
                 <a href="items.html?category=kids" class="category-card">
-                    <img src="./images/детских-товар.jpg" alt="Детские товары - аренда колясок, игрушек, детской мебели" loading="lazy">
+                    <picture>
+                        <source srcset="./images/детские.webp" type="image/webp">
+                        <img src="./images/детских-товар.jpg" alt="Детские товары - аренда колясок, игрушек, детской мебели" width="80" height="80" loading="lazy">
+                    </picture>
                     <div class="category-name">Детские товары</div>
                 </a>
                 <a href="items.html?category=events" class="category-card">
-                    <img src="./images/для мероприятий.webp" alt="Для мероприятий - аренда звука, освещения, декора" loading="lazy">
+                    <img src="./images/для мероприятий.webp" alt="Для мероприятий - аренда звука, освещения, декора" width="80" height="80" loading="lazy">
                     <div class="category-name">Для мероприятий</div>
                 </a>
                 <a href="items.html?category=books" class="category-card">
-                    <img src="./images/книги.jpg" alt="Книги - аренда учебников, художественной литературы" loading="lazy">
+                    <picture>
+                        <source srcset="./images/книги.webp" type="image/webp">
+                        <img src="./images/книги.jpg" alt="Книги - аренда учебников, художественной литературы" width="80" height="80" loading="lazy">
+                    </picture>
                     <div class="category-name">Книги</div>
                 </a>
             </div>
@@ -246,7 +300,7 @@
                         </div>
                     </div>
                     <div class="item-image-wrapper">
-                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=300&h=200&fit=crop" alt="Apple MacBook Pro 16 2024" class="item-image">
+                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=300&h=200&fit=crop" alt="Apple MacBook Pro 16 2024" class="item-image" width="300" height="200" loading="lazy">
                         <div class="item-discount">3% Б</div>
                     </div>
                     <div class="item-details">
@@ -280,7 +334,7 @@
                         </div>
                     </div>
                     <div class="item-image-wrapper">
-                        <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=300&h=200&fit=crop" alt="Acer Nitro 5 AN515-58 15.6\"" class="item-image">
+                        <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=300&h=200&fit=crop" alt="Acer Nitro 5 AN515-58 15.6\"" class="item-image" width="300" height="200" loading="lazy">
                         <div class="item-discount">-15%</div>
                     </div>
                     <div class="item-details">
@@ -317,7 +371,7 @@
                         </div>
                     </div>
                     <div class="item-image-wrapper">
-                        <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=300&h=200&fit=crop" alt="Lenovo Legion 9 18IAX10 18\"" class="item-image">
+                        <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=300&h=200&fit=crop" alt="Lenovo Legion 9 18IAX10 18\"" class="item-image" width="300" height="200" loading="lazy">
                         <div class="item-discount">3% Б</div>
                     </div>
                     <div class="item-details">

@@ -1,5 +1,6 @@
 # robots.txt для Rentify.kz
-# Обновлено: 29.11.2025
+# Production URL: https://rentify-ii2d.vercel.app/
+# Обновлено: 01.12.2025
 
 # Разрешить всем поисковым роботам
 User-agent: *
@@ -8,6 +9,18 @@ Disallow: /admin/
 Disallow: /api/
 Disallow: /test-verification.html
 Disallow: /security-system/
+Disallow: /profile.html
+Disallow: /login.html
+Disallow: /js/
+Disallow: /css/
+Disallow: /*.json$
+
+# Crawl delay для больших ботов
+User-agent: Googlebot
+Crawl-delay: 1
+
+User-agent: Bingbot  
+Crawl-delay: 2
 
 # Sitemap
 Sitemap: https://rentify.kz/sitemap.xml

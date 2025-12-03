@@ -3,7 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мой профиль - Rentify.kz</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>Мой профиль — Rentify.kz | Управление объявлениями и настройки</title>
+    <meta name="description" content="Личный кабинет пользователя Rentify.kz. Управляйте объявлениями, просматривайте избранное, настройки профиля и статистику аренды.">
+    <meta name="keywords" content="личный кабинет rentify, мои объявления, профиль пользователя, настройки аккаунта">
+    <link rel="canonical" href="https://rentify-ii2d.vercel.app/profile.html">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:type" content="profile">
+    <meta property="og:url" content="https://rentify-ii2d.vercel.app/profile.html">
+    <meta property="og:title" content="Мой профиль — Rentify.kz">
+    <meta property="og:description" content="Личный кабинет для управления объявлениями и настройками на Rentify.kz">
+    <meta property="og:image" content="https://rentify-ii2d.vercel.app/images/og-profile.jpg">
+    
+    <!-- Robots -->
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+    
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -944,15 +964,15 @@
                     
                     <div>
                         <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Имя</label>
-                        <input type="text" id="settingsName" placeholder="Ваше имя" style="width: 100%; padding: 10px; border: 1px solid var(--gray-200); border-radius: 8px;">
+                        <input type="text" id="settingsName" placeholder="Ваше имя" style="width: 100%; padding: 10px; border: 1px solid var(--gray-200); border-radius: 8px;" required maxlength="50" minlength="2" pattern="[A-Za-zА-Яа-я\s]{2,50}">
                     </div>
                     <div>
                         <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Email</label>
-                        <input type="email" id="settingsEmail" placeholder="email@example.com" style="width: 100%; padding: 10px; border: 1px solid var(--gray-200); border-radius: 8px;">
+                        <input type="email" id="settingsEmail" placeholder="email@example.com" style="width: 100%; padding: 10px; border: 1px solid var(--gray-200); border-radius: 8px;" required maxlength="100">
                     </div>
                     <div>
                         <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Город</label>
-                        <input type="text" id="settingsCity" placeholder="Алматы" style="width: 100%; padding: 10px; border: 1px solid var(--gray-200); border-radius: 8px;">
+                        <input type="text" id="settingsCity" placeholder="Алматы" style="width: 100%; padding: 10px; border: 1px solid var(--gray-200); border-radius: 8px;" required maxlength="50" minlength="2">
                     </div>
                     <button class="btn btn-primary" onclick="saveSettings()" style="margin-top: 1rem;">
                         <i class="fas fa-save"></i> Сохранить изменения

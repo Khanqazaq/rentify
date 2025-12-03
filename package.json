@@ -1,17 +1,29 @@
 {
-  "name": "simple-version",
+  "name": "rentify-frontend",
   "version": "1.0.0",
-  "description": "",
-  "main": "cypress.config.js",
+  "description": "Rentify.kz - Платформа аренды вещей между людьми в Казахстане",
+  "main": "index.html",
   "scripts": {
     "start": "http-server -p 3000 -o",
-    "dev": "http-server -p 3000 -o",
+    "dev": "http-server -p 3000 -o --cors",
+    "build": "npm run minify-css && npm run minify-js && npm run optimize-images",
+    "minify-css": "cleancss -o dist/css/style.min.css css/style.css",
+    "minify-js": "terser js/*.js -o dist/js/bundle.min.js --compress --mangle",
+    "optimize-images": "imagemin images/*.{jpg,png} --out-dir=dist/images --plugin=webp",
+    "serve": "http-server dist -p 3000",
+    "deploy": "npm run build && vercel --prod",
+    "lighthouse": "lighthouse https://rentify-ii2d.vercel.app/ --output html --output-path ./lighthouse-report.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["аренда", "rentify", "казахстан", "sharing-economy", "rental-platform"],
+  "author": "Rentify Team",
+  "license": "MIT",
   "devDependencies": {
-    "http-server": "^14.1.1"
-  }
+    "http-server": "^14.1.1",
+    "clean-css-cli": "^5.6.2",
+    "terser": "^5.24.0",
+    "imagemin": "^8.0.1",
+    "imagemin-webp": "^8.0.0"
+  },
+  "dependencies": {}
 }
