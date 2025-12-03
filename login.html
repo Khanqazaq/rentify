@@ -410,9 +410,19 @@
     <div id="forgot-password-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:9999;">
         <div style="background:#fff; width:90%; max-width:420px; border-radius:12px; padding:20px; box-shadow:0 20px 60px rgba(0,0,0,0.3); position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); max-height:90vh; overflow-y:auto;">
             <h2 style="margin-top:0; text-align:center;">Восстановление пароля</h2>
-            <p style="text-align:center; color:#6b7280; margin-bottom:1.5rem;">Введите номер телефона для получения кода подтверждения</p>
+            <p style="text-align:center; color:#6b7280; margin-bottom:1.5rem;">Выберите способ восстановления пароля</p>
             
-            <div style="margin-bottom:10px;">
+            <!-- Выбор способа восстановления -->
+            <div style="margin-bottom:20px;">
+                <label style="display:block; font-weight:600; margin-bottom:6px;">Способ восстановления</label>
+                <select id="recoveryMethod" onchange="toggleRecoveryMethod()" style="width:100%; padding:10px; border-radius:8px; border:1px solid #e5e7eb; background:#fff;">
+                    <option value="phone">📱 Номер телефона</option>
+                    <option value="email">📧 Email адрес</option>
+                </select>
+            </div>
+
+            <!-- Восстановление по телефону -->
+            <div id="phoneRecovery" style="margin-bottom:10px;">
                 <label style="display:block; font-weight:600; margin-bottom:6px;">Номер телефона</label>
                 <div style="display:flex; gap:8px; align-items:center;">
                     <select id="forgotCountryCode" style="padding:10px;border-radius:8px;border:1px solid #e5e7eb;background:#fff; min-width:80px;">
@@ -420,6 +430,12 @@
                     </select>
                     <input id="forgotPhone" type="tel" placeholder="7011234567" maxlength="10" style="flex:1;padding:10px;border-radius:8px;border:1px solid #e5e7eb;" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
                 </div>
+            </div>
+
+            <!-- Восстановление по email -->
+            <div id="emailRecovery" style="margin-bottom:10px; display:none;">
+                <label style="display:block; font-weight:600; margin-bottom:6px;">Email адрес</label>
+                <input id="forgotEmail" type="email" placeholder="example@gmail.com" style="width:100%; padding:10px; border-radius:8px; border:1px solid #e5e7eb;" required>
             </div>
 
             <div id="forgot-actions" style="display:flex; gap:8px; margin-bottom:8px;">
@@ -1057,30 +1073,61 @@
 
             // Send reset code
             sendResetCodeBtn?.addEventListener('click', function() {
-                const phone = document.getElementById('forgotPhone').value.trim();
-                
-                if (!phone || phone.length !== 10) {
-                    alert('Введите корректный номер телефона (10 цифр)');
-                    return;
-                }
-
-                // Check if user exists (номер сохраняется с +7)
+                const recoveryMethod = document.getElementById('recoveryMethod').value;
+                let userIdentifier = null;
+                let user = null;
                 const users = JSON.parse(localStorage.getItem('users') || '[]');
-                const fullPhone = '+7' + phone;
-                const user = users.find(u => u.id === fullPhone);
-                
-                if (!user) {
-                    alert('Пользователь с таким номером не найден');
-                    return;
+
+                if (recoveryMethod === 'phone') {
+                    const phone = document.getElementById('forgotPhone').value.trim();
+                    
+                    if (!phone || phone.length !== 10) {
+                        alert('Введите корректный номер телефона (10 цифр)');
+                        return;
+                    }
+
+                    // Check if user exists (номер сохраняется с +7)
+                    const fullPhone = '+7' + phone;
+                    user = users.find(u => u.id === fullPhone);
+                    userIdentifier = fullPhone;
+                    
+                    if (!user) {
+                        alert('Пользователь с таким номером не найден');
+                        return;
+                    }
+
+                    // Generate code
+                    resetCode = Math.floor(100000 + Math.random() * 900000).toString();
+                    resetPhone = fullPhone;
+                    
+                    console.log('🔑 Код сброса пароля:', resetCode);
+                    alert(`Код отправлен на номер +7${phone}: ${resetCode}`);
+                    
+                } else { // email recovery
+                    const email = document.getElementById('forgotEmail').value.trim();
+                    
+                    if (!email || !email.includes('@')) {
+                        alert('Введите корректный email адрес');
+                        return;
+                    }
+
+                    // Check if user exists by email
+                    user = users.find(u => u.email === email);
+                    userIdentifier = email;
+                    
+                    if (!user) {
+                        alert('Пользователь с таким email не найден');
+                        return;
+                    }
+
+                    // Generate code
+                    resetCode = Math.floor(100000 + Math.random() * 900000).toString();
+                    resetPhone = user.id; // Store user ID for reset
+                    
+                    console.log('🔑 Код сброса пароля:', resetCode);
+                    alert(`Код отправлен на email ${email}: ${resetCode}`);
                 }
 
-                // Generate code
-                resetCode = Math.floor(100000 + Math.random() * 900000).toString();
-                resetPhone = fullPhone;
-                
-                console.log('🔑 Код сброса пароля:', resetCode);
-                alert(`Код отправлен на номер +7${phone}: ${resetCode}`);
-                
                 resetCodeSection.style.display = 'block';
             });
 
@@ -1159,6 +1206,21 @@
                 emailGroup.style.display = 'block';
                 document.getElementById('phoneNumber').required = false;
                 document.getElementById('emailInput').required = true;
+            }
+        }
+
+        // Переключение способа восстановления пароля
+        function toggleRecoveryMethod() {
+            const recoveryMethod = document.getElementById('recoveryMethod').value;
+            const phoneRecovery = document.getElementById('phoneRecovery');
+            const emailRecovery = document.getElementById('emailRecovery');
+            
+            if (recoveryMethod === 'phone') {
+                phoneRecovery.style.display = 'block';
+                emailRecovery.style.display = 'none';
+            } else {
+                phoneRecovery.style.display = 'none';
+                emailRecovery.style.display = 'block';
             }
         }
 
